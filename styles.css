@@ -69,27 +69,6 @@ body {
   letter-spacing: -0.5px;
 }
 
-.brand-logo {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  color: var(--text);
-}
-
-.brand-icon {
-  width: 34px;
-  height: 34px;
-  border-radius: 9px;
-  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.2);
-}
-
-.brand-text {
-  font-size: 1.4rem;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-}
-
 .nav-links {
   display: flex;
   align-items: center;
