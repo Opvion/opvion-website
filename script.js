@@ -16,17 +16,16 @@ mobileMenu.querySelectorAll('a').forEach(a => {
 
 // ── Scroll reveal
 const revealEls = document.querySelectorAll(
-  'section h2, .problem-card, .feature-item, .market-card, .region-card, ' +
-  '.pricing-card, .team-card, .roadmap-step, .market-stats, .hero-badge, ' +
+  'section h2, .problem-card, .feature-item, ' +
+  '.pricing-card, .roadmap-step, .hero-badge, ' +
   '.section-sub, .comparison-table, .contact-left, .contact-form'
 );
 
 revealEls.forEach(el => el.classList.add('reveal'));
 
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
+  entries.forEach((entry) => {
     if (entry.isIntersecting) {
-      // Stagger siblings
       const siblings = [...entry.target.parentElement.querySelectorAll('.reveal')];
       const idx = siblings.indexOf(entry.target);
       setTimeout(() => {
@@ -39,22 +38,165 @@ const observer = new IntersectionObserver((entries) => {
 
 revealEls.forEach(el => observer.observe(el));
 
-// ── Waitlist form
+// ── Compare Plans toggle
+const compareBtn = document.getElementById('compareToggle');
+const featuresSection = document.getElementById('features');
+let featuresOpen = false;
+
+// Initial collapsed state
+Object.assign(featuresSection.style, {
+  maxHeight: '0',
+  opacity: '0',
+  overflow: 'hidden',
+  paddingTop: '0',
+  paddingBottom: '0',
+  transition: 'max-height 0.6s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease, padding 0.4s ease'
+});
+
+function expandFeatures() {
+  featuresSection.style.maxHeight = featuresSection.scrollHeight + 'px';
+  featuresSection.style.opacity = '1';
+  featuresSection.style.paddingTop = '';
+  featuresSection.style.paddingBottom = '';
+  compareBtn.textContent = 'Hide Comparison ▲';
+  compareBtn.setAttribute('aria-expanded', 'true');
+  featuresOpen = true;
+}
+
+function collapseFeatures() {
+  featuresSection.style.maxHeight = '0';
+  featuresSection.style.opacity = '0';
+  featuresSection.style.paddingTop = '0';
+  featuresSection.style.paddingBottom = '0';
+  compareBtn.textContent = 'Compare Plans ▼';
+  compareBtn.setAttribute('aria-expanded', 'false');
+  featuresOpen = false;
+}
+
+compareBtn.addEventListener('click', () => {
+  if (featuresOpen) {
+    collapseFeatures();
+  } else {
+    expandFeatures();
+    setTimeout(() => featuresSection.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  }
+});
+
+// Auto-expand when a link to #features is clicked while collapsed
+document.querySelectorAll('a[href="#features"]').forEach(link => {
+  link.addEventListener('click', () => {
+    if (!featuresOpen) expandFeatures();
+  });
+});
+
+// Auto-expand on page load if URL has #features hash
+if (window.location.hash === '#features') expandFeatures();
+
+// ── Disposable email blocklist
+const BLOCKED_DOMAINS = new Set([
+  'mailinator.com', 'guerrillamail.com', 'guerrillamail.info', 'guerrillamail.net',
+  'guerrillamail.org', 'guerrillamail.de', 'guerrillamail.biz', 'sharklasers.com',
+  'guerrillamailblock.com', 'grr.la', 'spam4.me', 'trashmail.com', 'trashmail.at',
+  'trashmail.io', 'trashmail.me', 'trashmail.net', 'trashmail.xyz', 'throwaway.email',
+  'tempmail.com', 'tempmail.net', 'tempmail.org', 'temp-mail.org', 'temp-mail.io',
+  'dispostable.com', 'yopmail.com', 'yopmail.fr', 'cool.fr.nf', 'jetable.fr.nf',
+  'spamgourmet.com', 'spamgourmet.net', 'spamgourmet.org', 'spamex.com',
+  'mailnesia.com', 'mailnull.com', 'maildrop.cc', 'discard.email',
+  'fakeinbox.com', 'fakeinbox.net', 'filzmail.com', 'getnada.com',
+  'crazymailing.com', 'throwam.com', 'mailscrap.com', 'superrito.com',
+  'spamfree24.org', 'okumail.com', 'drdrb.com', '10minutemail.com', '10minutemail.net',
+  'guerillamail.com', 'mailtemp.net', 'tempr.email', 'mytemp.email', 'tempinbox.com',
+  'throwam.com', 'trashmail.io', 'mailnull.com', 'getairmail.com', 'spamhereplease.com',
+  'mailsac.com', 'fakemailz.com', 'tempmailaddress.com', 'mailnew.com', 'tempail.com'
+]);
+
+// ── Waitlist form — FormSpree submission with email filtering
 const form = document.getElementById('waitlistForm');
 const btnText = document.getElementById('btnText');
 const formSuccess = document.getElementById('formSuccess');
+const emailInput = document.getElementById('email');
+const emailError = document.getElementById('emailError');
 
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
-  btnText.textContent = 'Joining...';
-  form.querySelector('.btn-submit').disabled = true;
 
-  // Simulate submission (replace with real endpoint / Formspree / Netlify Forms)
-  setTimeout(() => {
-    form.querySelectorAll('input, select, textarea').forEach(el => el.value = '');
-    form.querySelector('.btn-submit').style.display = 'none';
-    formSuccess.classList.remove('hidden');
-  }, 1000);
+  // Disposable email check
+  const emailVal = emailInput.value.trim();
+  const domain = (emailVal.split('@')[1] || '').toLowerCase();
+  if (BLOCKED_DOMAINS.has(domain)) {
+    emailError.classList.remove('hidden');
+    emailInput.focus();
+    return;
+  }
+  emailError.classList.add('hidden');
+
+  // Submit to FormSpree
+  btnText.textContent = 'Joining...';
+  const submitBtn = form.querySelector('.btn-submit');
+  submitBtn.disabled = true;
+
+  try {
+    const resp = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (resp.ok) {
+      form.querySelectorAll('input:not([type=hidden]), select, textarea').forEach(el => el.value = '');
+      submitBtn.style.display = 'none';
+      formSuccess.classList.remove('hidden');
+    } else {
+      btnText.textContent = 'Join the Waitlist';
+      submitBtn.disabled = false;
+      alert('Something went wrong. Please try again or email us directly at prayag.sharma@esmt.berlin');
+    }
+  } catch {
+    btnText.textContent = 'Join the Waitlist';
+    submitBtn.disabled = false;
+    alert('Network error. Please check your connection and try again.');
+  }
+});
+
+// Clear email error as user types
+emailInput.addEventListener('input', () => emailError.classList.add('hidden'));
+
+// ── Modal system
+function openModal(id) {
+  document.getElementById(id).classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModalEl(overlayEl) {
+  overlayEl.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// Footer legal link triggers
+document.querySelectorAll('.modal-trigger').forEach(trigger => {
+  trigger.addEventListener('click', (e) => {
+    e.preventDefault();
+    openModal(trigger.dataset.modal);
+  });
+});
+
+// Close button inside each modal
+document.querySelectorAll('.modal-close').forEach(btn => {
+  btn.addEventListener('click', () => closeModalEl(btn.closest('.modal-overlay')));
+});
+
+// Click overlay background to close
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeModalEl(overlay);
+  });
+});
+
+// ESC key closes any open modal
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.active').forEach(closeModalEl);
+  }
 });
 
 // ── Smooth active nav highlight on scroll
