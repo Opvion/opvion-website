@@ -69,25 +69,22 @@ body {
   letter-spacing: -0.5px;
 }
 
-.brand-logo {
+.nav-inner .logo {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  text-decoration: none;
-  color: var(--text);
 }
 
-.brand-icon {
-  width: 34px;
-  height: 34px;
-  border-radius: 9px;
-  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.2);
+.logo-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: block;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
-.brand-text {
-  font-size: 1.4rem;
-  font-weight: 800;
-  letter-spacing: -0.5px;
+.logo-label {
+  line-height: 1;
 }
 
 .nav-links {
