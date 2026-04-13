@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Opvion — Interactive Demo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="demo.css" />
+</head>
+<body>
+
+  <!-- ── Demo Banner ── -->
+  <div class="demo-banner" id="demoBanner">
+    <span>Interactive demo &mdash; all figures are sample data only.</span>
+    <a href="index.html#contact" class="demo-banner-cta">Sign up for real insights &rarr;</a>
+    <button class="demo-banner-close" onclick="document.getElementById('demoBanner').style.display='none'">&#x2715;</button>
+  </div>
+
+  <!-- ── App Shell ── -->
+  <div class="app-shell">
+
+    <!-- Sidebar (desktop) -->
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <a href="index.html" class="sidebar-logo">Opvion</a>
+        <span class="demo-tag">Demo</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-tab="dashboard">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Dashboard
+        </button>
+        <button class="nav-item" data-tab="spending">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg>
+          Spending
+        </button>
+        <button class="nav-item" data-tab="portfolio">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          Portfolio
+        </button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="currency-label">Display Currency</div>
+        <div class="currency-switcher">
+          <button class="curr-btn active" data-currency="EUR">&euro; EUR</button>
+          <button class="curr-btn" data-currency="USD">&#36; USD</button>
+          <button class="curr-btn" data-currency="GBP">&pound; GBP</button>
+        </div>
+        <a href="index.html#contact" class="sidebar-cta">Get Early Access</a>
+        <a href="index.html" class="sidebar-back">&larr; Back to site</a>
+      </div>
+    </aside>
+
+    <!-- Mobile Top Bar -->
+    <div class="mobile-topbar">
+      <a href="index.html" class="sidebar-logo">Opvion</a>
+      <div class="mobile-tabs">
+        <button class="mobile-tab active" data-tab="dashboard">Dashboard</button>
+        <button class="mobile-tab" data-tab="spending">Spending</button>
+        <button class="mobile-tab" data-tab="portfolio">Portfolio</button>
+      </div>
+      <div class="mobile-currency">
+        <button class="curr-btn active" data-currency="EUR">&euro;</button>
+        <button class="curr-btn" data-currency="USD">&#36;</button>
+        <button class="curr-btn" data-currency="GBP">&pound;</button>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- ══════════════════════════════════════
+           DASHBOARD TAB
+      ══════════════════════════════════════ -->
+      <div id="tab-dashboard" class="tab-panel">
+
+        <!-- Net Worth Hero -->
+        <div class="card card-hero">
+          <div class="hero-inner">
+            <div>
+              <div class="eyebrow">
+                <span class="live-dot"></span>
+                Live Net Worth
+              </div>
+              <div class="hero-value" id="heroNetWorth">€0</div>
+              <div class="hero-change">
+                &#8593; +<span class="cv" data-eur="3500">€3,500</span> this month
+                <span class="hero-pct">(+1.5%)</span>
+              </div>
+            </div>
+            <button class="history-btn" id="historyBtn">View History &#9660;</button>
+          </div>
+        </div>
+
+        <!-- Net Worth History Chart (hidden by default) -->
+        <div class="card" id="networthChartCard" style="display:none">
+          <div class="card-header">
+            <h3 class="card-title">Net Worth History</h3>
+            <span style="font-size:0.78rem;color:#94a3b8">Last 12 months</span>
+          </div>
+          <div class="chart-wrap" style="height:220px">
+            <canvas id="networthChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Two-column grid: Wealth Snapshot + Accounts -->
+        <div class="two-col">
+
+          <!-- Wealth Snapshot -->
+          <div class="card">
+            <h3 class="card-title">Wealth Snapshot</h3>
+            <div class="snapshot-stats">
+              <div class="snapshot-item">
+                <div class="snapshot-label">Total Assets</div>
+                <div class="snapshot-val" style="color:#059669" id="dashAssets">€0</div>
+              </div>
+              <div class="snapshot-item">
+                <div class="snapshot-label">Liabilities</div>
+                <div class="snapshot-val" style="color:#dc2626" id="dashLiabilities">€0</div>
+              </div>
+              <div class="snapshot-item">
+                <div class="snapshot-label">Net Worth</div>
+                <div class="snapshot-val" style="color:#2563eb" id="dashNetWorth">€0</div>
+              </div>
+            </div>
+
+            <div class="asset-bar-wrap">
+              <div class="asset-bar">
+                <div class="asset-bar-fill" style="width:64.6%"></div>
+              </div>
+              <div class="asset-bar-labels">
+                <span style="color:#059669;font-weight:600;font-size:0.72rem">&#9679; Assets 64.6%</span>
+                <span style="color:#dc2626;font-weight:600;font-size:0.72rem">&#9679; Liabilities 35.4%</span>
+              </div>
+            </div>
+
+            <div class="breakdown-list">
+              <div class="breakdown-row">
+                <span class="dot" style="background:#3b82f6"></span>
+                <span>Cash &amp; Savings</span>
+                <span class="ml-auto cv" data-eur="24281.45">€24,281</span>
+              </div>
+              <div class="breakdown-row">
+                <span class="dot" style="background:#7c3aed"></span>
+                <span>Investments</span>
+                <span class="ml-auto cv" data-eur="125000">€125,000</span>
+              </div>
+              <div class="breakdown-row">
+                <span class="dot" style="background:#f59e0b"></span>
+                <span>Real Estate</span>
+                <span class="ml-auto cv" data-eur="370718.55">€370,719</span>
+              </div>
+              <div class="breakdown-row">
+                <span class="dot" style="background:#f43f5e"></span>
+                <span>Liabilities</span>
+                <span class="ml-auto cv" style="color:#dc2626" data-eur="-285500">−€285,500</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Connected Accounts -->
+          <div class="card">
+            <h3 class="card-title">Connected Accounts</h3>
+            <div id="accountsList"></div>
+          </div>
+
+        </div>
+
+        <!-- Recent Transactions -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title" style="margin:0">Recent Activity</h3>
+            <a href="#" style="font-size:0.82rem;color:#2563eb;text-decoration:none" onclick="switchTab('spending');return false">View all &rarr;</a>
+          </div>
+
+          <div class="quick-stats-row">
+            <div class="qs-item">
+              <div class="qs-label">Today's Income</div>
+              <div class="qs-val" style="color:#059669" data-eur="295" id="qsTodayIn">€295</div>
+            </div>
+            <div class="qs-item">
+              <div class="qs-label">Today's Expenses</div>
+              <div class="qs-val" style="color:#dc2626" data-eur="47.20" id="qsTodayEx">€47</div>
+            </div>
+            <div class="qs-item">
+              <div class="qs-label">Week's Income</div>
+              <div class="qs-val" style="color:#059669" data-eur="6700" id="qsWeekIn">€6,700</div>
+            </div>
+            <div class="qs-item">
+              <div class="qs-label">Week's Expenses</div>
+              <div class="qs-val" style="color:#dc2626" data-eur="1440.89" id="qsWeekEx">€1,441</div>
+            </div>
+          </div>
+
+          <div id="recentTxList"></div>
+        </div>
+
+      </div><!-- /tab-dashboard -->
+
+
+      <!-- ══════════════════════════════════════
+           SPENDING TAB
+      ══════════════════════════════════════ -->
+      <div id="tab-spending" class="tab-panel" style="display:none">
+
+        <!-- Stats row -->
+        <div class="stats-row">
+          <div class="card stat-card">
+            <div class="stat-label">Monthly Income</div>
+            <div class="stat-big" style="color:#059669">
+              <span class="cv" data-eur="6700">€6,700</span>
+            </div>
+            <div class="stat-sub">&#8593; +8.2% vs last month</div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-label">Monthly Expenses</div>
+            <div class="stat-big" style="color:#dc2626">
+              <span class="cv" data-eur="2223">€2,223</span>
+            </div>
+            <div class="stat-sub">&#8595; &minus;3.1% vs last month</div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-label">Savings Rate</div>
+            <div class="stat-big" style="color:#2563eb">66.8%</div>
+            <div class="stat-sub">&#8593; +4.2pp vs last month</div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-label">Largest Expense</div>
+            <div class="stat-big" style="color:#475569">
+              <span class="cv" data-eur="1200">€1,200</span>
+            </div>
+            <div class="stat-sub">Housing &middot; Rent</div>
+          </div>
+        </div>
+
+        <!-- Spending Chart -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title" style="margin:0">Spending by Category</h3>
+            <span style="font-size:0.78rem;color:#94a3b8">This month</span>
+          </div>
+          <div class="chart-wrap" style="height:280px">
+            <canvas id="spendingChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Transaction Table -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title" style="margin:0">Transactions</h3>
+          </div>
+          <div class="filter-bar" id="txFilters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="Income">Income</button>
+            <button class="filter-btn" data-filter="Housing">Housing</button>
+            <button class="filter-btn" data-filter="Food">Food</button>
+            <button class="filter-btn" data-filter="Transport">Transport</button>
+            <button class="filter-btn" data-filter="Entertainment">Entertainment</button>
+            <button class="filter-btn" data-filter="Utilities">Utilities</button>
+            <button class="filter-btn" data-filter="Healthcare">Healthcare</button>
+            <button class="filter-btn" data-filter="Other">Other</button>
+          </div>
+          <div id="txTableWrap"></div>
+        </div>
+
+      </div><!-- /tab-spending -->
+
+
+      <!-- ══════════════════════════════════════
+           PORTFOLIO TAB
+      ══════════════════════════════════════ -->
+      <div id="tab-portfolio" class="tab-panel" style="display:none">
+
+        <!-- Stats row -->
+        <div class="stats-row">
+          <div class="card stat-card">
+            <div class="stat-label">Portfolio Value</div>
+            <div class="stat-big" style="color:#2563eb">
+              <span class="cv" data-eur="125000">€125,000</span>
+            </div>
+            <div class="stat-sub">Across 7 positions</div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-label">Total P&amp;L</div>
+            <div class="stat-big" style="color:#059669">
+              +<span class="cv" data-eur="10760">€10,760</span>
+            </div>
+            <div class="stat-sub">&#8593; +9.4% all time</div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-label">Today's Change</div>
+            <div class="stat-big" style="color:#059669">
+              +<span class="cv" data-eur="420">€420</span>
+            </div>
+            <div class="stat-sub">&#8593; +0.34%</div>
+          </div>
+        </div>
+
+        <!-- Asset Allocation Chart -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title" style="margin:0">Asset Allocation</h3>
+            <span style="font-size:0.78rem;color:#94a3b8">Portfolio breakdown</span>
+          </div>
+          <div class="chart-wrap" style="height:280px">
+            <canvas id="allocationChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Positions Table -->
+        <div class="card">
+          <h3 class="card-title">Investment Positions</h3>
+          <div id="positionsTable"></div>
+        </div>
+
+      </div><!-- /tab-portfolio -->
+
+    </main>
+  </div><!-- /app-shell -->
+
+  <script src="demo.js"></script>
+</body>
+</html>
