@@ -116,14 +116,16 @@ All of the following will be ported verbatim as plain JS objects:
 
 ## Charts (Chart.js via CDN)
 
-| Chart | Type | Data |
-|-------|------|------|
-| Net Worth History | `Line` | 12-month synthetic monthly progression to 234,500 |
-| Spending by Category | `Doughnut` | `spendingCategories` array |
-| Asset Allocation | `Doughnut` | `portfolioData` (Stocks/Bonds/Cash/Real Estate) |
+| Chart | Type | Orientation | Data |
+|-------|------|-------------|------|
+| Net Worth History | `Line` | — | 12-month synthetic monthly progression to 234,500 |
+| Spending by Category | `Bar` | Horizontal | `spendingCategories` array — longest bar = biggest spend |
+| Asset Allocation | `Bar` | Vertical | `portfolioData` (Stocks/Bonds/Cash/Real Estate) |
 
 Chart.js config notes:
 - Use `responsive: true`, `maintainAspectRatio: false`
+- Spending bar chart: `indexAxis: 'y'` for horizontal orientation; bars colour-coded per category
+- Asset allocation bar chart: vertical, each bar a different colour matching portfolio colours
 - Custom tooltips styled to match app colour palette
 - No animation on re-render (only on initial load)
 
