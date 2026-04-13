@@ -937,6 +937,45 @@ footer {
   transform: none;
 }
 
+/* ── STRENGTHS GRID ──────────────────────────────── */
+.strengths-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.strength-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  transition: border-color 0.25s, transform 0.2s;
+}
+.strength-card:hover {
+  border-color: var(--border-blue);
+  transform: translateY(-3px);
+}
+
+.strength-icon {
+  font-size: 2rem;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.strength-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.strength-card p {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
 /* ── COMPARE TOGGLE ──────────────────────────────── */
 .compare-toggle-wrap {
   text-align: center;
@@ -1056,8 +1095,22 @@ footer {
   background: rgba(255, 255, 255, 0.12);
   color: var(--text);
 }
+.modal-card--wide {
+  max-width: 960px;
+}
+.modal-body--features {
+  padding: 24px 28px 32px;
+}
+.modal-body--features .features-grid {
+  margin-top: 0;
+}
 @media (max-width: 600px) {
   .modal-card { max-height: 92vh; }
   .modal-card h2 { font-size: 1.15rem; padding: 20px 20px 16px; }
   .modal-body { padding: 16px 20px 24px; }
+  .strengths-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 900px) {
+  .strengths-grid { grid-template-columns: 1fr 1fr; }
+  .modal-card--wide { max-width: 100%; }
 }

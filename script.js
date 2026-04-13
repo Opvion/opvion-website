@@ -38,60 +38,6 @@ const observer = new IntersectionObserver((entries) => {
 
 revealEls.forEach(el => observer.observe(el));
 
-// ── Compare Plans toggle
-const compareBtn = document.getElementById('compareToggle');
-const featuresSection = document.getElementById('features');
-let featuresOpen = false;
-
-// Initial collapsed state
-Object.assign(featuresSection.style, {
-  maxHeight: '0',
-  opacity: '0',
-  overflow: 'hidden',
-  paddingTop: '0',
-  paddingBottom: '0',
-  transition: 'max-height 0.6s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease, padding 0.4s ease'
-});
-
-function expandFeatures() {
-  featuresSection.style.maxHeight = featuresSection.scrollHeight + 'px';
-  featuresSection.style.opacity = '1';
-  featuresSection.style.paddingTop = '';
-  featuresSection.style.paddingBottom = '';
-  compareBtn.textContent = 'Hide Comparison ▲';
-  compareBtn.setAttribute('aria-expanded', 'true');
-  featuresOpen = true;
-}
-
-function collapseFeatures() {
-  featuresSection.style.maxHeight = '0';
-  featuresSection.style.opacity = '0';
-  featuresSection.style.paddingTop = '0';
-  featuresSection.style.paddingBottom = '0';
-  compareBtn.textContent = 'Compare Plans ▼';
-  compareBtn.setAttribute('aria-expanded', 'false');
-  featuresOpen = false;
-}
-
-compareBtn.addEventListener('click', () => {
-  if (featuresOpen) {
-    collapseFeatures();
-  } else {
-    expandFeatures();
-    setTimeout(() => featuresSection.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
-  }
-});
-
-// Auto-expand when a link to #features is clicked while collapsed
-document.querySelectorAll('a[href="#features"]').forEach(link => {
-  link.addEventListener('click', () => {
-    if (!featuresOpen) expandFeatures();
-  });
-});
-
-// Auto-expand on page load if URL has #features hash
-if (window.location.hash === '#features') expandFeatures();
-
 // ── Disposable email blocklist
 const BLOCKED_DOMAINS = new Set([
   'mailinator.com', 'guerrillamail.com', 'guerrillamail.info', 'guerrillamail.net',

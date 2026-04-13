@@ -20,7 +20,7 @@
         <li><a href="#solution">Solution</a></li>
         <li><a href="#competition">Why Us</a></li>
         <li><a href="#pricing">Pricing</a></li>
-        <li><a href="#features">Features</a></li>
+        <li><a href="#" class="modal-trigger" data-modal="modalFeatures">Features</a></li>
         <li><a href="#contact" class="btn-nav">Get Early Access</a></li>
       </ul>
       <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -32,7 +32,7 @@
       <a href="#solution">Solution</a>
       <a href="#competition">Why Us</a>
       <a href="#pricing">Pricing</a>
-      <a href="#features">Features</a>
+      <a href="#" class="modal-trigger" data-modal="modalFeatures">Features</a>
       <a href="#contact" class="btn-mobile">Get Early Access</a>
     </div>
   </nav>
@@ -178,82 +178,43 @@
     </div>
   </section>
 
-  <!-- COMPETITION -->
+  <!-- WHY OPVION -->
   <section id="competition">
     <div class="container">
       <div class="section-label">Why Opvion</div>
-      <h2>Every competitor covers part of the picture.<br />Only we cover all of it.</h2>
-      <p class="section-sub">Opvion is the only solution that checks every box — including accurate multi-currency tracking with historical FX rates.</p>
-      <div class="table-wrap">
-        <table class="comparison-table">
-          <thead>
-            <tr>
-              <th>Feature</th>
-              <th class="col-us">Opvion</th>
-              <th>Spendee</th>
-              <th>Finanzguru</th>
-              <th>getquin</th>
-              <th>Delta</th>
-              <th>YNAB</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Automated spending tracker</td>
-              <td class="col-us check">✓</td>
-              <td class="check">✓</td>
-              <td class="check">✓</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="check">✓</td>
-            </tr>
-            <tr>
-              <td>Detailed investment tracking</td>
-              <td class="col-us check">✓</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="check">✓</td>
-              <td class="check">✓</td>
-              <td class="cross">✗</td>
-            </tr>
-            <tr>
-              <td>Net worth tracking</td>
-              <td class="col-us check">✓</td>
-              <td class="check">✓</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="check">✓</td>
-            </tr>
-            <tr>
-              <td>Multi-currency + historical FX rates</td>
-              <td class="col-us check highlight-row">✓</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-            </tr>
-            <tr>
-              <td>Multiple account support</td>
-              <td class="col-us check">✓</td>
-              <td class="check">✓</td>
-              <td class="check">✓</td>
-              <td class="check">✓</td>
-              <td class="check">✓</td>
-              <td class="check">✓</td>
-            </tr>
-            <tr>
-              <td>AI spending analytics</td>
-              <td class="col-us check">✓</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="check">✓</td>
-            </tr>
-          </tbody>
-        </table>
+      <h2>Built for the complete picture.<br />Nothing less.</h2>
+      <p class="section-sub">Most financial tools solve one problem. Opvion solves all of them — in one place, with your data staying in Europe.</p>
+      <div class="strengths-grid">
+        <div class="strength-card">
+          <div class="strength-icon">🔗</div>
+          <h3>Everything in one view</h3>
+          <p>Bank accounts, credit cards, investments, and brokerages — connected via open banking and updated automatically. No more switching between apps to understand your finances.</p>
+        </div>
+        <div class="strength-card">
+          <div class="strength-icon">💱</div>
+          <h3>Multi-currency done right</h3>
+          <p>The only tracker that applies historical mid-market FX rates retroactively. Your portfolio performance is accurate at any point in time — not just what it looks like today.</p>
+        </div>
+        <div class="strength-card">
+          <div class="strength-icon">🔒</div>
+          <h3>Privacy-first by design</h3>
+          <p>Your data is stored in Germany and never leaves the EEA. No ads, no data selling, no compromises. GDPR-compliant from the very first line of code.</p>
+        </div>
+        <div class="strength-card">
+          <div class="strength-icon">🤖</div>
+          <h3>Intelligence that actually helps</h3>
+          <p>AI-powered spending insights, anomaly detection, and budget forecasting — processed locally in Germany. Opt in when you're ready, withdraw consent any time.</p>
+        </div>
+        <div class="strength-card">
+          <div class="strength-icon">📈</div>
+          <h3>Spending meets investing</h3>
+          <p>Track your day-to-day spending and long-term investment portfolio in the same app. See how your habits today shape your net worth tomorrow.</p>
+        </div>
+        <div class="strength-card">
+          <div class="strength-icon">🏦</div>
+          <h3>300+ banks supported</h3>
+          <p>N26, Revolut, Wise, Sparkasse, Deutsche Bank, ING, Monzo, Barclays and hundreds more — across the EU and UK, with more regions coming soon.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -311,147 +272,9 @@
       </div>
       <p class="pricing-note">* AI Analytics is consent-based — users must opt in. Your data stays in the EU, always.</p>
       <div class="compare-toggle-wrap">
-        <button class="btn-compare" id="compareToggle" aria-expanded="false" aria-controls="features">
-          Compare Plans ▼
+        <button class="btn-compare modal-trigger" data-modal="modalFeatures">
+          Compare Plans
         </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- FEATURES -->
-  <section id="features">
-    <div class="container">
-      <div class="section-label">Features</div>
-      <h2>Everything you need,<br />in the plan that fits you.</h2>
-      <p class="section-sub">Every plan includes core spending tools. Upgrade to unlock bank connections, investment tracking, and AI analytics.</p>
-
-      <div class="features-grid">
-
-        <!-- Free -->
-        <div class="features-plan-block">
-          <div class="features-plan-header">
-            <div class="features-plan-name">Free</div>
-            <div class="features-plan-price">€0<span>/mo</span></div>
-            <div class="features-plan-tag">Great for getting started</div>
-          </div>
-          <div class="features-list">
-            <div class="feature-row">
-              <div class="fr-icon">📊</div>
-              <div class="fr-body">
-                <h5>Spending Tracker</h5>
-                <p>Manually log every transaction and get a clear view of where your money goes each month.</p>
-              </div>
-            </div>
-            <div class="feature-row">
-              <div class="fr-icon">🥧</div>
-              <div class="fr-body">
-                <h5>Spending Analytics</h5>
-                <p>Category breakdowns, monthly trends, and income vs expense summaries — all in one dashboard.</p>
-              </div>
-            </div>
-            <div class="feature-row">
-              <div class="fr-icon">✏️</div>
-              <div class="fr-body">
-                <h5>Manual Transaction Entry</h5>
-                <p>Add cash payments, transfers, and any transaction your bank won't report — with custom categories.</p>
-              </div>
-            </div>
-            <div class="feature-row">
-              <div class="fr-icon">💱</div>
-              <div class="fr-body">
-                <h5>Multi-Currency Support</h5>
-                <p>View your finances in any of 19+ European currencies with accurate symbol and decimal formatting.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Basic -->
-        <div class="features-plan-block">
-          <div class="features-plan-header basic-header">
-            <div class="features-plan-name">Basic</div>
-            <div class="features-plan-price">€5.99<span>/mo</span></div>
-            <div class="features-plan-tag">Everything in Free, plus:</div>
-          </div>
-          <div class="features-list">
-            <div class="feature-row">
-              <div class="fr-icon">🏦</div>
-              <div class="fr-body">
-                <h5>Bank Account Connection</h5>
-                <p>Link your accounts via Plaid (US/UK) or TrueLayer (EU) — transactions sync automatically so you never enter them manually again.</p>
-              </div>
-            </div>
-            <div class="feature-row">
-              <div class="fr-icon">🔄</div>
-              <div class="fr-body">
-                <h5>Auto Transaction Sync</h5>
-                <p>Real-time or on-demand sync from all your connected banks. Transactions are categorised automatically on import.</p>
-              </div>
-            </div>
-            <div class="feature-row">
-              <div class="fr-icon">📈</div>
-              <div class="fr-body">
-                <h5>Net Worth Tracking</h5>
-                <p>Assets vs liabilities across all accounts in one number, with historical tracking so you can see your wealth grow over time.</p>
-              </div>
-            </div>
-            <div class="feature-row">
-              <div class="fr-icon">🏛️</div>
-              <div class="fr-body">
-                <h5>300+ European Banks Supported</h5>
-                <p>N26, Revolut, Wise, Sparkasse, Deutsche Bank, DKB, BNP Paribas, Santander, ING, Monzo, Barclays and many more.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Pro -->
-        <div class="features-plan-block pro-block">
-          <div class="features-plan-header pro-header">
-            <div class="features-plan-badge">Most Popular</div>
-            <div class="features-plan-name">Pro</div>
-            <div class="features-plan-price">€14.99<span>/mo</span></div>
-            <div class="features-plan-tag">Everything in Basic, plus:</div>
-          </div>
-          <div class="features-list">
-            <div class="feature-row">
-              <div class="fr-icon">📉</div>
-              <div class="fr-body">
-                <h5>Investment Portfolio Tracker</h5>
-                <p>Track stocks, ETFs, crypto, bonds, private equity, and alternative assets — all in one portfolio view with live prices.</p>
-              </div>
-            </div>
-            <div class="feature-row">
-              <div class="fr-icon">🔴</div>
-              <div class="fr-body">
-                <h5>Live Market Prices</h5>
-                <p>Real-time stock and ETF prices via Yahoo Finance. Live crypto prices via CoinGecko. Positions update every 30 seconds.</p>
-              </div>
-            </div>
-            <div class="feature-row">
-              <div class="fr-icon">📆</div>
-              <div class="fr-body">
-                <h5>Historical FX Rates</h5>
-                <p>The only tracker that applies daily mid-market FX rates retroactively — so your portfolio's performance is accurate at any point in time, not just today.</p>
-              </div>
-            </div>
-            <div class="feature-row">
-              <div class="fr-icon">🤖</div>
-              <div class="fr-body">
-                <h5>AI Spending Analytics <span class="badge-soon">Coming Soon</span></h5>
-                <p>Personalised insights, anomaly detection, budget forecasting, and natural language queries — all processed in Germany, never shared outside the EU.</p>
-              </div>
-            </div>
-            <div class="feature-row">
-              <div class="fr-icon">💳</div>
-              <div class="fr-body">
-                <h5>Credit Tracker <span class="badge-soon">Coming Soon</span></h5>
-                <p>Track credit card balances, utilisation, and repayments alongside your full financial picture.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
   </section>
@@ -520,7 +343,7 @@
         <div class="footer-col">
           <h5>Product</h5>
           <a href="#solution">How it works</a>
-          <a href="#features">Features</a>
+          <a href="#" class="modal-trigger" data-modal="modalFeatures">Features</a>
           <a href="#pricing">Pricing</a>
         </div>
         <div class="footer-col">
@@ -541,6 +364,145 @@
       <span>Built in Europe 🇪🇺 · Data stays in Germany 🔒</span>
     </div>
   </footer>
+
+  <!-- MODAL: Features Comparison -->
+  <div class="modal-overlay" id="modalFeatures" role="dialog" aria-modal="true" aria-labelledby="modalFeaturesTitle">
+    <div class="modal-card modal-card--wide">
+      <button class="modal-close" aria-label="Close">&times;</button>
+      <h2 id="modalFeaturesTitle">Compare Plans</h2>
+      <div class="modal-body modal-body--features">
+
+        <div class="features-grid">
+
+          <!-- Free -->
+          <div class="features-plan-block">
+            <div class="features-plan-header">
+              <div class="features-plan-name">Free</div>
+              <div class="features-plan-price">€0<span>/mo</span></div>
+              <div class="features-plan-tag">Great for getting started</div>
+            </div>
+            <div class="features-list">
+              <div class="feature-row">
+                <div class="fr-icon">📊</div>
+                <div class="fr-body">
+                  <h5>Spending Tracker</h5>
+                  <p>Manually log every transaction and get a clear view of where your money goes each month.</p>
+                </div>
+              </div>
+              <div class="feature-row">
+                <div class="fr-icon">🥧</div>
+                <div class="fr-body">
+                  <h5>Spending Analytics</h5>
+                  <p>Category breakdowns, monthly trends, and income vs expense summaries — all in one dashboard.</p>
+                </div>
+              </div>
+              <div class="feature-row">
+                <div class="fr-icon">✏️</div>
+                <div class="fr-body">
+                  <h5>Manual Transaction Entry</h5>
+                  <p>Add cash payments, transfers, and any transaction your bank won't report — with custom categories.</p>
+                </div>
+              </div>
+              <div class="feature-row">
+                <div class="fr-icon">💱</div>
+                <div class="fr-body">
+                  <h5>Multi-Currency Support</h5>
+                  <p>View your finances in any of 19+ European currencies with accurate symbol and decimal formatting.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Basic -->
+          <div class="features-plan-block">
+            <div class="features-plan-header basic-header">
+              <div class="features-plan-name">Basic</div>
+              <div class="features-plan-price">€5.99<span>/mo</span></div>
+              <div class="features-plan-tag">Everything in Free, plus:</div>
+            </div>
+            <div class="features-list">
+              <div class="feature-row">
+                <div class="fr-icon">🏦</div>
+                <div class="fr-body">
+                  <h5>Bank Account Connection</h5>
+                  <p>Link your accounts via Plaid (US/UK) or TrueLayer (EU) — transactions sync automatically so you never enter them manually again.</p>
+                </div>
+              </div>
+              <div class="feature-row">
+                <div class="fr-icon">🔄</div>
+                <div class="fr-body">
+                  <h5>Auto Transaction Sync</h5>
+                  <p>Real-time or on-demand sync from all your connected banks. Transactions are categorised automatically on import.</p>
+                </div>
+              </div>
+              <div class="feature-row">
+                <div class="fr-icon">📈</div>
+                <div class="fr-body">
+                  <h5>Net Worth Tracking</h5>
+                  <p>Assets vs liabilities across all accounts in one number, with historical tracking so you can see your wealth grow over time.</p>
+                </div>
+              </div>
+              <div class="feature-row">
+                <div class="fr-icon">🏛️</div>
+                <div class="fr-body">
+                  <h5>300+ European Banks Supported</h5>
+                  <p>N26, Revolut, Wise, Sparkasse, Deutsche Bank, DKB, BNP Paribas, Santander, ING, Monzo, Barclays and many more.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pro -->
+          <div class="features-plan-block pro-block">
+            <div class="features-plan-header pro-header">
+              <div class="features-plan-badge">Most Popular</div>
+              <div class="features-plan-name">Pro</div>
+              <div class="features-plan-price">€14.99<span>/mo</span></div>
+              <div class="features-plan-tag">Everything in Basic, plus:</div>
+            </div>
+            <div class="features-list">
+              <div class="feature-row">
+                <div class="fr-icon">📉</div>
+                <div class="fr-body">
+                  <h5>Investment Portfolio Tracker</h5>
+                  <p>Track stocks, ETFs, crypto, bonds, private equity, and alternative assets — all in one portfolio view with live prices.</p>
+                </div>
+              </div>
+              <div class="feature-row">
+                <div class="fr-icon">🔴</div>
+                <div class="fr-body">
+                  <h5>Live Market Prices</h5>
+                  <p>Real-time stock and ETF prices via Yahoo Finance. Live crypto prices via CoinGecko. Positions update every 30 seconds.</p>
+                </div>
+              </div>
+              <div class="feature-row">
+                <div class="fr-icon">📆</div>
+                <div class="fr-body">
+                  <h5>Historical FX Rates</h5>
+                  <p>The only tracker that applies daily mid-market FX rates retroactively — so your portfolio's performance is accurate at any point in time, not just today.</p>
+                </div>
+              </div>
+              <div class="feature-row">
+                <div class="fr-icon">🤖</div>
+                <div class="fr-body">
+                  <h5>AI Spending Analytics <span class="badge-soon">Coming Soon</span></h5>
+                  <p>Personalised insights, anomaly detection, budget forecasting, and natural language queries — all processed in Germany, never shared outside the EU.</p>
+                </div>
+              </div>
+              <div class="feature-row">
+                <div class="fr-icon">💳</div>
+                <div class="fr-body">
+                  <h5>Credit Tracker <span class="badge-soon">Coming Soon</span></h5>
+                  <p>Track credit card balances, utilisation, and repayments alongside your full financial picture.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- MODAL: Privacy Policy -->
   <div class="modal-overlay" id="modalPrivacy" role="dialog" aria-modal="true" aria-labelledby="modalPrivacyTitle">
