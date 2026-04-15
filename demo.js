@@ -42,11 +42,65 @@ const MOCK = {
     { name: 'Healthcare',    amount:   65, color: '#E53E3E' },
   ],
 
+  spendingPeriods: {
+    day: [
+      { name: 'Housing',       amount:   39.7, color: '#3182CE' },
+      { name: 'Food',          amount:   18.5, color: '#38B2AC' },
+      { name: 'Transport',     amount:    8.2, color: '#4C51BF' },
+      { name: 'Other',         amount:    6.1, color: '#718096' },
+      { name: 'Entertainment', amount:    3.2, color: '#ED8936' },
+      { name: 'Utilities',     amount:    2.6, color: '#D69E2E' },
+      { name: 'Healthcare',    amount:    2.1, color: '#E53E3E' },
+    ],
+    week: [
+      { name: 'Housing',       amount:  277,   color: '#3182CE' },
+      { name: 'Food',          amount:   98,   color: '#38B2AC' },
+      { name: 'Other',         amount:   43,   color: '#718096' },
+      { name: 'Transport',     amount:   42,   color: '#4C51BF' },
+      { name: 'Entertainment', amount:   22,   color: '#ED8936' },
+      { name: 'Utilities',     amount:   18,   color: '#D69E2E' },
+      { name: 'Healthcare',    amount:   15,   color: '#E53E3E' },
+    ],
+    month: [
+      { name: 'Housing',       amount: 1200,   color: '#3182CE' },
+      { name: 'Food',          amount:  420,   color: '#38B2AC' },
+      { name: 'Other',         amount:  185,   color: '#718096' },
+      { name: 'Transport',     amount:  180,   color: '#4C51BF' },
+      { name: 'Entertainment', amount:   95,   color: '#ED8936' },
+      { name: 'Utilities',     amount:   78,   color: '#D69E2E' },
+      { name: 'Healthcare',    amount:   65,   color: '#E53E3E' },
+    ],
+    year: [
+      { name: 'Housing',       amount: 14400,  color: '#3182CE' },
+      { name: 'Food',          amount:  5040,  color: '#38B2AC' },
+      { name: 'Other',         amount:  2220,  color: '#718096' },
+      { name: 'Transport',     amount:  2160,  color: '#4C51BF' },
+      { name: 'Entertainment', amount:  1140,  color: '#ED8936' },
+      { name: 'Utilities',     amount:   936,  color: '#D69E2E' },
+      { name: 'Healthcare',    amount:   780,  color: '#E53E3E' },
+    ],
+    max: [
+      { name: 'Housing',       amount: 43200,  color: '#3182CE' },
+      { name: 'Food',          amount: 15120,  color: '#38B2AC' },
+      { name: 'Other',         amount:  6660,  color: '#718096' },
+      { name: 'Transport',     amount:  6480,  color: '#4C51BF' },
+      { name: 'Entertainment', amount:  3420,  color: '#ED8936' },
+      { name: 'Utilities',     amount:  2808,  color: '#D69E2E' },
+      { name: 'Healthcare',    amount:  2340,  color: '#E53E3E' },
+    ],
+  },
+
   portfolioAllocation: [
     { name: 'Stocks',      value: 75000, color: '#3182CE' },
     { name: 'Bonds',       value: 25000, color: '#4C51BF' },
     { name: 'Cash',        value: 12500, color: '#38B2AC' },
     { name: 'Real Estate', value: 12500, color: '#ED8936' },
+  ],
+
+  wealthAllocation: [
+    { name: 'Cash & Savings', value: 24281.45,  color: '#3b82f6' },
+    { name: 'Investments',    value: 125000,    color: '#7c3aed' },
+    { name: 'Real Estate',    value: 370718.55, color: '#f59e0b' },
   ],
 
   investmentPositions: [
@@ -67,11 +121,41 @@ const MOCK = {
 };
 
 // ════════════════════════════════════════════════════════
+//  THEME
+// ════════════════════════════════════════════════════════
+function updateChartTheme() {
+  const dark = document.body.classList.contains('dark');
+  const gridColor = dark ? '#334155' : '#f1f5f9';
+  if (charts.networth) {
+    charts.networth.options.scales.y.grid.color = gridColor;
+    charts.networth.update('none');
+  }
+  if (charts.spending) {
+    charts.spending.options.scales.x.grid.color = gridColor;
+    charts.spending.options.scales.y.ticks.color = dark ? '#f1f5f9' : '#1e293b';
+    charts.spending.update('none');
+  }
+  if (charts.allocation) {
+    charts.allocation.options.scales.y.grid.color = gridColor;
+    charts.allocation.update('none');
+  }
+}
+
+function applyTheme(dark) {
+  document.body.classList.toggle('dark', dark);
+  document.getElementById('themeIcon').textContent  = dark ? '☀️' : '🌙';
+  document.getElementById('themeLabel').textContent = dark ? 'Light Mode' : 'Dark Mode';
+  updateChartTheme();
+}
+
+// ════════════════════════════════════════════════════════
 //  CURRENCY
 // ════════════════════════════════════════════════════════
 const RATES   = { EUR: 1, USD: 1.08, GBP: 0.85 };
 const SYMBOLS = { EUR: '€', USD: '$', GBP: '£' };
 let currency = 'EUR';
+let spendingPeriod = 'month';
+let spendingView   = 'bar';
 
 /** Format a EUR value in the active currency */
 function fmt(eurAmount, opts = {}) {
@@ -198,12 +282,98 @@ function initNetworthChart() {
   });
 }
 
+function getSpendingData() {
+  return [...MOCK.spendingPeriods[spendingPeriod]].sort((a, b) => b.amount - a.amount);
+}
+
+function updateSpendingChart() {
+  const data = getSpendingData();
+  if (charts.spending) {
+    charts.spending.data.labels = data.map(c => c.name);
+    charts.spending.data.datasets[0].data = data.map(c => c.amount * RATES[currency]);
+    charts.spending.data.datasets[0].backgroundColor = data.map(c => c.color);
+    charts.spending.options.scales.x.ticks.callback = v => SYMBOLS[currency] + v.toLocaleString();
+    charts.spending.update();
+  }
+  if (charts.spendingPie) {
+    charts.spendingPie.data.labels = data.map(c => c.name);
+    charts.spendingPie.data.datasets[0].data = data.map(c => c.amount * RATES[currency]);
+    charts.spendingPie.data.datasets[0].backgroundColor = data.map(c => c.color);
+    charts.spendingPie.update();
+  }
+}
+
+function switchSpendingPeriod(period) {
+  spendingPeriod = period;
+  document.querySelectorAll('#spendingPeriodToggle .filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.period === period);
+  });
+  updateSpendingChart();
+}
+
+function switchSpendingView(view) {
+  spendingView = view;
+  document.querySelectorAll('#spendingViewToggle .filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.view === view);
+  });
+  document.getElementById('spendingBarWrap').style.display = view === 'bar' ? 'block' : 'none';
+  document.getElementById('spendingPieWrap').style.display = view === 'pie' ? 'block' : 'none';
+  if (view === 'pie') initSpendingPieChart();
+}
+
+function initSpendingPieChart() {
+  if (charts.spendingPie) return;
+  const ctx = document.getElementById('spendingPieChart');
+  if (!ctx) return;
+  const data = getSpendingData();
+  charts.spendingPie = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: data.map(c => c.name),
+      datasets: [{
+        data: data.map(c => c.amount * RATES[currency]),
+        backgroundColor: data.map(c => c.color),
+        borderWidth: 2,
+        borderColor: '#ffffff',
+        hoverOffset: 6,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '55%',
+      plugins: {
+        legend: {
+          display: true,
+          position: 'right',
+          labels: {
+            color: '#475569',
+            font: { size: 11, weight: '600' },
+            boxWidth: 10,
+            padding: 12,
+          },
+        },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const raw = ctx.raw;
+              const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+              const pct = ((raw / total) * 100).toFixed(1);
+              return '  ' + fmt(raw / RATES[currency]) + '  (' + pct + '%)';
+            },
+          },
+        },
+      },
+    },
+  });
+}
+
 function initSpendingChart() {
   if (charts.spending) return;
   const ctx = document.getElementById('spendingChart');
   if (!ctx) return;
 
-  const sorted = [...MOCK.spendingByCategory].sort((a, b) => b.amount - a.amount);
+  const sorted = getSpendingData();
 
   charts.spending = new Chart(ctx, {
     type: 'bar',
@@ -240,7 +410,48 @@ function initSpendingChart() {
         y: {
           grid: { display: false },
           border: { display: false },
-          ticks: { color: '#475569', font: { weight: '600' } },
+          ticks: {
+            font: { weight: '600' },
+            color: document.body.classList.contains('dark') ? '#f1f5f9' : '#1e293b',
+          },
+        },
+      },
+    },
+  });
+}
+
+function initWealthPieChart() {
+  if (charts.wealthPie) return;
+  const ctx = document.getElementById('wealthPieChart');
+  if (!ctx) return;
+
+  charts.wealthPie = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: MOCK.wealthAllocation.map(a => a.name),
+      datasets: [{
+        data: MOCK.wealthAllocation.map(a => a.value * RATES[currency]),
+        backgroundColor: MOCK.wealthAllocation.map(a => a.color),
+        borderWidth: 2,
+        borderColor: '#ffffff',
+        hoverOffset: 6,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '62%',
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const raw = ctx.raw;
+              const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+              const pct = ((raw / total) * 100).toFixed(1);
+              return '  ' + fmt(raw / RATES[currency]) + '  (' + pct + '%)';
+            },
+          },
         },
       },
     },
@@ -299,16 +510,17 @@ function updateChartCurrency() {
     charts.networth.options.scales.y.ticks.callback = v => SYMBOLS[currency] + (v / 1000).toFixed(0) + 'k';
     charts.networth.update('none');
   }
-  if (charts.spending) {
-    const sorted = [...MOCK.spendingByCategory].sort((a, b) => b.amount - a.amount);
-    charts.spending.data.datasets[0].data = sorted.map(c => c.amount * RATES[currency]);
-    charts.spending.options.scales.x.ticks.callback = v => SYMBOLS[currency] + v.toLocaleString();
-    charts.spending.update('none');
+  if (charts.spending || charts.spendingPie) {
+    updateSpendingChart();
   }
   if (charts.allocation) {
     charts.allocation.data.datasets[0].data = MOCK.portfolioAllocation.map(a => a.value * RATES[currency]);
     charts.allocation.options.scales.y.ticks.callback = v => SYMBOLS[currency] + (v / 1000).toFixed(0) + 'k';
     charts.allocation.update('none');
+  }
+  if (charts.wealthPie) {
+    charts.wealthPie.data.datasets[0].data = MOCK.wealthAllocation.map(a => a.value * RATES[currency]);
+    charts.wealthPie.update('none');
   }
 }
 
@@ -366,16 +578,169 @@ function renderRecentTx() {
 // ════════════════════════════════════════════════════════
 //  RENDER — FULL TRANSACTION TABLE (spending)
 // ════════════════════════════════════════════════════════
-let txFilter = 'all';
+let txFilter        = 'all';
+let txColDateFrom   = null;   // 'YYYY-MM-DD' or null
+let txColDateTo     = null;   // 'YYYY-MM-DD' or null
+let txColCategories = [];     // [] = all; else restricted list
+let txColMerchants  = [];     // [] = all; else restricted list
+let _openColDrop    = null;   // { col, el }
+
+function closeColDropdown() {
+  if (_openColDrop) { _openColDrop.el.remove(); _openColDrop = null; }
+}
+
+function openColDropdown(col, thEl) {
+  // Toggle same column closed
+  if (_openColDrop) {
+    const same = _openColDrop.col === col;
+    closeColDropdown();
+    if (same) return;
+  }
+  const rect = thEl.getBoundingClientRect();
+  const el   = document.createElement('div');
+  el.className = 'col-dropdown';
+  el.addEventListener('click', e => e.stopPropagation());
+
+  if (col === 'date') {
+    el.innerHTML = `
+      <div class="col-dropdown-title">Filter by date range</div>
+      <div class="col-dropdown-date-row">
+        <div>
+          <div class="col-dropdown-date-label">From</div>
+          <input type="date" id="cdFrom" value="${txColDateFrom || ''}">
+        </div>
+        <div>
+          <div class="col-dropdown-date-label">To</div>
+          <input type="date" id="cdTo" value="${txColDateTo || ''}">
+        </div>
+      </div>
+      <div class="col-dd-actions">
+        <button class="col-dd-clear" id="cdClear">Clear</button>
+        <button class="col-dd-apply" id="cdApply">Apply</button>
+      </div>`;
+    el.querySelector('#cdApply').addEventListener('click', () => {
+      txColDateFrom = el.querySelector('#cdFrom').value || null;
+      txColDateTo   = el.querySelector('#cdTo').value   || null;
+      closeColDropdown(); renderTxTable();
+    });
+    el.querySelector('#cdClear').addEventListener('click', () => {
+      txColDateFrom = null; txColDateTo = null;
+      closeColDropdown(); renderTxTable();
+    });
+
+  } else if (col === 'cat') {
+    const allCats = [...new Set(MOCK.transactions.map(t => t.category))].sort();
+    const allChecked = txColCategories.length === 0;
+    const rows = allCats.map(c => {
+      const chk = allChecked || txColCategories.includes(c) ? 'checked' : '';
+      return `<label class="col-check-row"><input type="checkbox" value="${c}" ${chk}><span>${c}</span></label>`;
+    }).join('');
+    el.innerHTML = `
+      <div class="col-dropdown-title">Filter by category</div>
+      <label class="col-check-row col-check-all" id="ccAll">
+        <input type="checkbox" id="ccAllChk" ${allChecked ? 'checked' : ''}><span>All</span>
+      </label>
+      <div class="col-check-divider"></div>
+      <div class="col-dropdown-check-list" id="ccList">${rows}</div>
+      <div class="col-dd-actions">
+        <button class="col-dd-clear" id="ccClear">Clear</button>
+        <button class="col-dd-apply" id="ccApply">Apply</button>
+      </div>`;
+    const ccAllChk = el.querySelector('#ccAllChk');
+    const ccList   = el.querySelector('#ccList');
+    ccAllChk.addEventListener('change', () => {
+      ccList.querySelectorAll('input').forEach(i => { i.checked = ccAllChk.checked; });
+    });
+    ccList.addEventListener('change', () => {
+      const total   = ccList.querySelectorAll('input').length;
+      const checked = ccList.querySelectorAll('input:checked').length;
+      ccAllChk.checked       = checked === total;
+      ccAllChk.indeterminate = checked > 0 && checked < total;
+    });
+    el.querySelector('#ccApply').addEventListener('click', () => {
+      const sel = [...el.querySelectorAll('#ccList input:checked')].map(i => i.value);
+      txColCategories = sel.length === allCats.length ? [] : sel;
+      closeColDropdown(); renderTxTable();
+    });
+    el.querySelector('#ccClear').addEventListener('click', () => {
+      txColCategories = [];
+      closeColDropdown(); renderTxTable();
+    });
+
+  } else if (col === 'merchant') {
+    const allM = [...new Set(MOCK.transactions.map(t => t.merchant))].sort();
+    const allChecked = txColMerchants.length === 0;
+    const rows = allM.map(m => {
+      const chk = allChecked || txColMerchants.includes(m) ? 'checked' : '';
+      return `<label class="col-check-row"><input type="checkbox" value="${m}" ${chk}><span>${m}</span></label>`;
+    }).join('');
+    el.innerHTML = `
+      <div class="col-dropdown-title">Filter by merchant</div>
+      <label class="col-check-row col-check-all" id="cmAll">
+        <input type="checkbox" id="cmAllChk" ${allChecked ? 'checked' : ''}><span>All</span>
+      </label>
+      <div class="col-check-divider"></div>
+      <div class="col-dropdown-check-list" id="cmList">${rows}</div>
+      <div class="col-dd-actions">
+        <button class="col-dd-clear" id="cmClear">Clear</button>
+        <button class="col-dd-apply" id="cmApply">Apply</button>
+      </div>`;
+    const cmAllChk = el.querySelector('#cmAllChk');
+    const cmList   = el.querySelector('#cmList');
+    cmAllChk.addEventListener('change', () => {
+      cmList.querySelectorAll('input').forEach(i => { i.checked = cmAllChk.checked; });
+    });
+    cmList.addEventListener('change', () => {
+      const total   = cmList.querySelectorAll('input').length;
+      const checked = cmList.querySelectorAll('input:checked').length;
+      cmAllChk.checked       = checked === total;
+      cmAllChk.indeterminate = checked > 0 && checked < total;
+    });
+    el.querySelector('#cmApply').addEventListener('click', () => {
+      const sel = [...el.querySelectorAll('#cmList input:checked')].map(i => i.value);
+      txColMerchants = sel.length === allM.length ? [] : sel;
+      closeColDropdown(); renderTxTable();
+    });
+    el.querySelector('#cmClear').addEventListener('click', () => {
+      txColMerchants = [];
+      closeColDropdown(); renderTxTable();
+    });
+  }
+
+  // Position below the th, keep inside viewport
+  el.style.left = Math.min(rect.left, window.innerWidth - 230) + 'px';
+  el.style.top  = (rect.bottom + 4) + 'px';
+  document.body.appendChild(el);
+  _openColDrop = { col, el };
+}
 
 function renderTxTable() {
-  const wrap     = document.getElementById('txTableWrap');
-  const filtered = txFilter === 'all'
+  const wrap = document.getElementById('txTableWrap');
+
+  // 1. Apply category pill filter
+  let filtered = txFilter === 'all'
     ? MOCK.transactions
     : MOCK.transactions.filter(t => t.category === txFilter);
 
+  // 2. Apply column header filters
+  if (txColDateFrom) {
+    const from = new Date(txColDateFrom);
+    filtered = filtered.filter(t => new Date(t.date) >= from);
+  }
+  if (txColDateTo) {
+    const to = new Date(txColDateTo);
+    to.setHours(23, 59, 59, 999);
+    filtered = filtered.filter(t => new Date(t.date) <= to);
+  }
+  if (txColCategories.length > 0) {
+    filtered = filtered.filter(t => txColCategories.includes(t.category));
+  }
+  if (txColMerchants.length > 0) {
+    filtered = filtered.filter(t => txColMerchants.includes(t.merchant));
+  }
+
   if (!filtered.length) {
-    wrap.innerHTML = '<div class="no-results">No transactions for this category.</div>';
+    wrap.innerHTML = '<div class="no-results">No transactions match your filters.</div>';
     return;
   }
 
@@ -410,20 +775,37 @@ function renderTxTable() {
     `;
   }).join('');
 
+  const dateAct = (txColDateFrom || txColDateTo) ? ' th-filter--active' : '';
+  const catAct  = txColCategories.length > 0     ? ' th-filter--active' : '';
+  const mchAct  = txColMerchants.length > 0      ? ' th-filter--active' : '';
+
   wrap.innerHTML = `
     <table class="tx-table">
       <thead>
         <tr>
-          <th>Date</th>
+          <th class="th-filter${dateAct}" id="thDate">Date <span class="th-chevron">▾</span></th>
           <th>Transaction</th>
-          <th>Category</th>
-          <th>Merchant</th>
+          <th class="th-filter${catAct}"  id="thCat">Category <span class="th-chevron">▾</span></th>
+          <th class="th-filter${mchAct}"  id="thMerchant">Merchant <span class="th-chevron">▾</span></th>
           <th class="text-right">Amount</th>
         </tr>
       </thead>
       <tbody>${rows}</tbody>
     </table>
   `;
+
+  document.getElementById('thDate').addEventListener('click', e => {
+    e.stopPropagation();
+    openColDropdown('date', e.currentTarget);
+  });
+  document.getElementById('thCat').addEventListener('click', e => {
+    e.stopPropagation();
+    openColDropdown('cat', e.currentTarget);
+  });
+  document.getElementById('thMerchant').addEventListener('click', e => {
+    e.stopPropagation();
+    openColDropdown('merchant', e.currentTarget);
+  });
 }
 
 // ════════════════════════════════════════════════════════
@@ -535,6 +917,8 @@ function switchCurrency(curr) {
   document.querySelectorAll('.curr-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.currency === curr);
   });
+  const sel = document.getElementById('currencySelect');
+  if (sel) sel.value = curr;
   updateAllCurrencyValues();
   updateChartCurrency();
 }
@@ -586,18 +970,75 @@ document.addEventListener('DOMContentLoaded', () => {
     animateCounter(document.getElementById('dashNetWorth'),   MOCK.financialSummary.netWorth, 900);
   }, 150);
 
+  // Init dashboard pie chart
+  initWealthPieChart();
+
+  // Apply dark mode by default
+  applyTheme(true);
+
+  // Theme toggle
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    applyTheme(!document.body.classList.contains('dark'));
+  });
+
   // Tab buttons (sidebar + mobile)
   document.querySelectorAll('[data-tab]').forEach(btn => {
     btn.addEventListener('click', () => switchTab(btn.dataset.tab));
   });
 
-  // Currency buttons (sidebar + mobile — all share .curr-btn + data-currency)
+  // Currency select (sidebar)
+  document.getElementById('currencySelect').addEventListener('change', e => switchCurrency(e.target.value));
+
+  // Currency buttons (mobile — .curr-btn + data-currency)
   document.querySelectorAll('.curr-btn').forEach(btn => {
     btn.addEventListener('click', () => switchCurrency(btn.dataset.currency));
   });
 
   // History toggle
   document.getElementById('historyBtn').addEventListener('click', toggleHistory);
+
+  // Spending period + view toggle
+  document.querySelectorAll('#spendingPeriodToggle .filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => switchSpendingPeriod(btn.dataset.period));
+  });
+  document.querySelectorAll('#spendingViewToggle .filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => switchSpendingView(btn.dataset.view));
+  });
+
+  // Add Category button
+  document.getElementById('addCategoryBtn').addEventListener('click', () => {
+    const name = prompt('Enter new category name:');
+    if (!name || !name.trim()) return;
+    const trimmed = name.trim();
+    // Add filter button
+    const bar = document.getElementById('txFilters');
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.dataset.filter = trimmed;
+    btn.textContent = trimmed;
+    btn.addEventListener('click', () => {
+      txFilter = trimmed;
+      document.querySelectorAll('#txFilters .filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderTxTable();
+    });
+    bar.insertBefore(btn, document.getElementById('addCategoryBtn'));
+  });
+
+  // Add Transaction button (demo — shows a brief toast)
+  document.getElementById('addTransactionBtn').addEventListener('click', () => {
+    const toast = document.createElement('div');
+    toast.textContent = 'Add Transaction — coming in the full app!';
+    Object.assign(toast.style, {
+      position: 'fixed', bottom: '24px', left: '50%', transform: 'translateX(-50%)',
+      background: '#2563eb', color: '#fff', padding: '10px 22px',
+      borderRadius: '99px', fontSize: '0.82rem', fontWeight: '600',
+      zIndex: '9999', boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
+      opacity: '1', transition: 'opacity 0.4s',
+    });
+    document.body.appendChild(toast);
+    setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 400); }, 2200);
+  });
 
   // Transaction category filters
   document.querySelectorAll('#txFilters .filter-btn').forEach(btn => {
@@ -608,5 +1049,8 @@ document.addEventListener('DOMContentLoaded', () => {
       renderTxTable();
     });
   });
+
+  // Close column filter dropdown when clicking outside
+  document.addEventListener('click', () => closeColDropdown());
 
 });

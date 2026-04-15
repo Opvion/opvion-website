@@ -45,12 +45,16 @@
       </nav>
 
       <div class="sidebar-bottom">
+        <button class="theme-toggle-btn" id="themeToggle">
+          <span id="themeIcon">☀️</span>
+          <span id="themeLabel">Light Mode</span>
+        </button>
         <div class="currency-label">Display Currency</div>
-        <div class="currency-switcher">
-          <button class="curr-btn active" data-currency="EUR">&euro; EUR</button>
-          <button class="curr-btn" data-currency="USD">&#36; USD</button>
-          <button class="curr-btn" data-currency="GBP">&pound; GBP</button>
-        </div>
+        <select class="currency-select" id="currencySelect">
+          <option value="EUR">&euro; EUR — Euro</option>
+          <option value="USD">&#36; USD — US Dollar</option>
+          <option value="GBP">&pound; GBP — British Pound</option>
+        </select>
         <a href="index.html#contact" class="sidebar-cta">Get Early Access</a>
         <a href="index.html" class="sidebar-back">&larr; Back to site</a>
       </div>
@@ -139,26 +143,34 @@
               </div>
             </div>
 
-            <div class="breakdown-list">
-              <div class="breakdown-row">
-                <span class="dot" style="background:#3b82f6"></span>
-                <span>Cash &amp; Savings</span>
-                <span class="ml-auto cv" data-eur="24281.45">€24,281</span>
-              </div>
-              <div class="breakdown-row">
-                <span class="dot" style="background:#7c3aed"></span>
-                <span>Investments</span>
-                <span class="ml-auto cv" data-eur="125000">€125,000</span>
-              </div>
-              <div class="breakdown-row">
-                <span class="dot" style="background:#f59e0b"></span>
-                <span>Real Estate</span>
-                <span class="ml-auto cv" data-eur="370718.55">€370,719</span>
-              </div>
-              <div class="breakdown-row">
-                <span class="dot" style="background:#f43f5e"></span>
-                <span>Liabilities</span>
-                <span class="ml-auto cv" style="color:#dc2626" data-eur="-285500">−€285,500</span>
+            <div style="border-top:1px solid #e2e8f0;margin:16px -20px 0;padding:16px 20px 0">
+              <h3 class="card-title">Wealth Allocation</h3>
+              <div style="display:flex;align-items:center;justify-content:center;gap:20px">
+                <div class="breakdown-list" style="flex:0 0 auto;min-width:210px;margin-top:0">
+                  <div class="breakdown-row">
+                    <span class="dot" style="background:#3b82f6"></span>
+                    <span>Cash &amp; Savings</span>
+                    <span class="ml-auto cv" data-eur="24281.45">€24,281</span>
+                  </div>
+                  <div class="breakdown-row">
+                    <span class="dot" style="background:#7c3aed"></span>
+                    <span>Investments</span>
+                    <span class="ml-auto cv" data-eur="125000">€125,000</span>
+                  </div>
+                  <div class="breakdown-row">
+                    <span class="dot" style="background:#f59e0b"></span>
+                    <span>Real Estate</span>
+                    <span class="ml-auto cv" data-eur="370718.55">€370,719</span>
+                  </div>
+                  <div class="breakdown-row">
+                    <span class="dot" style="background:#f43f5e"></span>
+                    <span>Liabilities</span>
+                    <span class="ml-auto cv" style="color:#dc2626" data-eur="-285500">−€285,500</span>
+                  </div>
+                </div>
+                <div class="chart-wrap" style="flex:0 0 200px;height:200px">
+                  <canvas id="wealthPieChart"></canvas>
+                </div>
               </div>
             </div>
           </div>
@@ -231,7 +243,7 @@
           </div>
           <div class="card stat-card">
             <div class="stat-label">Largest Expense</div>
-            <div class="stat-big" style="color:#475569">
+            <div class="stat-big stat-big--neutral">
               <span class="cv" data-eur="1200">€1,200</span>
             </div>
             <div class="stat-sub">Housing &middot; Rent</div>
@@ -242,10 +254,29 @@
         <div class="card">
           <div class="card-header">
             <h3 class="card-title" style="margin:0">Spending by Category</h3>
-            <span style="font-size:0.78rem;color:#94a3b8">This month</span>
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="display:flex;gap:4px" id="spendingViewToggle">
+                <button class="filter-btn active" data-view="bar" title="Bar chart">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:block"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="7" width="4" height="14" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/></svg>
+                </button>
+                <button class="filter-btn" data-view="pie" title="Pie chart">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:block"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+                </button>
+              </div>
+              <div style="display:flex;gap:4px" id="spendingPeriodToggle">
+                <button class="filter-btn" data-period="day">Day</button>
+                <button class="filter-btn" data-period="week">Week</button>
+                <button class="filter-btn active" data-period="month">Month</button>
+                <button class="filter-btn" data-period="year">Year</button>
+                <button class="filter-btn" data-period="max">Max</button>
+              </div>
+            </div>
           </div>
-          <div class="chart-wrap" style="height:280px">
+          <div id="spendingBarWrap" class="chart-wrap" style="height:280px">
             <canvas id="spendingChart"></canvas>
+          </div>
+          <div id="spendingPieWrap" class="chart-wrap" style="height:280px;display:none">
+            <canvas id="spendingPieChart"></canvas>
           </div>
         </div>
 
@@ -254,16 +285,20 @@
           <div class="card-header">
             <h3 class="card-title" style="margin:0">Transactions</h3>
           </div>
-          <div class="filter-bar" id="txFilters">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="Income">Income</button>
-            <button class="filter-btn" data-filter="Housing">Housing</button>
-            <button class="filter-btn" data-filter="Food">Food</button>
-            <button class="filter-btn" data-filter="Transport">Transport</button>
-            <button class="filter-btn" data-filter="Entertainment">Entertainment</button>
-            <button class="filter-btn" data-filter="Utilities">Utilities</button>
-            <button class="filter-btn" data-filter="Healthcare">Healthcare</button>
-            <button class="filter-btn" data-filter="Other">Other</button>
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px">
+            <div class="filter-bar" id="txFilters" style="margin-bottom:0;flex:1">
+              <button class="filter-btn active" data-filter="all">All</button>
+              <button class="filter-btn" data-filter="Income">Income</button>
+              <button class="filter-btn" data-filter="Housing">Housing</button>
+              <button class="filter-btn" data-filter="Food">Food</button>
+              <button class="filter-btn" data-filter="Transport">Transport</button>
+              <button class="filter-btn" data-filter="Entertainment">Entertainment</button>
+              <button class="filter-btn" data-filter="Utilities">Utilities</button>
+              <button class="filter-btn" data-filter="Healthcare">Healthcare</button>
+              <button class="filter-btn" data-filter="Other">Other</button>
+              <button class="filter-btn add-category-btn" id="addCategoryBtn">+ Add Category</button>
+            </div>
+            <button class="btn-add-tx" id="addTransactionBtn">+ Add Transaction</button>
           </div>
           <div id="txTableWrap"></div>
         </div>
