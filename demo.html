@@ -51,9 +51,42 @@
         </button>
         <div class="currency-label">Display Currency</div>
         <select class="currency-select" id="currencySelect">
-          <option value="EUR">&euro; EUR — Euro</option>
-          <option value="USD">&#36; USD — US Dollar</option>
-          <option value="GBP">&pound; GBP — British Pound</option>
+          <optgroup label="Europe">
+            <option value="EUR">&euro; EUR — Euro</option>
+            <option value="GBP">&pound; GBP — British Pound</option>
+            <option value="CHF">Fr CHF — Swiss Franc</option>
+            <option value="SEK">kr SEK — Swedish Krona</option>
+            <option value="NOK">kr NOK — Norwegian Krone</option>
+            <option value="DKK">kr DKK — Danish Krone</option>
+            <option value="PLN">zł PLN — Polish Złoty</option>
+            <option value="CZK">Kč CZK — Czech Koruna</option>
+            <option value="HUF">Ft HUF — Hungarian Forint</option>
+            <option value="RON">lei RON — Romanian Leu</option>
+            <option value="BGN">лв BGN — Bulgarian Lev</option>
+            <option value="HRK">kn HRK — Croatian Kuna</option>
+            <option value="RSD">din RSD — Serbian Dinar</option>
+            <option value="TRY">&#8378; TRY — Turkish Lira</option>
+          </optgroup>
+          <optgroup label="Americas">
+            <option value="USD">&#36; USD — US Dollar</option>
+            <option value="CAD">&#36; CAD — Canadian Dollar</option>
+            <option value="BRL">R$ BRL — Brazilian Real</option>
+            <option value="MXN">&#36; MXN — Mexican Peso</option>
+          </optgroup>
+          <optgroup label="Asia-Pacific">
+            <option value="JPY">&yen; JPY — Japanese Yen</option>
+            <option value="CNY">&yen; CNY — Chinese Yuan</option>
+            <option value="HKD">&#36; HKD — Hong Kong Dollar</option>
+            <option value="SGD">&#36; SGD — Singapore Dollar</option>
+            <option value="AUD">&#36; AUD — Australian Dollar</option>
+            <option value="NZD">&#36; NZD — New Zealand Dollar</option>
+            <option value="INR">&#8377; INR — Indian Rupee</option>
+          </optgroup>
+          <optgroup label="Middle East &amp; Africa">
+            <option value="AED">&#1583;.&#1573; AED — UAE Dirham</option>
+            <option value="SAR">&#65020; SAR — Saudi Riyal</option>
+            <option value="ZAR">R ZAR — South African Rand</option>
+          </optgroup>
         </select>
         <a href="index.html#contact" class="sidebar-cta">Get Early Access</a>
         <a href="index.html" class="sidebar-back">&larr; Back to site</a>
@@ -69,9 +102,44 @@
         <button class="mobile-tab" data-tab="portfolio">Portfolio</button>
       </div>
       <div class="mobile-currency">
-        <button class="curr-btn active" data-currency="EUR">&euro;</button>
-        <button class="curr-btn" data-currency="USD">&#36;</button>
-        <button class="curr-btn" data-currency="GBP">&pound;</button>
+        <select class="currency-select" id="mobileCurrencySelect">
+          <optgroup label="Europe">
+            <option value="EUR">&euro; EUR</option>
+            <option value="GBP">&pound; GBP</option>
+            <option value="CHF">Fr CHF</option>
+            <option value="SEK">kr SEK</option>
+            <option value="NOK">kr NOK</option>
+            <option value="DKK">kr DKK</option>
+            <option value="PLN">zł PLN</option>
+            <option value="CZK">Kč CZK</option>
+            <option value="HUF">Ft HUF</option>
+            <option value="RON">lei RON</option>
+            <option value="BGN">лв BGN</option>
+            <option value="HRK">kn HRK</option>
+            <option value="RSD">din RSD</option>
+            <option value="TRY">&#8378; TRY</option>
+          </optgroup>
+          <optgroup label="Americas">
+            <option value="USD">&#36; USD</option>
+            <option value="CAD">&#36; CAD</option>
+            <option value="BRL">R$ BRL</option>
+            <option value="MXN">&#36; MXN</option>
+          </optgroup>
+          <optgroup label="Asia-Pacific">
+            <option value="JPY">&yen; JPY</option>
+            <option value="CNY">&yen; CNY</option>
+            <option value="HKD">&#36; HKD</option>
+            <option value="SGD">&#36; SGD</option>
+            <option value="AUD">&#36; AUD</option>
+            <option value="NZD">&#36; NZD</option>
+            <option value="INR">&#8377; INR</option>
+          </optgroup>
+          <optgroup label="Middle East &amp; Africa">
+            <option value="AED">&#1583;.&#1573; AED</option>
+            <option value="SAR">&#65020; SAR</option>
+            <option value="ZAR">R ZAR</option>
+          </optgroup>
+        </select>
       </div>
     </div>
 

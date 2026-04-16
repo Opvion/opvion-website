@@ -151,8 +151,24 @@ function applyTheme(dark) {
 // ════════════════════════════════════════════════════════
 //  CURRENCY
 // ════════════════════════════════════════════════════════
-const RATES   = { EUR: 1, USD: 1.08, GBP: 0.85 };
-const SYMBOLS = { EUR: '€', USD: '$', GBP: '£' };
+const RATES = {
+  EUR: 1,       USD: 1.08,    GBP: 0.85,    CHF: 0.95,
+  SEK: 11.20,   NOK: 11.55,   DKK: 7.46,    PLN: 4.28,
+  CZK: 25.10,   HUF: 388.0,   RON: 4.97,    BGN: 1.96,
+  HRK: 7.53,    RSD: 117.2,   TRY: 34.90,   CAD: 1.47,
+  AUD: 1.65,    NZD: 1.78,    JPY: 161.5,   CNY: 7.82,
+  HKD: 8.42,    SGD: 1.45,    INR: 90.20,   AED: 3.97,
+  SAR: 4.05,    ZAR: 20.30,   BRL: 5.48,    MXN: 18.60,
+};
+const SYMBOLS = {
+  EUR: '€',     USD: '$',     GBP: '£',     CHF: 'Fr',
+  SEK: 'kr',    NOK: 'kr',    DKK: 'kr',    PLN: 'zł',
+  CZK: 'Kč',   HUF: 'Ft',    RON: 'lei',   BGN: 'лв',
+  HRK: 'kn',   RSD: 'din',   TRY: '₺',     CAD: '$',
+  AUD: '$',     NZD: '$',     JPY: '¥',     CNY: '¥',
+  HKD: '$',     SGD: '$',     INR: '₹',     AED: 'د.إ',
+  SAR: '﷼',    ZAR: 'R',     BRL: 'R$',    MXN: '$',
+};
 let currency = 'EUR';
 let spendingPeriod = 'month';
 let spendingView   = 'bar';
@@ -914,11 +930,10 @@ function switchTab(tabName) {
 // ════════════════════════════════════════════════════════
 function switchCurrency(curr) {
   currency = curr;
-  document.querySelectorAll('.curr-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.currency === curr);
-  });
   const sel = document.getElementById('currencySelect');
   if (sel) sel.value = curr;
+  const mobileSel = document.getElementById('mobileCurrencySelect');
+  if (mobileSel) mobileSel.value = curr;
   updateAllCurrencyValues();
   updateChartCurrency();
 }
@@ -973,8 +988,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Init dashboard pie chart
   initWealthPieChart();
 
-  // Apply dark mode by default
-  applyTheme(true);
+  // Apply light mode by default
+  applyTheme(false);
 
   // Theme toggle
   document.getElementById('themeToggle').addEventListener('click', () => {
@@ -989,10 +1004,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Currency select (sidebar)
   document.getElementById('currencySelect').addEventListener('change', e => switchCurrency(e.target.value));
 
-  // Currency buttons (mobile — .curr-btn + data-currency)
-  document.querySelectorAll('.curr-btn').forEach(btn => {
-    btn.addEventListener('click', () => switchCurrency(btn.dataset.currency));
-  });
+  // Currency select (mobile)
+  const mobileCurrSel = document.getElementById('mobileCurrencySelect');
+  if (mobileCurrSel) mobileCurrSel.addEventListener('change', e => switchCurrency(e.target.value));
 
   // History toggle
   document.getElementById('historyBtn').addEventListener('click', toggleHistory);
