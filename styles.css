@@ -62,11 +62,39 @@ body {
 }
 
 .logo {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: 800;
   color: var(--text);
   text-decoration: none;
   letter-spacing: -0.5px;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px;
+  line-height: 1;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: 180px;
+}
+.wordmark {
+  letter-spacing: -0.8px;
+  color: var(--text);
+  white-space: nowrap;
+  display: inline-block;
+}
+.logo-icon {
+  width: 48px;
+  height: 48px;
+  display: block;
+  flex-shrink: 0;
+  border-radius: 8px;
+}
+.footer-brand .logo-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
 }
 
 .nav-links {
@@ -875,7 +903,12 @@ footer {
   padding-bottom: 48px;
 }
 
-.footer-brand .logo { font-size: 1.3rem; font-weight: 800; }
+.footer-brand .logo { 
+  font-size: 1.3rem; 
+  font-weight: 800; 
+  justify-content: flex-start !important;
+  min-width: 0 !important;
+}
 .footer-brand p { color: var(--text-muted); font-size: 0.875rem; margin-top: 8px; max-width: 280px; }
 
 .footer-links {
