@@ -10,26 +10,26 @@ const MOCK = {
   },
 
   accounts: [
-    { id: '1', name: 'Main Account',   institution: 'Erste Bank',        type: 'checking',    balance:   4250.80 },
-    { id: '2', name: 'Savings Account',institution: 'Raiffeisen',        type: 'savings',     balance:  18750.00 },
-    { id: '3', name: 'Revolut',        institution: 'Revolut',           type: 'checking',    balance:   1280.45 },
-    { id: '4', name: 'Daily Account',  institution: 'N26',               type: 'checking',    balance:    890.20 },
-    { id: '5', name: 'Travel Rewards', institution: 'American Express',  type: 'credit_card', balance:  -2340.60 },
-    { id: '6', name: 'Brokerage',      institution: 'Fidelity',          type: 'investment',  balance: 125000.00 },
+    { id: 'acc-revolut',    name: 'Personal EUR',      institution: 'Revolut',    type: 'checking',   balance:   1280.45 },
+    { id: 'acc-wise',       name: 'Multi-Currency',    institution: 'Wise',       type: 'checking',   balance:   5420.10 },
+    { id: 'acc-commerz',    name: 'Girokonto',         institution: 'Commerzbank',type: 'checking',   balance:   3640.55 },
+    { id: 'acc-sparkasse',  name: 'Savings Plus',      institution: 'Sparkasse',  type: 'savings',    balance:  12750.00 },
+    { id: 'acc-n26',        name: 'Daily Account',     institution: 'N26',        type: 'checking',   balance:    890.20 },
+    { id: 'acc-brokerage',  name: 'Brokerage Account', institution: 'Fidelity',   type: 'investment', balance: 125000.00 },
   ],
 
   transactions: [
-    { id:  1, name: 'Monthly Salary',           date: '2025-01-30', category: 'Income',        amount:  5500,   merchant: 'Employer GmbH',    isRecurring: true  },
-    { id:  2, name: 'Apartment Rent',            date: '2025-01-28', category: 'Housing',       amount: -1200,   merchant: 'Wiener Wohnen',    isRecurring: true  },
-    { id:  3, name: 'Billa Supermarkt',          date: '2025-01-27', category: 'Food',          amount:  -85.40, merchant: 'Billa',            isRecurring: false },
-    { id:  4, name: 'Netflix',                   date: '2025-01-26', category: 'Entertainment', amount:  -15.99, merchant: 'Netflix',          isRecurring: true  },
-    { id:  5, name: 'Vapiano Restaurant',         date: '2025-01-25', category: 'Food',          amount:  -42.50, merchant: 'Vapiano',          isRecurring: false },
-    { id:  6, name: 'Wien Energie',              date: '2025-01-24', category: 'Utilities',     amount:  -78.30, merchant: 'Wien Energie',     isRecurring: true  },
-    { id:  7, name: 'Freelance Project',         date: '2025-01-23', category: 'Income',        amount:  1200,   merchant: 'Client AG',        isRecurring: false },
-    { id:  8, name: 'Uber',                      date: '2025-01-22', category: 'Transport',     amount:  -18.70, merchant: 'Uber',             isRecurring: false },
-    { id:  9, name: 'dm Drogerie',               date: '2025-01-21', category: 'Healthcare',    amount:  -32.10, merchant: 'dm',               isRecurring: false },
-    { id: 10, name: 'Amazon.de',                 date: '2025-01-20', category: 'Other',         amount:  -67.80, merchant: 'Amazon',           isRecurring: false },
-    { id: 11, name: 'Coffee Rocks Café',         date: '2025-01-19', category: 'Food',          amount:   -4.50, merchant: 'Coffee Rocks',     isRecurring: false },
+    { id:  1, name: 'Monthly Salary',           date: '2025-01-30', category: 'Income',        amount:  5500,   merchant: 'Employer GmbH',    isRecurring: true,  accountId: 'acc-commerz'   },
+    { id:  2, name: 'Apartment Rent',           date: '2025-01-28', category: 'Housing',       amount: -1200,   merchant: 'Wiener Wohnen',    isRecurring: true,  accountId: 'acc-commerz'   },
+    { id:  3, name: 'Billa Supermarkt',         date: '2025-01-27', category: 'Food',          amount:  -85.40, merchant: 'Billa',            isRecurring: false, accountId: 'acc-revolut'   },
+    { id:  4, name: 'Netflix',                  date: '2025-01-26', category: 'Entertainment', amount:  -15.99, merchant: 'Netflix',          isRecurring: true,  accountId: 'acc-wise'      },
+    { id:  5, name: 'Vapiano Restaurant',       date: '2025-01-25', category: 'Food',          amount:  -42.50, merchant: 'Vapiano',          isRecurring: false, accountId: 'acc-revolut'   },
+    { id:  6, name: 'Wien Energie',             date: '2025-01-24', category: 'Utilities',     amount:  -78.30, merchant: 'Wien Energie',     isRecurring: true,  accountId: 'acc-sparkasse' },
+    { id:  7, name: 'Freelance Project',        date: '2025-01-23', category: 'Income',        amount:  1200,   merchant: 'Client AG',        isRecurring: false, accountId: 'acc-wise'      },
+    { id:  8, name: 'Uber',                     date: '2025-01-22', category: 'Transport',     amount:  -18.70, merchant: 'Uber',             isRecurring: false, accountId: 'acc-revolut'   },
+    { id:  9, name: 'dm Drogerie',              date: '2025-01-21', category: 'Healthcare',    amount:  -32.10, merchant: 'dm',               isRecurring: false, accountId: 'acc-n26'       },
+    { id: 10, name: 'Amazon.de',                date: '2025-01-20', category: 'Other',         amount:  -67.80, merchant: 'Amazon',           isRecurring: false, accountId: 'acc-wise'      },
+    { id: 11, name: 'Coffee Rocks Cafe',        date: '2025-01-19', category: 'Food',          amount:   -4.50, merchant: 'Coffee Rocks',     isRecurring: false, accountId: 'acc-revolut'   },
   ],
 
   spendingByCategory: [
@@ -119,24 +119,62 @@ const MOCK = {
   },
 
 };
-
 // ════════════════════════════════════════════════════════
 //  THEME
 // ════════════════════════════════════════════════════════
 function updateChartTheme() {
   const dark = document.body.classList.contains('dark');
-  const gridColor = dark ? '#334155' : '#f1f5f9';
+  const gridColor = dark ? 'rgba(148,163,184,0.24)' : '#f1f5f9';
+  const axisTextColor = dark ? '#f1f5f9' : '#1e293b';
+  const mutedTextColor = dark ? '#94a3b8' : '#64748b';
+  const tooltipBg = dark ? 'rgba(15,23,42,0.96)' : 'rgba(15,23,42,0.9)';
+  const tooltipBorder = dark ? '#334155' : '#e2e8f0';
+  const pieBorder = dark ? '#0f172a' : '#ffffff';
+
+  const applyTooltipTheme = chart => {
+    if (!chart || !chart.options || !chart.options.plugins || !chart.options.plugins.tooltip) return;
+    chart.options.plugins.tooltip.backgroundColor = tooltipBg;
+    chart.options.plugins.tooltip.titleColor = '#f8fafc';
+    chart.options.plugins.tooltip.bodyColor = '#f8fafc';
+    chart.options.plugins.tooltip.borderColor = tooltipBorder;
+    chart.options.plugins.tooltip.borderWidth = 1;
+  };
+
   if (charts.networth) {
     charts.networth.options.scales.y.grid.color = gridColor;
+    charts.networth.options.scales.y.ticks.color = mutedTextColor;
+    charts.networth.options.scales.x.ticks.color = mutedTextColor;
+    charts.networth.data.datasets[0].pointBorderColor = pieBorder;
+    applyTooltipTheme(charts.networth);
     charts.networth.update('none');
   }
+
   if (charts.spending) {
     charts.spending.options.scales.x.grid.color = gridColor;
-    charts.spending.options.scales.y.ticks.color = dark ? '#f1f5f9' : '#1e293b';
+    charts.spending.options.scales.x.ticks.color = mutedTextColor;
+    charts.spending.options.scales.y.ticks.color = axisTextColor;
+    applyTooltipTheme(charts.spending);
     charts.spending.update('none');
   }
+
+  if (charts.spendingPie) {
+    charts.spendingPie.data.datasets[0].borderColor = pieBorder;
+    charts.spendingPie.options.plugins.legend.labels.color = mutedTextColor;
+    applyTooltipTheme(charts.spendingPie);
+    charts.spendingPie.update('none');
+  }
+
+  if (charts.wealthPie) {
+    charts.wealthPie.data.datasets[0].borderColor = pieBorder;
+    applyTooltipTheme(charts.wealthPie);
+    charts.wealthPie.update('none');
+  }
+
   if (charts.allocation) {
     charts.allocation.options.scales.y.grid.color = gridColor;
+    charts.allocation.options.scales.y.ticks.color = mutedTextColor;
+    charts.allocation.options.scales.x.ticks.color = axisTextColor;
+    applyTooltipTheme(charts.allocation);
     charts.allocation.update('none');
   }
 }
@@ -222,6 +260,16 @@ const ACCOUNT_EMOJI = {
   credit_card: '💳',
 };
 
+function getAccountById(accountId) {
+  return MOCK.accounts.find(acc => acc.id === accountId) || null;
+}
+
+function getAccountLabel(accountId) {
+  const account = getAccountById(accountId);
+  if (!account) return 'Unknown account';
+  return account.institution + ' - ' + account.name;
+}
+
 // ════════════════════════════════════════════════════════
 //  ANIMATED COUNTER
 // ════════════════════════════════════════════════════════
@@ -296,6 +344,8 @@ function initNetworthChart() {
       },
     },
   });
+
+  updateChartTheme();
 }
 
 function getSpendingData() {
@@ -382,6 +432,8 @@ function initSpendingPieChart() {
       },
     },
   });
+
+  updateChartTheme();
 }
 
 function initSpendingChart() {
@@ -434,6 +486,8 @@ function initSpendingChart() {
       },
     },
   });
+
+  updateChartTheme();
 }
 
 function initWealthPieChart() {
@@ -472,6 +526,8 @@ function initWealthPieChart() {
       },
     },
   });
+
+  updateChartTheme();
 }
 
 function initAllocationChart() {
@@ -518,6 +574,8 @@ function initAllocationChart() {
       },
     },
   });
+
+  updateChartTheme();
 }
 
 function updateChartCurrency() {
@@ -575,13 +633,14 @@ function renderRecentTx() {
     const dateStr = new Date(tx.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
     const amtCls  = income ? 'income' : 'expense';
     const prefix  = income ? '+' : '';
+    const accountLabel = getAccountById(tx.accountId)?.institution || 'Unknown';
     const recurringBadge = tx.isRecurring ? '<span class="recurring-badge">↻ Recurring</span>' : '';
     return `
       <div class="tx-row">
         <div class="tx-emoji">${CAT_EMOJI[tx.category] || '📦'}</div>
         <div style="flex:1;min-width:0">
           <div class="tx-name">${tx.name}</div>
-          <div class="tx-meta">${dateStr} &middot; ${tx.category} ${recurringBadge}</div>
+          <div class="tx-meta">${dateStr} &middot; ${tx.category} &middot; ${accountLabel} ${recurringBadge}</div>
         </div>
         <div class="tx-amount ${amtCls}" data-eur="${tx.amount}">
           ${prefix}${fmt(tx.amount)}
@@ -599,6 +658,7 @@ let txColDateFrom   = null;   // 'YYYY-MM-DD' or null
 let txColDateTo     = null;   // 'YYYY-MM-DD' or null
 let txColCategories = [];     // [] = all; else restricted list
 let txColMerchants  = [];     // [] = all; else restricted list
+let txColAccounts   = [];     // [] = all; else restricted list
 let _openColDrop    = null;   // { col, el }
 
 function closeColDropdown() {
@@ -721,6 +781,47 @@ function openColDropdown(col, thEl) {
       txColMerchants = [];
       closeColDropdown(); renderTxTable();
     });
+
+  } else if (col === 'account') {
+    const allAccounts = [...new Set(MOCK.transactions.map(t => t.accountId))]
+      .map(id => ({ id, label: getAccountLabel(id) }))
+      .sort((a, b) => a.label.localeCompare(b.label));
+    const allChecked = txColAccounts.length === 0;
+    const rows = allAccounts.map(acc => {
+      const chk = allChecked || txColAccounts.includes(acc.id) ? 'checked' : '';
+      return `<label class="col-check-row"><input type="checkbox" value="${acc.id}" ${chk}><span>${acc.label}</span></label>`;
+    }).join('');
+    el.innerHTML = `
+      <div class="col-dropdown-title">Filter by account</div>
+      <label class="col-check-row col-check-all" id="caAll">
+        <input type="checkbox" id="caAllChk" ${allChecked ? 'checked' : ''}><span>All</span>
+      </label>
+      <div class="col-check-divider"></div>
+      <div class="col-dropdown-check-list" id="caList">${rows}</div>
+      <div class="col-dd-actions">
+        <button class="col-dd-clear" id="caClear">Clear</button>
+        <button class="col-dd-apply" id="caApply">Apply</button>
+      </div>`;
+    const caAllChk = el.querySelector('#caAllChk');
+    const caList   = el.querySelector('#caList');
+    caAllChk.addEventListener('change', () => {
+      caList.querySelectorAll('input').forEach(i => { i.checked = caAllChk.checked; });
+    });
+    caList.addEventListener('change', () => {
+      const total   = caList.querySelectorAll('input').length;
+      const checked = caList.querySelectorAll('input:checked').length;
+      caAllChk.checked       = checked === total;
+      caAllChk.indeterminate = checked > 0 && checked < total;
+    });
+    el.querySelector('#caApply').addEventListener('click', () => {
+      const sel = [...el.querySelectorAll('#caList input:checked')].map(i => i.value);
+      txColAccounts = sel.length === allAccounts.length ? [] : sel;
+      closeColDropdown(); renderTxTable();
+    });
+    el.querySelector('#caClear').addEventListener('click', () => {
+      txColAccounts = [];
+      closeColDropdown(); renderTxTable();
+    });
   }
 
   // Position below the th, keep inside viewport
@@ -754,46 +855,57 @@ function renderTxTable() {
   if (txColMerchants.length > 0) {
     filtered = filtered.filter(t => txColMerchants.includes(t.merchant));
   }
-
-  if (!filtered.length) {
-    wrap.innerHTML = '<div class="no-results">No transactions match your filters.</div>';
-    return;
+  if (txColAccounts.length > 0) {
+    filtered = filtered.filter(t => txColAccounts.includes(t.accountId));
   }
 
-  const rows = filtered.map(tx => {
-    const income  = tx.amount > 0;
-    const prefix  = income ? '+' : '';
-    const amtCls  = income ? 'income-amt' : 'expense-amt';
-    const dateStr = new Date(tx.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-    const cc      = CAT_COLORS[tx.category] || CAT_COLORS['Other'];
-    const recurBadge = tx.isRecurring
-      ? '<span class="recurring-badge" style="margin-left:4px">↻</span>' : '';
-    return `
-      <tr>
-        <td>${dateStr}</td>
-        <td>
-          <div class="tx-name-cell">
-            <span>${CAT_EMOJI[tx.category] || '📦'}</span>
-            <span>${tx.name}</span>
-            ${recurBadge}
-          </div>
-        </td>
-        <td>
-          <span class="cat-badge" style="background:${cc.bg};color:${cc.text}">
-            ${tx.category}
-          </span>
-        </td>
-        <td>${tx.merchant}</td>
-        <td class="text-right ${amtCls}" data-eur="${tx.amount}">
-          ${prefix}${fmt(tx.amount)}
-        </td>
-      </tr>
-    `;
-  }).join('');
+  let rowsHtml = '';
+  if (!filtered.length) {
+    rowsHtml = '<tr><td colspan="6" style="padding: 24px; text-align: center; color: #64748b;">No transactions match your filters.</td></tr>';
+  } else {
+    rowsHtml = filtered.map(tx => {
+      const income  = tx.amount > 0;
+      const prefix  = income ? '+' : '';
+      const amtCls  = income ? 'income-amt' : 'expense-amt';
+      const dateStr = new Date(tx.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      const cc      = CAT_COLORS[tx.category] || CAT_COLORS['Other'];
+      const account = getAccountById(tx.accountId);
+      const accountInstitution = account ? account.institution : 'Unknown';
+      const accountName = account ? account.name : 'Unknown account';
+      const recurBadge = tx.isRecurring
+        ? '<span class="recurring-badge" style="margin-left:4px">↻</span>' : '';
+      return `
+        <tr>
+          <td>${dateStr}</td>
+          <td>
+            <div class="tx-name-cell">
+              <span>${CAT_EMOJI[tx.category] || '📦'}</span>
+              <span>${tx.name}</span>
+              ${recurBadge}
+            </div>
+          </td>
+          <td>
+            <span class="cat-badge" style="background:${cc.bg};color:${cc.text}">
+              ${tx.category}
+            </span>
+          </td>
+          <td>
+            <span class="account-pill">${accountInstitution}</span>
+            <div class="account-pill-sub">${accountName}</div>
+          </td>
+          <td>${tx.merchant}</td>
+          <td class="text-right ${amtCls}" data-eur="${tx.amount}">
+            ${prefix}${fmt(tx.amount)}
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
 
   const dateAct = (txColDateFrom || txColDateTo) ? ' th-filter--active' : '';
   const catAct  = txColCategories.length > 0     ? ' th-filter--active' : '';
   const mchAct  = txColMerchants.length > 0      ? ' th-filter--active' : '';
+  const accAct  = txColAccounts.length > 0       ? ' th-filter--active' : '';
 
   wrap.innerHTML = `
     <table class="tx-table">
@@ -802,11 +914,12 @@ function renderTxTable() {
           <th class="th-filter${dateAct}" id="thDate">Date <span class="th-chevron">▾</span></th>
           <th>Transaction</th>
           <th class="th-filter${catAct}"  id="thCat">Category <span class="th-chevron">▾</span></th>
+          <th class="th-filter${accAct}"  id="thAccount">Account <span class="th-chevron">▾</span></th>
           <th class="th-filter${mchAct}"  id="thMerchant">Merchant <span class="th-chevron">▾</span></th>
           <th class="text-right">Amount</th>
         </tr>
       </thead>
-      <tbody>${rows}</tbody>
+      <tbody>${rowsHtml}</tbody>
     </table>
   `;
 
@@ -822,6 +935,18 @@ function renderTxTable() {
     e.stopPropagation();
     openColDropdown('merchant', e.currentTarget);
   });
+  document.getElementById('thAccount').addEventListener('click', e => {
+    e.stopPropagation();
+    openColDropdown('account', e.currentTarget);
+  });
+}
+
+function setCategoryFilter(filterValue) {
+  closeColDropdown(); txFilter = filterValue;
+  document.querySelectorAll('#txFilters .filter-btn[data-filter]').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.filter === filterValue);
+  });
+  renderTxTable();
 }
 
 // ════════════════════════════════════════════════════════
@@ -957,6 +1082,26 @@ function toggleHistory() {
 }
 
 // ════════════════════════════════════════════════════════
+//  CLEAR ALL FILTERS
+// ════════════════════════════════════════════════════════
+function clearAllFilters() {
+  closeColDropdown();
+  txFilter        = 'all';
+  txColDateFrom   = null;
+  txColDateTo     = null;
+  txColCategories = [];
+  txColMerchants  = [];
+  txColAccounts   = [];
+
+  // Reset category pill states (both static and dynamic)
+  document.querySelectorAll('#txFilters .filter-btn[data-filter]').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.filter === 'all');
+  });
+
+  renderTxTable();
+}
+
+// ════════════════════════════════════════════════════════
 //  INIT
 // ════════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
@@ -989,7 +1134,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initWealthPieChart();
 
   // Apply light mode by default
-  applyTheme(false);
+  try { applyTheme(false); } catch(e) { console.error(e); }
 
   // Theme toggle
   document.getElementById('themeToggle').addEventListener('click', () => {
@@ -1021,46 +1166,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Add Category button
   document.getElementById('addCategoryBtn').addEventListener('click', () => {
-    const name = prompt('Enter new category name:');
-    if (!name || !name.trim()) return;
+    const defaultName = 'Custom ' + Math.floor(Math.random() * 100);
+    // Try prompt, fallback to random name if blocked
+    let name = '';
+    try {
+      name = prompt('Enter new category name:', 'Travel');
+    } catch(e) {}
+    if (!name || !name.trim()) name = defaultName;
+    
     const trimmed = name.trim();
     // Add filter button
     const bar = document.getElementById('txFilters');
     const btn = document.createElement('button');
-    btn.className = 'filter-btn';
+    btn.className = 'filter-btn dynamic-category';
     btn.dataset.filter = trimmed;
     btn.textContent = trimmed;
-    btn.addEventListener('click', () => {
-      txFilter = trimmed;
-      document.querySelectorAll('#txFilters .filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      renderTxTable();
-    });
+    btn.addEventListener('click', () => setCategoryFilter(trimmed));
     bar.insertBefore(btn, document.getElementById('addCategoryBtn'));
   });
 
-  // Add Transaction button (demo — shows a brief toast)
-  document.getElementById('addTransactionBtn').addEventListener('click', () => {
-    const toast = document.createElement('div');
-    toast.textContent = 'Add Transaction — coming in the full app!';
-    Object.assign(toast.style, {
-      position: 'fixed', bottom: '24px', left: '50%', transform: 'translateX(-50%)',
-      background: '#2563eb', color: '#fff', padding: '10px 22px',
-      borderRadius: '99px', fontSize: '0.82rem', fontWeight: '600',
-      zIndex: '9999', boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
-      opacity: '1', transition: 'opacity 0.4s',
-    });
-    document.body.appendChild(toast);
-    setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 400); }, 2200);
-  });
+  // Clear All Filters button — resets every filter back to default.
+  // User-added transactions and dynamic categories are preserved.
+  document.getElementById('clearFiltersBtn').addEventListener('click', clearAllFilters);
 
   // Transaction category filters
-  document.querySelectorAll('#txFilters .filter-btn').forEach(btn => {
+  document.querySelectorAll('#txFilters .filter-btn[data-filter]').forEach(btn => {
     btn.addEventListener('click', () => {
-      txFilter = btn.dataset.filter;
-      document.querySelectorAll('#txFilters .filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      renderTxTable();
+      setCategoryFilter(btn.dataset.filter);
     });
   });
 

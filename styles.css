@@ -111,6 +111,20 @@ body {
   transition: color 0.2s;
 }
 .nav-links a:hover { color: var(--text); }
+.nav-links a.is-active { color: var(--text); }
+.nav-links a.is-active:not(.btn-nav) {
+  position: relative;
+}
+.nav-links a.is-active:not(.btn-nav)::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  bottom: -6px;
+  height: 2px;
+  background: var(--blue);
+  border-radius: 2px;
+}
+.mobile-menu a.is-active { color: var(--text); font-weight: 600; }
 
 .btn-nav {
   background: var(--blue);

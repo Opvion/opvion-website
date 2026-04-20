@@ -15,7 +15,7 @@
   <!-- ── Demo Banner ── -->
   <div class="demo-banner" id="demoBanner">
     <span>Interactive demo &mdash; all figures are sample data only.</span>
-    <a href="index.html#contact" class="demo-banner-cta">Sign up for real insights &rarr;</a>
+    <a href="contact.html" class="demo-banner-cta">Sign up for real insights &rarr;</a>
     <button class="demo-banner-close" onclick="document.getElementById('demoBanner').style.display='none'">&#x2715;</button>
   </div>
 
@@ -91,7 +91,7 @@
             <option value="ZAR">R ZAR — South African Rand</option>
           </optgroup>
         </select>
-        <a href="index.html#contact" class="sidebar-cta">Get Early Access</a>
+        <a href="contact.html" class="sidebar-cta">Get Early Access</a>
         <a href="index.html" class="sidebar-back">&larr; Back to site</a>
       </div>
     </aside>
@@ -179,7 +179,7 @@
         <div class="card" id="networthChartCard" style="display:none">
           <div class="card-header">
             <h3 class="card-title">Net Worth History</h3>
-            <span style="font-size:0.78rem;color:#94a3b8">Last 12 months</span>
+            <span class="card-meta">Last 12 months</span>
           </div>
           <div class="chart-wrap" style="height:220px">
             <canvas id="networthChart"></canvas>
@@ -195,15 +195,15 @@
             <div class="snapshot-stats">
               <div class="snapshot-item">
                 <div class="snapshot-label">Total Assets</div>
-                <div class="snapshot-val" style="color:#059669" id="dashAssets">€0</div>
+                <div class="snapshot-val is-positive" id="dashAssets">€0</div>
               </div>
               <div class="snapshot-item">
                 <div class="snapshot-label">Liabilities</div>
-                <div class="snapshot-val" style="color:#dc2626" id="dashLiabilities">€0</div>
+                <div class="snapshot-val is-negative" id="dashLiabilities">€0</div>
               </div>
               <div class="snapshot-item">
                 <div class="snapshot-label">Net Worth</div>
-                <div class="snapshot-val" style="color:#2563eb" id="dashNetWorth">€0</div>
+                <div class="snapshot-val is-primary" id="dashNetWorth">€0</div>
               </div>
             </div>
 
@@ -212,12 +212,12 @@
                 <div class="asset-bar-fill" style="width:64.6%"></div>
               </div>
               <div class="asset-bar-labels">
-                <span style="color:#059669;font-weight:600;font-size:0.72rem">&#9679; Assets 64.6%</span>
-                <span style="color:#dc2626;font-weight:600;font-size:0.72rem">&#9679; Liabilities 35.4%</span>
+                <span class="asset-label asset-label-assets">&#9679; Assets 64.6%</span>
+                <span class="asset-label asset-label-liabilities">&#9679; Liabilities 35.4%</span>
               </div>
             </div>
 
-            <div style="border-top:1px solid #e2e8f0;margin:16px -20px 0;padding:16px 20px 0">
+            <div class="wealth-allocation-section">
               <h3 class="card-title">Wealth Allocation</h3>
               <div style="display:flex;align-items:center;justify-content:center;gap:20px">
                 <div class="breakdown-list" style="flex:0 0 auto;min-width:210px;margin-top:0">
@@ -239,7 +239,7 @@
                   <div class="breakdown-row">
                     <span class="dot" style="background:#f43f5e"></span>
                     <span>Liabilities</span>
-                    <span class="ml-auto cv" style="color:#dc2626" data-eur="-285500">−€285,500</span>
+                    <span class="ml-auto cv is-negative" data-eur="-285500">−€285,500</span>
                   </div>
                 </div>
                 <div class="chart-wrap" style="flex:0 0 200px;height:200px">
@@ -261,25 +261,25 @@
         <div class="card">
           <div class="card-header">
             <h3 class="card-title" style="margin:0">Recent Activity</h3>
-            <a href="#" style="font-size:0.82rem;color:#2563eb;text-decoration:none" onclick="switchTab('spending');return false">View all &rarr;</a>
+            <a href="#" class="inline-link" onclick="switchTab('spending');return false">View all &rarr;</a>
           </div>
 
           <div class="quick-stats-row">
             <div class="qs-item">
               <div class="qs-label">Today's Income</div>
-              <div class="qs-val" style="color:#059669" data-eur="295" id="qsTodayIn">€295</div>
+              <div class="qs-val is-positive" data-eur="295" id="qsTodayIn">€295</div>
             </div>
             <div class="qs-item">
               <div class="qs-label">Today's Expenses</div>
-              <div class="qs-val" style="color:#dc2626" data-eur="47.20" id="qsTodayEx">€47</div>
+              <div class="qs-val is-negative" data-eur="47.20" id="qsTodayEx">€47</div>
             </div>
             <div class="qs-item">
               <div class="qs-label">Week's Income</div>
-              <div class="qs-val" style="color:#059669" data-eur="6700" id="qsWeekIn">€6,700</div>
+              <div class="qs-val is-positive" data-eur="6700" id="qsWeekIn">€6,700</div>
             </div>
             <div class="qs-item">
               <div class="qs-label">Week's Expenses</div>
-              <div class="qs-val" style="color:#dc2626" data-eur="1440.89" id="qsWeekEx">€1,441</div>
+              <div class="qs-val is-negative" data-eur="1440.89" id="qsWeekEx">€1,441</div>
             </div>
           </div>
 
@@ -298,21 +298,21 @@
         <div class="stats-row">
           <div class="card stat-card">
             <div class="stat-label">Monthly Income</div>
-            <div class="stat-big" style="color:#059669">
+            <div class="stat-big is-positive">
               <span class="cv" data-eur="6700">€6,700</span>
             </div>
             <div class="stat-sub">&#8593; +8.2% vs last month</div>
           </div>
           <div class="card stat-card">
             <div class="stat-label">Monthly Expenses</div>
-            <div class="stat-big" style="color:#dc2626">
+            <div class="stat-big is-negative">
               <span class="cv" data-eur="2223">€2,223</span>
             </div>
             <div class="stat-sub">&#8595; &minus;3.1% vs last month</div>
           </div>
           <div class="card stat-card">
             <div class="stat-label">Savings Rate</div>
-            <div class="stat-big" style="color:#2563eb">66.8%</div>
+            <div class="stat-big is-primary">66.8%</div>
             <div class="stat-sub">&#8593; +4.2pp vs last month</div>
           </div>
           <div class="card stat-card">
@@ -359,7 +359,7 @@
           <div class="card-header">
             <h3 class="card-title" style="margin:0">Transactions</h3>
           </div>
-          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px">
+          <div class="spending-toolbar">
             <div class="filter-bar" id="txFilters" style="margin-bottom:0;flex:1">
               <button class="filter-btn active" data-filter="all">All</button>
               <button class="filter-btn" data-filter="Income">Income</button>
@@ -372,7 +372,9 @@
               <button class="filter-btn" data-filter="Other">Other</button>
               <button class="filter-btn add-category-btn" id="addCategoryBtn">+ Add Category</button>
             </div>
-            <button class="btn-add-tx" id="addTransactionBtn">+ Add Transaction</button>
+            <div class="toolbar-actions">
+              <button class="btn-toolbar btn-toolbar-ghost" id="clearFiltersBtn" title="Reset every active filter">Clear All</button>
+            </div>
           </div>
           <div id="txTableWrap"></div>
         </div>
@@ -389,21 +391,21 @@
         <div class="stats-row">
           <div class="card stat-card">
             <div class="stat-label">Portfolio Value</div>
-            <div class="stat-big" style="color:#2563eb">
+            <div class="stat-big is-primary">
               <span class="cv" data-eur="125000">€125,000</span>
             </div>
             <div class="stat-sub">Across 7 positions</div>
           </div>
           <div class="card stat-card">
             <div class="stat-label">Total P&amp;L</div>
-            <div class="stat-big" style="color:#059669">
+            <div class="stat-big is-positive">
               +<span class="cv" data-eur="10760">€10,760</span>
             </div>
             <div class="stat-sub">&#8593; +9.4% all time</div>
           </div>
           <div class="card stat-card">
             <div class="stat-label">Today's Change</div>
-            <div class="stat-big" style="color:#059669">
+            <div class="stat-big is-positive">
               +<span class="cv" data-eur="420">€420</span>
             </div>
             <div class="stat-sub">&#8593; +0.34%</div>
@@ -414,7 +416,7 @@
         <div class="card">
           <div class="card-header">
             <h3 class="card-title" style="margin:0">Asset Allocation</h3>
-            <span style="font-size:0.78rem;color:#94a3b8">Portfolio breakdown</span>
+            <span class="card-meta">Portfolio breakdown</span>
           </div>
           <div class="chart-wrap" style="height:280px">
             <canvas id="allocationChart"></canvas>
@@ -432,6 +434,6 @@
     </main>
   </div><!-- /app-shell -->
 
-  <script src="demo.js"></script>
+  <script src="demo.js?1776693782"></script>
 </body>
 </html>

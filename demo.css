@@ -316,6 +316,22 @@ body::before {
   margin-bottom: 16px;
 }
 
+.card-meta {
+  font-size: 0.78rem;
+  color: #94a3b8;
+}
+
+.is-positive { color: #059669; }
+.is-negative { color: #dc2626; }
+.is-primary { color: #2563eb; }
+
+.inline-link {
+  font-size: 0.82rem;
+  color: #2563eb;
+  text-decoration: none;
+}
+.inline-link:hover { text-decoration: underline; }
+
 /* ── Hero Card ─────────────────────────────────────── */
 .card-hero {
   background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 40%, #4f46e5 75%, #7c3aed 100%);
@@ -434,6 +450,19 @@ body::before {
 .asset-bar-labels {
   display: flex;
   justify-content: space-between;
+}
+
+.asset-label {
+  font-weight: 600;
+  font-size: 0.72rem;
+}
+.asset-label-assets { color: #059669; }
+.asset-label-liabilities { color: #dc2626; }
+
+.wealth-allocation-section {
+  border-top: 1px solid #e2e8f0;
+  margin: 16px -20px 0;
+  padding: 16px 20px 0;
 }
 
 /* ── Breakdown List ────────────────────────────────── */
@@ -623,22 +652,26 @@ body::before {
 .add-category-btn { border-style: dashed; color: #3b82f6; border-color: #93c5fd; }
 .add-category-btn:hover { background: #eff6ff; border-color: #3b82f6; color: #1d4ed8; }
 
-.btn-add-tx {
-  flex-shrink: 0;
-  padding: 6px 14px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  background: linear-gradient(135deg, #2563eb, #4f46e5);
-  color: #fff;
-  border: none;
-  border-radius: 99px;
-  cursor: pointer;
-  font-family: inherit;
-  transition: all 0.15s;
-  white-space: nowrap;
-  box-shadow: 0 2px 10px rgba(37,99,235,0.3);
+.spending-toolbar {
+  margin-bottom: 16px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
 }
-.btn-add-tx:hover { background: linear-gradient(135deg, #1d4ed8, #4338ca); box-shadow: 0 4px 16px rgba(37,99,235,0.4); }
+
+.spending-toolbar .filter-bar {
+  margin-bottom: 0;
+  flex: 1 1 320px;
+  min-width: 0;
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 8px;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+}
 
 /* ── Full Transaction Table ────────────────────────── */
 .tx-table {
@@ -676,6 +709,24 @@ body::before {
   font-weight: 700;
   border-radius: 99px;
   padding: 2px 8px;
+}
+
+.account-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  border-radius: 99px;
+  padding: 2px 8px;
+  background: #e0f2fe;
+  color: #075985;
+}
+
+.account-pill-sub {
+  font-size: 0.69rem;
+  color: #94a3b8;
+  margin-top: 2px;
 }
 .text-right { text-align: right; }
 .tx-table th.text-right { text-align: left; }
@@ -839,13 +890,14 @@ body::before {
 /* ══════════════════════════════════════════════════════
    DARK MODE
 ══════════════════════════════════════════════════════ */
-body.dark { background: linear-gradient(145deg, #050c1a 0%, #070f2a 45%, #0a0820 100%); color: #e2e8f0; }
+body.dark { background: linear-gradient(145deg, #020611 0%, #040a1a 45%, #050915 100%); color: #e2e8f0; }
 body.dark::before {
   background:
-    radial-gradient(ellipse 800px 700px at -5% 5%, rgba(99,102,241,0.32) 0%, transparent 65%),
-    radial-gradient(ellipse 700px 800px at 108% 88%, rgba(59,130,246,0.24) 0%, transparent 65%),
-    radial-gradient(ellipse 600px 600px at 52% 108%, rgba(139,92,246,0.22) 0%, transparent 65%),
-    radial-gradient(ellipse 350px 350px at 88% 8%, rgba(14,165,233,0.16) 0%, transparent 65%);
+    linear-gradient(180deg, rgba(2,6,23,0.74) 0%, rgba(2,6,23,0.58) 100%),
+    radial-gradient(ellipse 800px 700px at -5% 5%, rgba(99,102,241,0.18) 0%, transparent 67%),
+    radial-gradient(ellipse 700px 800px at 108% 88%, rgba(59,130,246,0.14) 0%, transparent 67%),
+    radial-gradient(ellipse 600px 600px at 52% 108%, rgba(139,92,246,0.12) 0%, transparent 67%),
+    radial-gradient(ellipse 350px 350px at 88% 8%, rgba(14,165,233,0.08) 0%, transparent 67%);
 }
 
 /* Banner */
@@ -880,11 +932,21 @@ body.dark .mobile-tab.active { background: linear-gradient(135deg, #2563eb, #4f4
 body.dark .main-content { background: transparent; }
 body.dark .card { background: rgba(14,22,50,0.55); backdrop-filter: blur(24px) saturate(160%); -webkit-backdrop-filter: blur(24px) saturate(160%); border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 4px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06); }
 body.dark .card-title { color: #f1f5f9; }
+body.dark .card-meta { color: #94a3b8; }
+body.dark .inline-link { color: #93c5fd; }
+body.dark .inline-link:hover { color: #bfdbfe; }
+
+body.dark .is-positive { color: #34d399; }
+body.dark .is-negative { color: #f87171; }
+body.dark .is-primary { color: #60a5fa; }
 
 /* Wealth Snapshot */
 body.dark .asset-bar { background: #450a0a; }
 body.dark .snapshot-label { color: #94a3b8; }
 body.dark .snapshot-val { color: inherit; }
+body.dark .asset-label-assets { color: #34d399; }
+body.dark .asset-label-liabilities { color: #fda4af; }
+body.dark .wealth-allocation-section { border-top-color: rgba(255,255,255,0.08); }
 
 /* Breakdown */
 body.dark .breakdown-row { color: #cbd5e1; }
@@ -931,6 +993,8 @@ body.dark .tx-table th { border-color: rgba(255,255,255,0.08); color: #94a3b8; }
 body.dark .tx-table td { border-color: rgba(255,255,255,0.05); color: #cbd5e1; }
 body.dark .tx-table tr:hover td { background: rgba(255,255,255,0.05); }
 body.dark .tx-name-cell { color: #f1f5f9; }
+body.dark .account-pill { background: #083344; color: #a5f3fc; }
+body.dark .account-pill-sub { color: #94a3b8; }
 
 /* Portfolio table */
 body.dark .pos-table th { border-color: rgba(255,255,255,0.08); color: #94a3b8; }
@@ -944,7 +1008,7 @@ body.dark .no-results { color: #94a3b8; }
 
 /* col-dropdown dark */
 body.dark .col-dropdown { background: rgba(10,18,45,0.82); backdrop-filter: blur(24px) saturate(160%); -webkit-backdrop-filter: blur(24px) saturate(160%); border: 1px solid rgba(255,255,255,0.09); box-shadow: 0 8px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06); }
-body.dark .col-dropdown-title { color: #475569; }
+body.dark .col-dropdown-title { color: #94a3b8; }
 body.dark .col-dropdown-date-label { color: #94a3b8; }
 body.dark .col-dropdown-date-row input[type=date] { background: #0f172a; border-color: #334155; color: #f1f5f9; color-scheme: dark; }
 body.dark .col-dd-clear { background: #334155; color: #cbd5e1; }
@@ -954,6 +1018,43 @@ body.dark .col-check-divider { background: #334155; }
 body.dark .th-filter:hover { color: #60a5fa; }
 body.dark .th-filter--active { color: #60a5fa; }
 
+
+/* ══════════════════════════════════════════════════════
+  TOOLBAR ACTIONS (Clear All)
+══════════════════════════════════════════════════════ */
+.btn-toolbar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.1s, box-shadow 0.15s;
+  white-space: nowrap;
+  line-height: 1;
+}
+.btn-toolbar:active { transform: translateY(1px); }
+
+.btn-toolbar-ghost {
+  background: #fff;
+  color: #475569;
+  border-color: #cbd5e1;
+}
+.btn-toolbar-ghost:hover { border-color: #ef4444; color: #dc2626; background: #fef2f2; }
+
+body.dark .btn-toolbar-ghost {
+  background: rgba(255,255,255,0.05);
+  color: #cbd5e1;
+  border-color: rgba(255,255,255,0.12);
+}
+body.dark .btn-toolbar-ghost:hover {
+  background: rgba(239,68,68,0.12);
+  border-color: #f87171;
+  color: #fca5a5;
+}
 
 /* ══════════════════════════════════════════════════════
    RESPONSIVE
