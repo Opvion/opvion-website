@@ -90,11 +90,63 @@ const MOCK = {
     ],
   },
 
+  portfolioSummary: {
+    totalValue:     125000,
+    dayGain:        420,
+    dayGainPct:     0.34,
+    totalGain:      10760,
+    totalGainPct:   9.41,
+  },
+
   portfolioAllocation: [
     { name: 'Stocks',      value: 75000, color: '#3182CE' },
     { name: 'Bonds',       value: 25000, color: '#4C51BF' },
     { name: 'Cash',        value: 12500, color: '#38B2AC' },
     { name: 'Real Estate', value: 12500, color: '#ED8936' },
+  ],
+
+  // Per-provider allocation (demo-only — all providers reuse aggregated unless overridden).
+  providerAllocations: {
+    aggregated: [
+      { name: 'Stocks',      value: 75000, color: '#3182CE' },
+      { name: 'Bonds',       value: 25000, color: '#4C51BF' },
+      { name: 'Cash',        value: 12500, color: '#38B2AC' },
+      { name: 'Real Estate', value: 12500, color: '#ED8936' },
+    ],
+    nexo: [
+      { name: 'BTC',  value: 3200, color: '#F7931A' },
+      { name: 'ETH',  value: 1800, color: '#627EEA' },
+      { name: 'USDC', value:  900, color: '#2775CA' },
+    ],
+    phantom: [
+      { name: 'SOL',  value: 1700, color: '#9945FF' },
+      { name: 'JUP',  value:  420, color: '#14F195' },
+      { name: 'USDC', value:  380, color: '#2775CA' },
+    ],
+    lightyear: [
+      { name: 'EXXT', value: 22000, color: '#3182CE' },
+      { name: 'CNDX', value: 15500, color: '#4C51BF' },
+      { name: 'MEUD', value:  6500, color: '#38B2AC' },
+    ],
+    binance: [
+      { name: 'BTC',  value: 48000, color: '#F7931A' },
+      { name: 'ETH',  value: 14500, color: '#627EEA' },
+      { name: 'NEXO', value:  2800, color: '#1B4C99' },
+    ],
+    coinbase: [
+      { name: 'BTC',  value: 11000, color: '#F7931A' },
+      { name: 'ETH',  value:  4200, color: '#627EEA' },
+      { name: 'EIMI', value:  8000, color: '#805AD5' },
+    ],
+  },
+
+  yearlyReturns: [
+    { year: '2019', value:   9.2 },
+    { year: '2020', value:  13.8 },
+    { year: '2021', value:  18.4 },
+    { year: '2022', value:  -7.3 },
+    { year: '2023', value:  16.2 },
+    { year: '2024', value:  11.5 },
   ],
 
   wealthAllocation: [
@@ -104,13 +156,13 @@ const MOCK = {
   ],
 
   investmentPositions: [
-    { ticker: 'BTC',  name: 'Bitcoin',              position: '0.28 BTC', value:  62200, pnl:  4200 },
-    { ticker: 'EXXT', name: 'iShares MSCI World',   position: '150 units',value:  22000, pnl:  3100 },
-    { ticker: 'CNDX', name: 'Nasdaq 100 ETF',       position: '80 units', value:  15500, pnl:  2800 },
-    { ticker: 'EIMI', name: 'Emerging Markets ETF',  position: '200 units',value:   8000, pnl:  -400 },
-    { ticker: 'MEUD', name: 'Euro Stoxx 600',        position: '100 units',value:   6500, pnl:   320 },
-    { ticker: 'NEXO', name: 'Nexo Token',            position: '500 units',value:   2800, pnl:  -150 },
-    { ticker: 'SOL',  name: 'Solana',               position: '10 units', value:   1700, pnl:   890 },
+    { ticker: 'BTC',  name: 'Bitcoin',             assetType: 'crypto', qty: 0.28,  buyPrice: 207142.86, currentPrice: 222142.86, value: 62200, pnl:  4200, dayChangePct:  1.82 },
+    { ticker: 'EXXT', name: 'iShares MSCI World',  assetType: 'etf',    qty: 150,   buyPrice:    126.00, currentPrice:    146.67, value: 22000, pnl:  3100, dayChangePct:  0.45 },
+    { ticker: 'CNDX', name: 'Nasdaq 100 ETF',      assetType: 'etf',    qty: 80,    buyPrice:    158.75, currentPrice:    193.75, value: 15500, pnl:  2800, dayChangePct:  1.12 },
+    { ticker: 'EIMI', name: 'Emerging Markets ETF',assetType: 'etf',    qty: 200,   buyPrice:     42.00, currentPrice:     40.00, value:  8000, pnl:  -400, dayChangePct: -0.68 },
+    { ticker: 'MEUD', name: 'Euro Stoxx 600',      assetType: 'etf',    qty: 100,   buyPrice:     61.80, currentPrice:     65.00, value:  6500, pnl:   320, dayChangePct:  0.21 },
+    { ticker: 'NEXO', name: 'Nexo Token',          assetType: 'crypto', qty: 500,   buyPrice:      5.90, currentPrice:      5.60, value:  2800, pnl:  -150, dayChangePct: -2.10 },
+    { ticker: 'SOL',  name: 'Solana',              assetType: 'crypto', qty: 10,    buyPrice:     81.00, currentPrice:    170.00, value:  1700, pnl:   890, dayChangePct:  3.45 },
   ],
 
   netWorthHistory: {
@@ -171,11 +223,25 @@ function updateChartTheme() {
   }
 
   if (charts.allocation) {
-    charts.allocation.options.scales.y.grid.color = gridColor;
-    charts.allocation.options.scales.y.ticks.color = mutedTextColor;
-    charts.allocation.options.scales.x.ticks.color = axisTextColor;
+    charts.allocation.data.datasets[0].borderColor = pieBorder;
     applyTooltipTheme(charts.allocation);
     charts.allocation.update('none');
+  }
+
+  if (charts.perf) {
+    charts.perf.options.scales.y.grid.color = gridColor;
+    charts.perf.options.scales.y.ticks.color = mutedTextColor;
+    charts.perf.options.scales.x.ticks.color = mutedTextColor;
+    applyTooltipTheme(charts.perf);
+    charts.perf.update('none');
+  }
+
+  if (charts.yearly) {
+    charts.yearly.options.scales.y.grid.color = gridColor;
+    charts.yearly.options.scales.y.ticks.color = mutedTextColor;
+    charts.yearly.options.scales.x.ticks.color = mutedTextColor;
+    applyTooltipTheme(charts.yearly);
+    charts.yearly.update('none');
   }
 }
 
@@ -530,20 +596,210 @@ function initWealthPieChart() {
   updateChartTheme();
 }
 
+let activeProvider = 'aggregated';
+let perfPeriod     = '1Y';
+
+function getActiveAllocation() {
+  return MOCK.providerAllocations[activeProvider] || MOCK.portfolioAllocation;
+}
+
 function initAllocationChart() {
-  if (charts.allocation) return;
   const ctx = document.getElementById('allocationChart');
   if (!ctx) return;
+  const data = getActiveAllocation();
+
+  if (charts.allocation) {
+    charts.allocation.data.labels = data.map(a => a.name);
+    charts.allocation.data.datasets[0].data = data.map(a => a.value * RATES[currency]);
+    charts.allocation.data.datasets[0].backgroundColor = data.map(a => a.color);
+    charts.allocation.update('none');
+    renderAllocationLegend();
+    updateChartTheme();
+    return;
+  }
 
   charts.allocation = new Chart(ctx, {
-    type: 'bar',
+    type: 'doughnut',
     data: {
-      labels: MOCK.portfolioAllocation.map(a => a.name),
+      labels: data.map(a => a.name),
       datasets: [{
-        data: MOCK.portfolioAllocation.map(a => a.value * RATES[currency]),
-        backgroundColor: MOCK.portfolioAllocation.map(a => a.color),
-        borderRadius: 8,
-        borderSkipped: false,
+        data: data.map(a => a.value * RATES[currency]),
+        backgroundColor: data.map(a => a.color),
+        borderColor: '#ffffff',
+        borderWidth: 2,
+        hoverOffset: 6,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '62%',
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const total = ctx.dataset.data.reduce((a, b) => a + b, 0) || 1;
+              const pct   = ((ctx.raw / total) * 100).toFixed(1);
+              return '  ' + fmt(ctx.raw / RATES[currency]) + '  (' + pct + '%)';
+            },
+          },
+        },
+      },
+    },
+  });
+
+  renderAllocationLegend();
+  updateChartTheme();
+}
+
+function renderAllocationLegend() {
+  const el = document.getElementById('allocationLegend');
+  if (!el) return;
+  const data = getActiveAllocation();
+  const total = data.reduce((s, a) => s + a.value, 0) || 1;
+  el.innerHTML = data.map(a => {
+    const pct = ((a.value / total) * 100).toFixed(1);
+    return `
+      <div class="breakdown-row allocation-row">
+        <span class="dot" style="background:${a.color}"></span>
+        <span class="al-name">${a.name}</span>
+        <span class="ml-auto al-pct">${pct}%</span>
+      </div>
+    `;
+  }).join('');
+}
+
+function setActiveProvider(provider) {
+  activeProvider = provider;
+  document.querySelectorAll('#providerTabs .provider-tab').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.provider === provider);
+  });
+  initAllocationChart();
+}
+
+// ── Asset cards (aggregated-only summary)
+function renderAssetCards() {
+  const el = document.getElementById('assetCardsGrid');
+  if (!el) return;
+  const data = MOCK.portfolioAllocation;
+  const total = data.reduce((s, a) => s + a.value, 0) || 1;
+  el.innerHTML = data.map(a => {
+    const pct = ((a.value / total) * 100).toFixed(1);
+    return `
+      <div class="card asset-card">
+        <div class="asset-card-name">${a.name}</div>
+        <div class="asset-card-value" data-eur="${a.value}">${fmt(a.value, { noDecimals: true })}</div>
+        <div class="asset-card-pct">${pct}% of portfolio</div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ── Portfolio summary header (Total Value / Day Gain / Total Return)
+function renderPortfolioSummary() {
+  const s  = MOCK.portfolioSummary;
+  const tv = document.getElementById('psTotalValue');
+  const dg = document.getElementById('psDayGain');
+  const tr = document.getElementById('psTotalReturn');
+  const dgPct = document.getElementById('psDayGainPct');
+  const trPct = document.getElementById('psTotalReturnPct');
+  if (!tv || !dg || !tr || !dgPct || !trPct) return;
+
+  tv.textContent = fmt(s.totalValue, { noDecimals: true });
+
+  const dgPos = s.dayGain >= 0;
+  dg.className = 'stat-big ' + (dgPos ? 'is-positive' : 'is-negative');
+  dg.textContent = (dgPos ? '+' : '') + fmt(s.dayGain, { noDecimals: true });
+  dgPct.textContent = `${dgPos ? '+' : ''}${s.dayGainPct.toFixed(2)}% today`;
+
+  const trPos = s.totalGain >= 0;
+  tr.className = 'stat-big ' + (trPos ? 'is-positive' : 'is-negative');
+  tr.textContent = (trPos ? '+' : '') + fmt(s.totalGain, { noDecimals: true });
+  trPct.textContent = `${trPos ? '+' : ''}${s.totalGainPct.toFixed(2)}% all time`;
+}
+
+// ── Performance chart (line) with time-period selector
+function seededRand(seed) {
+  let s = seed;
+  return () => {
+    s = (s * 1664525 + 1013904223) & 0xffffffff;
+    return (s >>> 0) / 0xffffffff;
+  };
+}
+
+function generatePerfSeries(period) {
+  const cfg = {
+    '1W':  { points: 7,  stepDays: 1,   label: d => d.toLocaleDateString('en-US', { weekday: 'short' }) },
+    '1M':  { points: 30, stepDays: 1,   label: d => (d.getDate() + '/' + (d.getMonth() + 1)) },
+    '3M':  { points: 13, stepDays: 7,   label: d => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) },
+    '6M':  { points: 26, stepDays: 7,   label: d => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) },
+    '1Y':  { points: 12, stepDays: 30,  label: d => d.toLocaleDateString('en-US', { month: 'short' }) },
+    'All': { points: 5,  stepDays: 365, label: d => String(d.getFullYear()) },
+  }[period];
+
+  const rng   = seededRand(period.charCodeAt(0) * 31337);
+  const rand  = () => rng() * 2 - 1;
+  const now   = new Date();
+  const start = now.getTime() - cfg.stepDays * 86400000 * (cfg.points - 1);
+  const base  = period === 'All' ? 60000 : 112000;
+  const amp   = period === '1W' ? 0.008 : period === '1M' ? 0.015 : 0.035;
+
+  let value = base;
+  const labels = [];
+  const values = [];
+  for (let i = 0; i < cfg.points; i++) {
+    const d = new Date(start + i * cfg.stepDays * 86400000);
+    value = value * (1 + rand() * amp);
+    labels.push(cfg.label(d));
+    values.push(Math.round(value));
+  }
+  return { labels, values };
+}
+
+function updatePerfChangeLabel(values) {
+  const el = document.getElementById('perfChange');
+  if (!el || !values.length) return;
+  const change = values[values.length - 1] - values[0];
+  const pct    = values[0] > 0 ? (change / values[0]) * 100 : 0;
+  const pos    = change >= 0;
+  el.className = 'perf-change ' + (pos ? 'is-positive' : 'is-negative');
+  el.textContent = (pos ? '+' : '') + fmt(change, { noDecimals: true })
+    + ` (${pos ? '+' : ''}${pct.toFixed(2)}%)`;
+}
+
+function initPerfChart() {
+  const ctx = document.getElementById('perfChart');
+  if (!ctx) return;
+  const { labels, values } = generatePerfSeries(perfPeriod);
+  const isPositive = values[values.length - 1] >= values[0];
+  const stroke     = isPositive ? '#10b981' : '#ef4444';
+  const fillColor  = isPositive ? 'rgba(16,185,129,0.12)' : 'rgba(239,68,68,0.12)';
+
+  if (charts.perf) {
+    charts.perf.data.labels = labels;
+    charts.perf.data.datasets[0].data = values.map(v => v * RATES[currency]);
+    charts.perf.data.datasets[0].borderColor = stroke;
+    charts.perf.data.datasets[0].backgroundColor = fillColor;
+    charts.perf.options.scales.y.ticks.callback = v => SYMBOLS[currency] + (v / 1000).toFixed(0) + 'k';
+    charts.perf.update('none');
+    updatePerfChangeLabel(values);
+    return;
+  }
+
+  charts.perf = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        data: values.map(v => v * RATES[currency]),
+        borderColor: stroke,
+        backgroundColor: fillColor,
+        fill: true,
+        tension: 0.35,
+        pointRadius: 0,
+        pointHoverRadius: 5,
+        borderWidth: 2,
       }],
     },
     options: {
@@ -553,7 +809,7 @@ function initAllocationChart() {
         legend: { display: false },
         tooltip: {
           callbacks: {
-            label: ctx => '  ' + fmt(ctx.raw / RATES[currency]),
+            label: ctx => '  ' + fmt(ctx.raw / RATES[currency], { noDecimals: true }),
           },
         },
       },
@@ -569,7 +825,65 @@ function initAllocationChart() {
         x: {
           grid: { display: false },
           border: { display: false },
-          ticks: { color: '#475569', font: { weight: '600' } },
+          ticks: { color: '#94a3b8', maxTicksLimit: 8 },
+        },
+      },
+    },
+  });
+
+  updatePerfChangeLabel(values);
+  updateChartTheme();
+}
+
+function setPerfPeriod(period) {
+  perfPeriod = period;
+  document.querySelectorAll('#perfPeriodToggle .filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.period === period);
+  });
+  initPerfChart();
+}
+
+// ── Annual returns bar chart
+function initYearlyReturnsChart() {
+  if (charts.yearly) return;
+  const ctx = document.getElementById('yearlyReturnsChart');
+  if (!ctx) return;
+
+  charts.yearly = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: MOCK.yearlyReturns.map(r => r.year),
+      datasets: [{
+        data: MOCK.yearlyReturns.map(r => r.value),
+        backgroundColor: MOCK.yearlyReturns.map(r => r.value >= 0 ? '#10b981' : '#ef4444'),
+        borderRadius: 4,
+        borderSkipped: false,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => '  ' + (ctx.raw >= 0 ? '+' : '') + ctx.raw.toFixed(1) + '%',
+          },
+        },
+      },
+      scales: {
+        y: {
+          grid: { color: '#f1f5f9' },
+          border: { display: false },
+          ticks: {
+            color: '#94a3b8',
+            callback: v => v + '%',
+          },
+        },
+        x: {
+          grid: { display: false },
+          border: { display: false },
+          ticks: { color: '#94a3b8' },
         },
       },
     },
@@ -588,9 +902,16 @@ function updateChartCurrency() {
     updateSpendingChart();
   }
   if (charts.allocation) {
-    charts.allocation.data.datasets[0].data = MOCK.portfolioAllocation.map(a => a.value * RATES[currency]);
-    charts.allocation.options.scales.y.ticks.callback = v => SYMBOLS[currency] + (v / 1000).toFixed(0) + 'k';
+    const data = getActiveAllocation();
+    charts.allocation.data.datasets[0].data = data.map(a => a.value * RATES[currency]);
     charts.allocation.update('none');
+  }
+  if (charts.perf) {
+    const { values } = generatePerfSeries(perfPeriod);
+    charts.perf.data.datasets[0].data = values.map(v => v * RATES[currency]);
+    charts.perf.options.scales.y.ticks.callback = v => SYMBOLS[currency] + (v / 1000).toFixed(0) + 'k';
+    charts.perf.update('none');
+    updatePerfChangeLabel(values);
   }
   if (charts.wealthPie) {
     charts.wealthPie.data.datasets[0].data = MOCK.wealthAllocation.map(a => a.value * RATES[currency]);
@@ -952,27 +1273,49 @@ function setCategoryFilter(filterValue) {
 // ════════════════════════════════════════════════════════
 //  RENDER — INVESTMENT POSITIONS
 // ════════════════════════════════════════════════════════
+const ASSET_TYPE_ICON = {
+  stock:  '📈',
+  etf:    '📊',
+  crypto: '₿',
+  bond:   '📜',
+};
+
 function renderPositions() {
   const el = document.getElementById('positionsTable');
+  if (!el) return;
   const rows = MOCK.investmentPositions.map(pos => {
     const gain   = pos.pnl >= 0;
     const pnlCls = gain ? 'pnl-pos' : 'pnl-neg';
     const prefix = gain ? '+' : '';
     const cost   = pos.value - pos.pnl;
     const pct    = cost > 0 ? ((pos.pnl / cost) * 100).toFixed(1) : '0.0';
+    const icon   = ASSET_TYPE_ICON[pos.assetType] || '💰';
+    const dayPos = (pos.dayChangePct ?? 0) >= 0;
+    const dayCls = dayPos ? 'is-positive' : 'is-negative';
+    const qtyStr = pos.qty.toLocaleString('en-US', { maximumFractionDigits: 4 });
     return `
       <tr>
         <td>
-          <div class="ticker">${pos.ticker}</div>
-          <div class="pos-name">${pos.name}</div>
+          <div class="pos-asset-cell">
+            <div class="pos-icon">${icon}</div>
+            <div>
+              <div class="ticker">${pos.name}</div>
+              <div class="pos-name">${pos.ticker}</div>
+            </div>
+          </div>
         </td>
-        <td>${pos.position}</td>
-        <td class="text-right" data-eur="${pos.value}">${fmt(pos.value, { noDecimals: true })}</td>
+        <td class="text-right">${qtyStr}</td>
+        <td class="text-right" data-eur="${pos.buyPrice}">${fmt(pos.buyPrice)}</td>
+        <td class="text-right" data-eur="${pos.currentPrice}">${fmt(pos.currentPrice)}</td>
+        <td class="text-right">
+          <span class="day-pill ${dayCls}">${dayPos ? '+' : ''}${(pos.dayChangePct ?? 0).toFixed(2)}%</span>
+        </td>
         <td class="text-right ${pnlCls}" data-eur="${pos.pnl}">
           ${prefix}${fmt(pos.pnl, { noDecimals: true })}
+          <div class="pos-name">${prefix}${pct}%</div>
         </td>
-        <td class="text-right ${pnlCls}">
-          ${prefix}${pct}%
+        <td class="text-right" data-eur="${pos.value}">
+          <strong>${fmt(pos.value, { noDecimals: true })}</strong>
         </td>
       </tr>
     `;
@@ -983,10 +1326,12 @@ function renderPositions() {
       <thead>
         <tr>
           <th>Asset</th>
-          <th>Position</th>
-          <th class="text-right">Value</th>
+          <th class="text-right">Qty</th>
+          <th class="text-right">Buy</th>
+          <th class="text-right">Price</th>
+          <th class="text-right">Day</th>
           <th class="text-right">P&amp;L</th>
-          <th class="text-right">Return</th>
+          <th class="text-right">Value</th>
         </tr>
       </thead>
       <tbody>${rows}</tbody>
@@ -1022,6 +1367,8 @@ function updateAllCurrencyValues() {
   renderRecentTx();
   renderTxTable();
   renderPositions();
+  renderPortfolioSummary();
+  renderAssetCards();
 }
 
 // ════════════════════════════════════════════════════════
@@ -1045,8 +1392,18 @@ function switchTab(tabName) {
     renderTxTable();
   }
   if (tabName === 'portfolio') {
+    renderPortfolioSummary();
+    renderAssetCards();
     initAllocationChart();
+    initPerfChart();
+    initYearlyReturnsChart();
     renderPositions();
+    // Chart.js needs a resize hint after the panel becomes visible
+    setTimeout(() => {
+      if (charts.allocation) charts.allocation.resize();
+      if (charts.perf)       charts.perf.resize();
+      if (charts.yearly)     charts.yearly.resize();
+    }, 60);
   }
 }
 
@@ -1121,6 +1478,8 @@ document.addEventListener('DOMContentLoaded', () => {
   renderRecentTx();
   renderTxTable();
   renderPositions();
+  renderPortfolioSummary();
+  renderAssetCards();
 
   // Animate the hero counter on load
   setTimeout(() => {
@@ -1198,5 +1557,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Close column filter dropdown when clicking outside
   document.addEventListener('click', () => closeColDropdown());
+
+  // Portfolio — provider tabs
+  document.querySelectorAll('#providerTabs .provider-tab').forEach(btn => {
+    btn.addEventListener('click', () => setActiveProvider(btn.dataset.provider));
+  });
+
+  // Portfolio — performance period
+  document.querySelectorAll('#perfPeriodToggle .filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => setPerfPeriod(btn.dataset.period));
+  });
+
+  // AI Insights — Coming Soon modal
+  const aiBtn     = document.getElementById('aiInsightsBtn');
+  const csModal   = document.getElementById('comingSoonModal');
+  const csClose   = document.getElementById('comingSoonCloseBtn');
+  const openCS  = () => {
+    if (!csModal) return;
+    csModal.classList.add('is-open');
+    document.body.classList.add('modal-open');
+  };
+  const closeCS = () => {
+    if (!csModal) return;
+    csModal.classList.remove('is-open');
+    document.body.classList.remove('modal-open');
+  };
+  if (aiBtn)    aiBtn.addEventListener('click', openCS);
+  if (csClose)  csClose.addEventListener('click', closeCS);
+  if (csModal)  csModal.addEventListener('click', e => { if (e.target === csModal) closeCS(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && csModal && csModal.classList.contains('is-open')) closeCS();
+  });
 
 });

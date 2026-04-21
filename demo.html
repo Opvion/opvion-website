@@ -8,7 +8,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="demo.css" />
+  <link rel="stylesheet" href="demo.css?20260421b" />
 </head>
 <body>
 
@@ -294,6 +294,24 @@
       ══════════════════════════════════════ -->
       <div id="tab-spending" class="tab-panel" style="display:none">
 
+        <!-- AI Insights CTA -->
+        <div class="card ai-card">
+          <div class="card-header card-header--adaptive">
+            <div>
+              <div class="card-meta ai-card-meta">Coming Soon</div>
+              <h3 class="card-title card-title--header">AI Spending Analytics</h3>
+            </div>
+            <button class="coming-soon-btn" id="aiInsightsBtn" type="button">
+              View preview
+            </button>
+          </div>
+          <div class="ai-card-body">
+            <p class="ai-card-desc">
+              Personalised insights, anomaly detection, budget forecasting, and natural language queries — processed in Germany with strict privacy guarantees.
+            </p>
+          </div>
+        </div>
+
         <!-- Stats row -->
         <div class="stats-row">
           <div class="card stat-card">
@@ -326,10 +344,10 @@
 
         <!-- Spending Chart -->
         <div class="card">
-          <div class="card-header">
-            <h3 class="card-title" style="margin:0">Spending by Category</h3>
-            <div style="display:flex;align-items:center;gap:8px">
-              <div style="display:flex;gap:4px" id="spendingViewToggle">
+          <div class="card-header card-header--adaptive">
+            <h3 class="card-title card-title--header">Spending by Category</h3>
+            <div class="card-controls">
+              <div class="toggle-group toggle-group--compact" id="spendingViewToggle">
                 <button class="filter-btn active" data-view="bar" title="Bar chart">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:block"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="7" width="4" height="14" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/></svg>
                 </button>
@@ -337,7 +355,7 @@
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:block"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
                 </button>
               </div>
-              <div style="display:flex;gap:4px" id="spendingPeriodToggle">
+              <div class="toggle-group" id="spendingPeriodToggle">
                 <button class="filter-btn" data-period="day">Day</button>
                 <button class="filter-btn" data-period="week">Week</button>
                 <button class="filter-btn active" data-period="month">Month</button>
@@ -387,45 +405,80 @@
       ══════════════════════════════════════ -->
       <div id="tab-portfolio" class="tab-panel" style="display:none">
 
-        <!-- Stats row -->
-        <div class="stats-row">
+        <!-- Summary Header -->
+        <div class="portfolio-stats-row">
           <div class="card stat-card">
-            <div class="stat-label">Portfolio Value</div>
-            <div class="stat-big is-primary">
-              <span class="cv" data-eur="125000">€125,000</span>
-            </div>
-            <div class="stat-sub">Across 7 positions</div>
+            <div class="stat-label">Total Value</div>
+            <div class="stat-big stat-big--neutral" id="psTotalValue">€125,000</div>
+            <div class="stat-sub">Across connected providers</div>
           </div>
           <div class="card stat-card">
-            <div class="stat-label">Total P&amp;L</div>
-            <div class="stat-big is-positive">
-              +<span class="cv" data-eur="10760">€10,760</span>
-            </div>
-            <div class="stat-sub">&#8593; +9.4% all time</div>
+            <div class="stat-label">Day Gain</div>
+            <div class="stat-big is-positive" id="psDayGain">+€420</div>
+            <div class="stat-sub" id="psDayGainPct">+0.34% today</div>
           </div>
           <div class="card stat-card">
-            <div class="stat-label">Today's Change</div>
-            <div class="stat-big is-positive">
-              +<span class="cv" data-eur="420">€420</span>
-            </div>
-            <div class="stat-sub">&#8593; +0.34%</div>
+            <div class="stat-label">Total Return</div>
+            <div class="stat-big is-positive" id="psTotalReturn">+€10,760</div>
+            <div class="stat-sub" id="psTotalReturnPct">+9.41% all time</div>
           </div>
         </div>
 
-        <!-- Asset Allocation Chart -->
+        <!-- Portfolio Allocation with Provider tabs -->
         <div class="card">
-          <div class="card-header">
-            <h3 class="card-title" style="margin:0">Asset Allocation</h3>
-            <span class="card-meta">Portfolio breakdown</span>
+          <div class="card-header card-header--adaptive">
+            <h3 class="card-title card-title--header">Portfolio</h3>
+            <span class="card-meta">Asset allocation</span>
           </div>
-          <div class="chart-wrap" style="height:280px">
-            <canvas id="allocationChart"></canvas>
+
+          <div class="filter-bar provider-tabs" id="providerTabs">
+            <button class="filter-btn provider-tab active" data-provider="aggregated" type="button">Aggregated</button>
+            <button class="filter-btn provider-tab" data-provider="nexo" type="button">Nexo</button>
+            <button class="filter-btn provider-tab" data-provider="phantom" type="button">Phantom</button>
+            <button class="filter-btn provider-tab" data-provider="lightyear" type="button">Lightyear</button>
+            <button class="filter-btn provider-tab" data-provider="binance" type="button">Binance</button>
+            <button class="filter-btn provider-tab" data-provider="coinbase" type="button">Coinbase</button>
+          </div>
+
+          <div class="allocation-wrap">
+            <div class="allocation-chart-col">
+              <canvas id="allocationChart"></canvas>
+            </div>
+            <div class="breakdown-list allocation-legend" id="allocationLegend"></div>
+          </div>
+        </div>
+
+        <!-- Performance -->
+        <div class="card">
+          <div class="card-header card-header--adaptive">
+            <h3 class="card-title card-title--header">Performance</h3>
+            <div class="toggle-group" id="perfPeriodToggle">
+              <button class="filter-btn" data-period="1W" type="button">1W</button>
+              <button class="filter-btn" data-period="1M" type="button">1M</button>
+              <button class="filter-btn" data-period="3M" type="button">3M</button>
+              <button class="filter-btn" data-period="6M" type="button">6M</button>
+              <button class="filter-btn active" data-period="1Y" type="button">1Y</button>
+              <button class="filter-btn" data-period="All" type="button">All</button>
+            </div>
+          </div>
+          <div class="perf-change is-positive" id="perfChange">+€12,450 (+11.05%)</div>
+          <div class="chart-wrap" style="height:200px">
+            <canvas id="perfChart"></canvas>
+          </div>
+          <div class="annual-returns-section">
+            <div class="annual-returns-label">Annual Returns</div>
+            <div class="chart-wrap" style="height:120px">
+              <canvas id="yearlyReturnsChart"></canvas>
+            </div>
           </div>
         </div>
 
         <!-- Positions Table -->
         <div class="card">
-          <h3 class="card-title">Investment Positions</h3>
+          <div class="card-header card-header--adaptive">
+            <h3 class="card-title card-title--header">Positions</h3>
+            <span class="card-meta">Holdings across connected providers</span>
+          </div>
           <div id="positionsTable"></div>
         </div>
 
@@ -434,6 +487,30 @@
     </main>
   </div><!-- /app-shell -->
 
-  <script src="demo.js?1776693782"></script>
+  <!-- Coming Soon Modal -->
+  <div class="demo-modal-overlay" id="comingSoonModal" role="dialog" aria-modal="true" aria-labelledby="comingSoonTitle">
+    <div class="demo-modal-card coming-soon-modal-card" role="document">
+      <div class="card-header card-header--adaptive">
+        <div>
+          <div class="card-meta">Coming Soon</div>
+          <h3 class="card-title card-title--header coming-soon-title" id="comingSoonTitle">AI Spending Analytics</h3>
+        </div>
+        <div class="coming-soon-icon" aria-hidden="true">✨</div>
+      </div>
+      <p class="coming-soon-text">
+        Personalised insights, anomaly detection, budget forecasting, and natural-language queries are in development — processed in Germany and never shared outside the EU.
+      </p>
+      <div class="coming-soon-points" aria-hidden="true">
+        <div class="breakdown-row"><span class="dot" style="background:#2563eb"></span><span>Budget forecasting</span></div>
+        <div class="breakdown-row"><span class="dot" style="background:#7c3aed"></span><span>Spending anomalies</span></div>
+        <div class="breakdown-row"><span class="dot" style="background:#0ea5e9"></span><span>Natural-language queries</span></div>
+      </div>
+      <div class="coming-soon-actions">
+        <button class="coming-soon-btn" id="comingSoonCloseBtn" type="button">Back to demo</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="demo.js?20260421"></script>
 </body>
 </html>
