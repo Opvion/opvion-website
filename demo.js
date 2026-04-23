@@ -15,7 +15,10 @@ const MOCK = {
     { id: 'acc-commerz',    name: 'Girokonto',         institution: 'Commerzbank',type: 'checking',   balance:   3640.55 },
     { id: 'acc-sparkasse',  name: 'Savings Plus',      institution: 'Sparkasse',  type: 'savings',    balance:  12750.00 },
     { id: 'acc-n26',        name: 'Daily Account',     institution: 'N26',        type: 'checking',   balance:    890.20 },
-    { id: 'acc-brokerage',  name: 'Brokerage Account', institution: 'Fidelity',   type: 'investment', balance: 125000.00 },
+    { id: 'acc-brokerage',  name: 'Brokerage Account', institution: 'Fidelity',   type: 'investment', balance:  10750.00 },
+    { id: 'acc-ibkr',       name: 'Global Stocks',     institution: 'IBKR',       type: 'investment', balance:  27438.50 },
+    { id: 'acc-traderepublic', name: 'ETF Savings',    institution: 'Trade Republic', type: 'investment', balance: 63413.00 },
+    { id: 'acc-realestate', name: 'Berlin Apartment',  institution: 'Real Estate', type: 'investment', balance: 265000.00 },
   ],
 
   transactions: [
@@ -90,55 +93,7 @@ const MOCK = {
     ],
   },
 
-  portfolioSummary: {
-    totalValue:     125000,
-    dayGain:        420,
-    dayGainPct:     0.34,
-    totalGain:      10760,
-    totalGainPct:   9.41,
-  },
-
-  portfolioAllocation: [
-    { name: 'Stocks',      value: 75000, color: '#3182CE' },
-    { name: 'Bonds',       value: 25000, color: '#4C51BF' },
-    { name: 'Cash',        value: 12500, color: '#38B2AC' },
-    { name: 'Real Estate', value: 12500, color: '#ED8936' },
-  ],
-
-  // Per-provider allocation (demo-only — all providers reuse aggregated unless overridden).
-  providerAllocations: {
-    aggregated: [
-      { name: 'Stocks',      value: 75000, color: '#3182CE' },
-      { name: 'Bonds',       value: 25000, color: '#4C51BF' },
-      { name: 'Cash',        value: 12500, color: '#38B2AC' },
-      { name: 'Real Estate', value: 12500, color: '#ED8936' },
-    ],
-    nexo: [
-      { name: 'BTC',  value: 3200, color: '#F7931A' },
-      { name: 'ETH',  value: 1800, color: '#627EEA' },
-      { name: 'USDC', value:  900, color: '#2775CA' },
-    ],
-    phantom: [
-      { name: 'SOL',  value: 1700, color: '#9945FF' },
-      { name: 'JUP',  value:  420, color: '#14F195' },
-      { name: 'USDC', value:  380, color: '#2775CA' },
-    ],
-    lightyear: [
-      { name: 'EXXT', value: 22000, color: '#3182CE' },
-      { name: 'CNDX', value: 15500, color: '#4C51BF' },
-      { name: 'MEUD', value:  6500, color: '#38B2AC' },
-    ],
-    binance: [
-      { name: 'BTC',  value: 48000, color: '#F7931A' },
-      { name: 'ETH',  value: 14500, color: '#627EEA' },
-      { name: 'NEXO', value:  2800, color: '#1B4C99' },
-    ],
-    coinbase: [
-      { name: 'BTC',  value: 11000, color: '#F7931A' },
-      { name: 'ETH',  value:  4200, color: '#627EEA' },
-      { name: 'EIMI', value:  8000, color: '#805AD5' },
-    ],
-  },
+  // Derived at runtime from investmentPositions (see aggregation helpers).
 
   yearlyReturns: [
     { year: '2019', value:   9.2 },
@@ -156,13 +111,21 @@ const MOCK = {
   ],
 
   investmentPositions: [
-    { ticker: 'BTC',  name: 'Bitcoin',             assetType: 'crypto', qty: 0.28,  buyPrice: 207142.86, currentPrice: 222142.86, value: 62200, pnl:  4200, dayChangePct:  1.82 },
-    { ticker: 'EXXT', name: 'iShares MSCI World',  assetType: 'etf',    qty: 150,   buyPrice:    126.00, currentPrice:    146.67, value: 22000, pnl:  3100, dayChangePct:  0.45 },
-    { ticker: 'CNDX', name: 'Nasdaq 100 ETF',      assetType: 'etf',    qty: 80,    buyPrice:    158.75, currentPrice:    193.75, value: 15500, pnl:  2800, dayChangePct:  1.12 },
-    { ticker: 'EIMI', name: 'Emerging Markets ETF',assetType: 'etf',    qty: 200,   buyPrice:     42.00, currentPrice:     40.00, value:  8000, pnl:  -400, dayChangePct: -0.68 },
-    { ticker: 'MEUD', name: 'Euro Stoxx 600',      assetType: 'etf',    qty: 100,   buyPrice:     61.80, currentPrice:     65.00, value:  6500, pnl:   320, dayChangePct:  0.21 },
-    { ticker: 'NEXO', name: 'Nexo Token',          assetType: 'crypto', qty: 500,   buyPrice:      5.90, currentPrice:      5.60, value:  2800, pnl:  -150, dayChangePct: -2.10 },
-    { ticker: 'SOL',  name: 'Solana',              assetType: 'crypto', qty: 10,    buyPrice:     81.00, currentPrice:    170.00, value:  1700, pnl:   890, dayChangePct:  3.45 },
+    { ticker: 'BTC',  name: 'Bitcoin',             assetType: 'crypto',      provider: 'binance',       qty: 0.28,  buyPrice: 207142.86, currentPrice: 222142.86, value: 62200, pnl:  4200, dayChangePct:  1.82 },
+    { ticker: 'EXXT', name: 'iShares MSCI World',  assetType: 'etf',         provider: 'lightyear',     qty: 150,   buyPrice:    126.00, currentPrice:    146.67, value: 22000, pnl:  3100, dayChangePct:  0.45 },
+    { ticker: 'CNDX', name: 'Nasdaq 100 ETF',      assetType: 'etf',         provider: 'lightyear',     qty: 80,    buyPrice:    158.75, currentPrice:    193.75, value: 15500, pnl:  2800, dayChangePct:  1.12 },
+    { ticker: 'EIMI', name: 'Emerging Markets ETF',assetType: 'etf',         provider: 'coinbase',      qty: 200,   buyPrice:     42.00, currentPrice:     40.00, value:  8000, pnl:  -400, dayChangePct: -0.68 },
+    { ticker: 'MEUD', name: 'Euro Stoxx 600',      assetType: 'etf',         provider: 'lightyear',     qty: 100,   buyPrice:     61.80, currentPrice:     65.00, value:  6500, pnl:   320, dayChangePct:  0.21 },
+    { ticker: 'NEXO', name: 'Nexo Token',          assetType: 'crypto',      provider: 'nexo',          qty: 500,   buyPrice:      5.90, currentPrice:      5.60, value:  2800, pnl:  -150, dayChangePct: -2.10 },
+    { ticker: 'SOL',  name: 'Solana',              assetType: 'crypto',      provider: 'phantom',       qty: 10,    buyPrice:     81.00, currentPrice:    170.00, value:  1700, pnl:   890, dayChangePct:  3.45 },
+    { ticker: 'AAPL', name: 'Apple Inc.',          assetType: 'stock',       provider: 'ibkr',          qty: 45,    buyPrice:    150.00, currentPrice:    220.50, value:  9922.5, pnl: 3172.5, dayChangePct:  0.85 },
+    { ticker: 'MSFT', name: 'Microsoft Corp.',     assetType: 'stock',       provider: 'ibkr',          qty: 30,    buyPrice:    310.00, currentPrice:    415.20, value: 12456, pnl:  3156, dayChangePct: -0.15 },
+    { ticker: 'IBON', name: 'Govt Bond ETF',       assetType: 'bond',        provider: 'traderepublic', qty: 250,   buyPrice:     98.50, currentPrice:    102.10, value: 25525, pnl:   900, dayChangePct:  0.05 },
+    { ticker: 'VWCE', name: 'Vanguard All-World',  assetType: 'etf',         provider: 'traderepublic', qty: 320,   buyPrice:     95.00, currentPrice:    118.40, value: 37888, pnl:  7488, dayChangePct:  0.35 },
+    { ticker: 'EUR',  name: 'Euro Cash',           assetType: 'cash',        provider: 'sparkasse',     qty: 12000, buyPrice:      1.00, currentPrice:      1.00, value: 12000, pnl:     0, dayChangePct:  0.00 },
+    { ticker: 'USD',  name: 'US Dollar Cash',      assetType: 'cash',        provider: 'ibkr',          qty: 5500,  buyPrice:      0.90, currentPrice:      0.92, value:  5060, pnl:   110, dayChangePct:  0.10 },
+    { ticker: 'PROP', name: 'Berlin Apartment',    assetType: 'real_estate', provider: 'real_estate',   qty: 1,     buyPrice: 240000.00, currentPrice: 265000.00, value: 265000, pnl:25000, dayChangePct:  0.00 },
+    { ticker: 'GOLD', name: 'Physical Gold',       assetType: 'commodity',   provider: 'fidelity',      qty: 5,     buyPrice:   1800.00, currentPrice:   2150.00, value: 10750, pnl:  1750, dayChangePct:  0.40 },
   ],
 
   netWorthHistory: {
@@ -171,6 +134,74 @@ const MOCK = {
   },
 
 };
+
+// Rebuild portfolio aggregates from the current positions so summary cards,
+// provider tabs, and allocation charts always stay in sync.
+function derivePortfolioModel() {
+  const typeMeta = {
+    stock:  { name: 'Stocks', color: '#3182CE' },
+    etf:    { name: 'ETFs', color: '#4C51BF' },
+    crypto: { name: 'Crypto', color: '#F59E0B' },
+    bond:   { name: 'Bonds', color: '#38B2AC' },
+  };
+
+  const byProviderType = {};
+  let totalValue = 0;
+  let totalPnl = 0;
+  let dayGain = 0;
+
+  MOCK.investmentPositions.forEach(pos => {
+    const provider = pos.provider || 'unknown';
+    const type = pos.assetType || 'other';
+    const value = Number(pos.value) || 0;
+    const pnl = Number(pos.pnl) || 0;
+    const dayPct = Number(pos.dayChangePct) || 0;
+
+    if (!byProviderType[provider]) byProviderType[provider] = {};
+    byProviderType[provider][type] = (byProviderType[provider][type] || 0) + value;
+
+    totalValue += value;
+    totalPnl += pnl;
+    dayGain += value * (dayPct / 100);
+  });
+
+  function bucketToAllocation(bucket) {
+    return Object.entries(bucket)
+      .map(([type, value]) => {
+        const meta = typeMeta[type] || { name: type, color: '#94A3B8' };
+        return { name: meta.name, value: Math.round(value), color: meta.color };
+      })
+      .sort((a, b) => b.value - a.value);
+  }
+
+  const providerAllocations = {};
+  const aggregatedBucket = {};
+  Object.entries(byProviderType).forEach(([provider, bucket]) => {
+    providerAllocations[provider] = bucketToAllocation(bucket);
+    Object.entries(bucket).forEach(([type, value]) => {
+      aggregatedBucket[type] = (aggregatedBucket[type] || 0) + value;
+    });
+  });
+
+  const portfolioAllocation = bucketToAllocation(aggregatedBucket);
+  providerAllocations.aggregated = portfolioAllocation;
+
+  const investedCost = totalValue - totalPnl;
+  const totalGainPct = investedCost > 0 ? (totalPnl / investedCost) * 100 : 0;
+  const dayGainPct = totalValue > 0 ? (dayGain / totalValue) * 100 : 0;
+
+  MOCK.portfolioAllocation = portfolioAllocation;
+  MOCK.providerAllocations = providerAllocations;
+  MOCK.portfolioSummary = {
+    totalValue: Math.round(totalValue),
+    dayGain: Math.round(dayGain),
+    dayGainPct,
+    totalGain: Math.round(totalPnl),
+    totalGainPct,
+  };
+}
+
+derivePortfolioModel();
 // ════════════════════════════════════════════════════════
 //  THEME
 // ════════════════════════════════════════════════════════
@@ -255,7 +286,7 @@ function applyTheme(dark) {
 // ════════════════════════════════════════════════════════
 //  CURRENCY
 // ════════════════════════════════════════════════════════
-const RATES = {
+const FALLBACK_RATES = {
   EUR: 1,       USD: 1.08,    GBP: 0.85,    CHF: 0.95,
   SEK: 11.20,   NOK: 11.55,   DKK: 7.46,    PLN: 4.28,
   CZK: 25.10,   HUF: 388.0,   RON: 4.97,    BGN: 1.96,
@@ -264,6 +295,58 @@ const RATES = {
   HKD: 8.42,    SGD: 1.45,    INR: 90.20,   AED: 3.97,
   SAR: 4.05,    ZAR: 20.30,   BRL: 5.48,    MXN: 18.60,
 };
+let RATES = { ...FALLBACK_RATES };
+
+const FX_CACHE_KEY    = 'opvion-fx-rates-v1';
+const FX_CACHE_TTL_MS = 12 * 60 * 60 * 1000;        // 12 hours
+const FX_ENDPOINT     = 'https://open.er-api.com/v6/latest/EUR';
+
+function applyFreshRates(fresh) {
+  const merged = { ...FALLBACK_RATES };
+  Object.keys(FALLBACK_RATES).forEach(code => {
+    if (typeof fresh[code] === 'number' && isFinite(fresh[code]) && fresh[code] > 0) {
+      merged[code] = fresh[code];
+    }
+  });
+  merged.EUR = 1;
+  RATES = merged;
+}
+
+async function loadExchangeRates() {
+  // 1. Serve from cache when fresh
+  try {
+    const raw = localStorage.getItem(FX_CACHE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed && parsed.rates && parsed.timestamp
+          && (Date.now() - parsed.timestamp) < FX_CACHE_TTL_MS) {
+        applyFreshRates(parsed.rates);
+        return { source: 'cache', asOf: parsed.asOf || null };
+      }
+    }
+  } catch { /* ignore bad cache */ }
+
+  // 2. Fetch live rates
+  try {
+    const resp = await fetch(FX_ENDPOINT);
+    if (!resp.ok) throw new Error('fx fetch status ' + resp.status);
+    const data = await resp.json();
+    if (!data || data.result === 'error' || !data.rates) throw new Error('fx payload invalid');
+
+    applyFreshRates(data.rates);
+    try {
+      localStorage.setItem(FX_CACHE_KEY, JSON.stringify({
+        timestamp: Date.now(),
+        asOf:      data.time_last_update_utc || null,
+        rates:     data.rates,
+      }));
+    } catch { /* quota / private mode — OK to skip */ }
+    return { source: 'live', asOf: data.time_last_update_utc || null };
+  } catch {
+    // Fall back silently — hardcoded RATES stay in effect
+    return { source: 'fallback', asOf: null };
+  }
+}
 const SYMBOLS = {
   EUR: '€',     USD: '$',     GBP: '£',     CHF: 'Fr',
   SEK: 'kr',    NOK: 'kr',    DKK: 'kr',    PLN: 'zł',
@@ -433,6 +516,50 @@ function updateSpendingChart() {
     charts.spendingPie.data.datasets[0].backgroundColor = data.map(c => c.color);
     charts.spendingPie.update();
   }
+  renderSpendingPieSide();
+}
+
+const SPENDING_PERIOD_LABEL = {
+  day:   'Today',
+  week:  'This week',
+  month: 'This month',
+  year:  'This year',
+  max:   'All time',
+};
+
+function renderSpendingPieSide() {
+  const legendEl = document.getElementById('spendingPieLegend');
+  if (!legendEl) return;
+
+  const data = getSpendingData();
+  const totalEur = data.reduce((s, c) => s + c.amount, 0);
+  const denom = totalEur || 1;
+
+  legendEl.innerHTML = data.map(c => {
+    const pct = ((c.amount / denom) * 100).toFixed(1);
+    return `
+      <div class="breakdown-row">
+        <span class="dot" style="background:${c.color}"></span>
+        <span class="sp-name">${c.name}</span>
+        <span class="sp-amount ml-auto" data-eur="${c.amount}">${fmt(c.amount, { noDecimals: true })}</span>
+        <span class="sp-pct">${pct}%</span>
+      </div>
+    `;
+  }).join('');
+
+  const totalEl = document.getElementById('pieTotalSpend');
+  const totalSubEl = document.getElementById('pieTotalSpendSub');
+  const topEl = document.getElementById('pieTopCat');
+  const topSubEl = document.getElementById('pieTopCatSub');
+  if (totalEl) totalEl.textContent = fmt(totalEur, { noDecimals: true });
+  if (totalSubEl) totalSubEl.textContent = SPENDING_PERIOD_LABEL[spendingPeriod] || '';
+
+  const top = data[0];
+  if (top && topEl && topSubEl) {
+    const topPct = ((top.amount / denom) * 100).toFixed(1);
+    topEl.textContent = top.name;
+    topSubEl.textContent = `${fmt(top.amount, { noDecimals: true })} · ${topPct}%`;
+  }
 }
 
 function switchSpendingPeriod(period) {
@@ -449,8 +576,13 @@ function switchSpendingView(view) {
     btn.classList.toggle('active', btn.dataset.view === view);
   });
   document.getElementById('spendingBarWrap').style.display = view === 'bar' ? 'block' : 'none';
-  document.getElementById('spendingPieWrap').style.display = view === 'pie' ? 'block' : 'none';
-  if (view === 'pie') initSpendingPieChart();
+  document.getElementById('spendingPieWrap').style.display = view === 'pie' ? 'flex' : 'none';
+  if (view === 'pie') {
+    initSpendingPieChart();
+    renderSpendingPieSide();
+    // Chart.js needs a resize hint after the panel becomes visible
+    setTimeout(() => { if (charts.spendingPie) charts.spendingPie.resize(); }, 60);
+  }
 }
 
 function initSpendingPieChart() {
@@ -475,16 +607,7 @@ function initSpendingPieChart() {
       maintainAspectRatio: false,
       cutout: '55%',
       plugins: {
-        legend: {
-          display: true,
-          position: 'right',
-          labels: {
-            color: '#475569',
-            font: { size: 11, weight: '600' },
-            boxWidth: 10,
-            padding: 12,
-          },
-        },
+        legend: { display: false },
         tooltip: {
           callbacks: {
             label: ctx => {
@@ -499,6 +622,7 @@ function initSpendingPieChart() {
     },
   });
 
+  renderSpendingPieSide();
   updateChartTheme();
 }
 
@@ -657,17 +781,99 @@ function renderAllocationLegend() {
   const el = document.getElementById('allocationLegend');
   if (!el) return;
   const data = getActiveAllocation();
-  const total = data.reduce((s, a) => s + a.value, 0) || 1;
+  const totalEur = data.reduce((s, a) => s + a.value, 0);
+  const denom = totalEur || 1;
+
   el.innerHTML = data.map(a => {
-    const pct = ((a.value / total) * 100).toFixed(1);
+    const pct = ((a.value / denom) * 100).toFixed(1);
     return `
       <div class="breakdown-row allocation-row">
         <span class="dot" style="background:${a.color}"></span>
         <span class="al-name">${a.name}</span>
-        <span class="ml-auto al-pct">${pct}%</span>
+        <span class="al-amount ml-auto" data-eur="${a.value}">${fmt(a.value, { noDecimals: true })}</span>
+        <span class="al-pct">${pct}%</span>
       </div>
     `;
   }).join('');
+
+  const topName = document.getElementById('allocTopName');
+  const topSub  = document.getElementById('allocTopSub');
+  const totalValue = document.getElementById('allocTotalValue');
+  const totalValueSub = document.getElementById('allocTotalValueSub');
+  const count   = document.getElementById('allocCount');
+  const conc    = document.getElementById('allocConcentration');
+  const diversification = document.getElementById('allocDiversification');
+  const diversificationSub = document.getElementById('allocDiversificationSub');
+  const insightPill = document.getElementById('allocInsightPill');
+  const insightTitle = document.getElementById('allocInsightTitle');
+  const insightText = document.getElementById('allocInsightText');
+
+  const top = [...data].sort((a, b) => b.value - a.value)[0];
+  const second = [...data].sort((a, b) => b.value - a.value)[1];
+  const topPctValue = top ? (top.value / denom) * 100 : 0;
+  const secondPctValue = second ? (second.value / denom) * 100 : 0;
+  const concentrationRatio = data.reduce((sum, item) => {
+    const weight = item.value / denom;
+    return sum + (weight * weight);
+  }, 0);
+  const effectiveCount = concentrationRatio > 0 ? 1 / concentrationRatio : 0;
+
+  if (totalValue) totalValue.textContent = fmt(totalEur, { noDecimals: true });
+  if (totalValueSub) {
+    totalValueSub.textContent = activeProvider === 'aggregated'
+      ? 'Across all connected providers'
+      : `${activeProvider.charAt(0).toUpperCase()}${activeProvider.slice(1)} account`;
+  }
+
+  if (top && topName && topSub) {
+    const topPct = topPctValue.toFixed(1);
+    topName.textContent = top.name;
+    topSub.textContent  = `${fmt(top.value, { noDecimals: true })} · ${topPct}%`;
+  } else if (topName) {
+    topName.textContent = '—';
+    topSub.textContent  = '—';
+  }
+
+  if (count) count.textContent = String(data.length);
+  if (conc && top) {
+    const topTwoPct = (topPctValue + secondPctValue).toFixed(1);
+    conc.textContent = `Top 2 weights: ${topTwoPct}%`;
+  } else if (conc) {
+    conc.textContent = '—';
+  }
+
+  if (diversification) diversification.textContent = effectiveCount ? effectiveCount.toFixed(1) : '—';
+  if (diversificationSub) {
+    diversificationSub.textContent = effectiveCount >= 3.5
+      ? 'Well spread across sleeves'
+      : effectiveCount >= 2
+        ? 'Moderately concentrated'
+        : 'Highly concentrated';
+  }
+
+  if (insightPill && insightTitle && insightText) {
+    let profile = 'Balanced';
+    let title = 'Balanced allocation mix';
+    let text = 'No single sleeve dominates the portfolio, leaving room for multiple return drivers.';
+
+    if (topPctValue >= 70) {
+      profile = 'Concentrated';
+      title = `${top.name} drives most of the portfolio`;
+      text = `${top.name} accounts for ${topPctValue.toFixed(1)}% of the current mix, so portfolio moves will largely track that sleeve.`;
+    } else if (topPctValue >= 50) {
+      profile = 'Tilted';
+      title = `${top.name} is the main portfolio bet`;
+      text = `${top.name} is the largest sleeve at ${topPctValue.toFixed(1)}%, with the rest of the allocation acting as supporting diversification.`;
+    } else if (second && (topPctValue + secondPctValue) >= 75) {
+      profile = 'Barbell';
+      title = `${top.name} and ${second.name} dominate the mix`;
+      text = `The top two sleeves combine for ${(topPctValue + secondPctValue).toFixed(1)}% of the portfolio, so diversification mostly comes from the remaining smaller sleeves.`;
+    }
+
+    insightPill.textContent = profile;
+    insightTitle.textContent = title;
+    insightText.textContent = text;
+  }
 }
 
 function setActiveProvider(provider) {
@@ -676,6 +882,9 @@ function setActiveProvider(provider) {
     btn.classList.toggle('active', btn.dataset.provider === provider);
   });
   initAllocationChart();
+  renderPortfolioSummary();
+  initPerfChart();
+  renderPositions();
 }
 
 // ── Asset cards (aggregated-only summary)
@@ -697,8 +906,27 @@ function renderAssetCards() {
 }
 
 // ── Portfolio summary header (Total Value / Day Gain / Total Return)
+function getProviderSummary(provider) {
+  if (provider === 'aggregated' || !MOCK.providerAllocations[provider]) {
+    return MOCK.portfolioSummary;
+  }
+  const total = providerCurrentValue(provider);
+  const rng  = seededRand(providerSeed(provider));
+  const dayPct = (rng() * 2 - 1) * 3.5;            // -3.5% .. +3.5%
+  const totalPct = 4 + rng() * 22 - (provider === 'nexo' ? 2 : 0);
+  const dayGain = Math.round(total * dayPct / 100);
+  const totalGain = Math.round(total * totalPct / (100 + totalPct));
+  return {
+    totalValue: total,
+    dayGain,
+    dayGainPct: dayPct,
+    totalGain,
+    totalGainPct: totalPct,
+  };
+}
+
 function renderPortfolioSummary() {
-  const s  = MOCK.portfolioSummary;
+  const s  = getProviderSummary(activeProvider);
   const tv = document.getElementById('psTotalValue');
   const dg = document.getElementById('psDayGain');
   const tr = document.getElementById('psTotalReturn');
@@ -728,7 +956,20 @@ function seededRand(seed) {
   };
 }
 
-function generatePerfSeries(period) {
+function providerCurrentValue(provider) {
+  if (provider === 'aggregated' || !MOCK.providerAllocations[provider]) {
+    return MOCK.portfolioSummary.totalValue;
+  }
+  return MOCK.providerAllocations[provider].reduce((sum, a) => sum + a.value, 0);
+}
+
+function providerSeed(provider) {
+  let h = 0;
+  for (let i = 0; i < provider.length; i++) h = (h * 31 + provider.charCodeAt(i)) & 0xffffffff;
+  return (h >>> 0) || 1;
+}
+
+function generatePerfSeries(period, provider = 'aggregated') {
   const cfg = {
     '1W':  { points: 7,  stepDays: 1,   label: d => d.toLocaleDateString('en-US', { weekday: 'short' }) },
     '1M':  { points: 30, stepDays: 1,   label: d => (d.getDate() + '/' + (d.getMonth() + 1)) },
@@ -738,12 +979,15 @@ function generatePerfSeries(period) {
     'All': { points: 5,  stepDays: 365, label: d => String(d.getFullYear()) },
   }[period];
 
-  const rng   = seededRand(period.charCodeAt(0) * 31337);
+  const rng   = seededRand(period.charCodeAt(0) * 31337 + providerSeed(provider));
   const rand  = () => rng() * 2 - 1;
   const now   = new Date();
   const start = now.getTime() - cfg.stepDays * 86400000 * (cfg.points - 1);
-  const base  = period === 'All' ? 60000 : 112000;
-  const amp   = period === '1W' ? 0.008 : period === '1M' ? 0.015 : 0.035;
+  const endVal = providerCurrentValue(provider);
+  const periodScale = period === 'All' ? 0.55 : period === '1W' ? 0.99 : period === '1M' ? 0.97 : period === '3M' ? 0.93 : period === '6M' ? 0.88 : 0.82;
+  const base  = Math.max(endVal * periodScale, 100);
+  const perProviderAmp = provider === 'nexo' || provider === 'phantom' ? 1.4 : provider === 'binance' || provider === 'coinbase' ? 1.2 : 1;
+  const amp   = (period === '1W' ? 0.008 : period === '1M' ? 0.015 : 0.035) * perProviderAmp;
 
   let value = base;
   const labels = [];
@@ -771,7 +1015,7 @@ function updatePerfChangeLabel(values) {
 function initPerfChart() {
   const ctx = document.getElementById('perfChart');
   if (!ctx) return;
-  const { labels, values } = generatePerfSeries(perfPeriod);
+  const { labels, values } = generatePerfSeries(perfPeriod, activeProvider);
   const isPositive = values[values.length - 1] >= values[0];
   const stroke     = isPositive ? '#10b981' : '#ef4444';
   const fillColor  = isPositive ? 'rgba(16,185,129,0.12)' : 'rgba(239,68,68,0.12)';
@@ -805,6 +1049,7 @@ function initPerfChart() {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
       plugins: {
         legend: { display: false },
         tooltip: {
@@ -863,6 +1108,7 @@ function initYearlyReturnsChart() {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
       plugins: {
         legend: { display: false },
         tooltip: {
@@ -907,7 +1153,7 @@ function updateChartCurrency() {
     charts.allocation.update('none');
   }
   if (charts.perf) {
-    const { values } = generatePerfSeries(perfPeriod);
+    const { values } = generatePerfSeries(perfPeriod, activeProvider);
     charts.perf.data.datasets[0].data = values.map(v => v * RATES[currency]);
     charts.perf.options.scales.y.ticks.callback = v => SYMBOLS[currency] + (v / 1000).toFixed(0) + 'k';
     charts.perf.update('none');
@@ -1274,58 +1520,216 @@ function setCategoryFilter(filterValue) {
 //  RENDER — INVESTMENT POSITIONS
 // ════════════════════════════════════════════════════════
 const ASSET_TYPE_ICON = {
-  stock:  '📈',
-  etf:    '📊',
-  crypto: '₿',
-  bond:   '📜',
+  stock:       '📈',
+  etf:         '📊',
+  crypto:      '₿',
+  bond:        '📜',
+  cash:        '💶',
+  real_estate: '🏠',
+  commodity:   '🧱',
 };
+
+const ASSET_TYPE_LABEL = {
+  stock:       'Stock',
+  etf:         'ETF',
+  crypto:      'Crypto',
+  bond:        'Bond',
+  cash:        'Cash',
+  real_estate: 'Real Estate',
+  commodity:   'Commodity',
+};
+
+const ASSET_TYPE_BADGE = {
+  stock:       { bg: '#dbeafe', text: '#1d4ed8' },
+  etf:         { bg: '#e0e7ff', text: '#3730a3' },
+  crypto:      { bg: '#fef3c7', text: '#92400e' },
+  bond:        { bg: '#f1f5f9', text: '#475569' },
+  cash:        { bg: '#d1fae5', text: '#065f46' },
+  real_estate: { bg: '#fce7f3', text: '#be123c' },
+  commodity:   { bg: '#fff7ed', text: '#c2410c' },
+};
+
+const PROVIDER_LABEL = {
+  nexo:          'Nexo',
+  phantom:       'Phantom',
+  lightyear:     'Lightyear',
+  binance:       'Binance',
+  coinbase:      'Coinbase',
+  ibkr:          'IBKR',
+  traderepublic: 'Trade Republic',
+  sparkasse:     'Sparkasse',
+  real_estate:   'Real Estate',
+  fidelity:      'Fidelity',
+};
+
+let posFilter       = 'all';
+let posColTypes     = [];
+let posColProviders = [];
+
+function openPosColDropdown(col, thEl) {
+  if (_openColDrop) {
+    const same = _openColDrop.col === 'pos-' + col;
+    closeColDropdown();
+    if (same) return;
+  }
+  const rect = thEl.getBoundingClientRect();
+  const el = document.createElement('div');
+  el.className = 'col-dropdown';
+  el.addEventListener('click', e => e.stopPropagation());
+
+  if (col === 'type') {
+    const allTypes = [...new Set(MOCK.investmentPositions.map(p => p.assetType))].sort();
+    const allChecked = posColTypes.length === 0;
+    const rows = allTypes.map(t => {
+      const chk = allChecked || posColTypes.includes(t) ? 'checked' : '';
+      return `<label class="col-check-row"><input type="checkbox" value="${t}" ${chk}><span>${ASSET_TYPE_LABEL[t] || t}</span></label>`;
+    }).join('');
+    el.innerHTML = `
+      <div class="col-dropdown-title">Filter by type</div>
+      <label class="col-check-row col-check-all"><input type="checkbox" id="ptAllChk" ${allChecked ? 'checked' : ''}><span>All</span></label>
+      <div class="col-check-divider"></div>
+      <div class="col-dropdown-check-list" id="ptList">${rows}</div>
+      <div class="col-dd-actions">
+        <button class="col-dd-clear" id="ptClear">Clear</button>
+        <button class="col-dd-apply" id="ptApply">Apply</button>
+      </div>`;
+    const allChk = el.querySelector('#ptAllChk');
+    const list   = el.querySelector('#ptList');
+    allChk.addEventListener('change', () => { list.querySelectorAll('input').forEach(i => i.checked = allChk.checked); });
+    list.addEventListener('change', () => {
+      const total   = list.querySelectorAll('input').length;
+      const checked = list.querySelectorAll('input:checked').length;
+      allChk.checked = checked === total;
+      allChk.indeterminate = checked > 0 && checked < total;
+    });
+    el.querySelector('#ptApply').addEventListener('click', () => {
+      const sel = [...el.querySelectorAll('#ptList input:checked')].map(i => i.value);
+      posColTypes = sel.length === allTypes.length ? [] : sel;
+      closeColDropdown(); renderPositions();
+    });
+    el.querySelector('#ptClear').addEventListener('click', () => {
+      posColTypes = []; closeColDropdown(); renderPositions();
+    });
+  } else if (col === 'provider') {
+    const allProviders = [...new Set(MOCK.investmentPositions.map(p => p.provider))].sort();
+    const allChecked = posColProviders.length === 0;
+    const rows = allProviders.map(p => {
+      const chk = allChecked || posColProviders.includes(p) ? 'checked' : '';
+      return `<label class="col-check-row"><input type="checkbox" value="${p}" ${chk}><span>${PROVIDER_LABEL[p] || p}</span></label>`;
+    }).join('');
+    el.innerHTML = `
+      <div class="col-dropdown-title">Filter by provider</div>
+      <label class="col-check-row col-check-all"><input type="checkbox" id="ppAllChk" ${allChecked ? 'checked' : ''}><span>All</span></label>
+      <div class="col-check-divider"></div>
+      <div class="col-dropdown-check-list" id="ppList">${rows}</div>
+      <div class="col-dd-actions">
+        <button class="col-dd-clear" id="ppClear">Clear</button>
+        <button class="col-dd-apply" id="ppApply">Apply</button>
+      </div>`;
+    const allChk = el.querySelector('#ppAllChk');
+    const list   = el.querySelector('#ppList');
+    allChk.addEventListener('change', () => { list.querySelectorAll('input').forEach(i => i.checked = allChk.checked); });
+    list.addEventListener('change', () => {
+      const total   = list.querySelectorAll('input').length;
+      const checked = list.querySelectorAll('input:checked').length;
+      allChk.checked = checked === total;
+      allChk.indeterminate = checked > 0 && checked < total;
+    });
+    el.querySelector('#ppApply').addEventListener('click', () => {
+      const sel = [...el.querySelectorAll('#ppList input:checked')].map(i => i.value);
+      posColProviders = sel.length === allProviders.length ? [] : sel;
+      closeColDropdown(); renderPositions();
+    });
+    el.querySelector('#ppClear').addEventListener('click', () => {
+      posColProviders = []; closeColDropdown(); renderPositions();
+    });
+  }
+
+  el.style.left = Math.min(rect.left, window.innerWidth - 230) + 'px';
+  el.style.top  = (rect.bottom + 4) + 'px';
+  document.body.appendChild(el);
+  _openColDrop = { col: 'pos-' + col, el };
+}
 
 function renderPositions() {
   const el = document.getElementById('positionsTable');
   if (!el) return;
-  const rows = MOCK.investmentPositions.map(pos => {
-    const gain   = pos.pnl >= 0;
-    const pnlCls = gain ? 'pnl-pos' : 'pnl-neg';
-    const prefix = gain ? '+' : '';
-    const cost   = pos.value - pos.pnl;
-    const pct    = cost > 0 ? ((pos.pnl / cost) * 100).toFixed(1) : '0.0';
-    const icon   = ASSET_TYPE_ICON[pos.assetType] || '💰';
-    const dayPos = (pos.dayChangePct ?? 0) >= 0;
-    const dayCls = dayPos ? 'is-positive' : 'is-negative';
-    const qtyStr = pos.qty.toLocaleString('en-US', { maximumFractionDigits: 4 });
-    return `
-      <tr>
-        <td>
-          <div class="pos-asset-cell">
-            <div class="pos-icon">${icon}</div>
-            <div>
-              <div class="ticker">${pos.name}</div>
-              <div class="pos-name">${pos.ticker}</div>
+
+  let filtered = MOCK.investmentPositions;
+  if (activeProvider !== 'aggregated') {
+    filtered = filtered.filter(p => p.provider === activeProvider);
+  }
+  if (posFilter !== 'all') {
+    filtered = filtered.filter(p => p.assetType === posFilter);
+  }
+  if (posColTypes.length > 0) {
+    filtered = filtered.filter(p => posColTypes.includes(p.assetType));
+  }
+  if (posColProviders.length > 0) {
+    filtered = filtered.filter(p => posColProviders.includes(p.provider));
+  }
+
+  let rowsHtml = '';
+  if (!filtered.length) {
+    rowsHtml = '<tr><td colspan="8" style="padding: 24px; text-align: center; color: #64748b;">No positions match your filters.</td></tr>';
+  } else {
+    rowsHtml = filtered.map(pos => {
+      const gain   = pos.pnl >= 0;
+      const pnlCls = gain ? 'pnl-pos' : 'pnl-neg';
+      const prefix = gain ? '+' : '';
+      const cost   = pos.value - pos.pnl;
+      const pct    = cost > 0 ? ((pos.pnl / cost) * 100).toFixed(1) : '0.0';
+      const icon   = ASSET_TYPE_ICON[pos.assetType] || '💰';
+      const dayPos = (pos.dayChangePct ?? 0) >= 0;
+      const dayCls = dayPos ? 'is-positive' : 'is-negative';
+      const qtyStr = pos.qty.toLocaleString('en-US', { maximumFractionDigits: 4 });
+      const typeBadge = ASSET_TYPE_BADGE[pos.assetType] || ASSET_TYPE_BADGE.bond;
+      const providerLabel = PROVIDER_LABEL[pos.provider] || pos.provider;
+      return `
+        <tr>
+          <td>
+            <div class="pos-asset-cell">
+              <div class="pos-icon">${icon}</div>
+              <div>
+                <div class="ticker">${pos.ticker}</div>
+                <div class="pos-name">${pos.name}</div>
+              </div>
             </div>
-          </div>
-        </td>
-        <td class="text-right">${qtyStr}</td>
-        <td class="text-right" data-eur="${pos.buyPrice}">${fmt(pos.buyPrice)}</td>
-        <td class="text-right" data-eur="${pos.currentPrice}">${fmt(pos.currentPrice)}</td>
-        <td class="text-right">
-          <span class="day-pill ${dayCls}">${dayPos ? '+' : ''}${(pos.dayChangePct ?? 0).toFixed(2)}%</span>
-        </td>
-        <td class="text-right ${pnlCls}" data-eur="${pos.pnl}">
-          ${prefix}${fmt(pos.pnl, { noDecimals: true })}
-          <div class="pos-name">${prefix}${pct}%</div>
-        </td>
-        <td class="text-right" data-eur="${pos.value}">
-          <strong>${fmt(pos.value, { noDecimals: true })}</strong>
-        </td>
-      </tr>
-    `;
-  }).join('');
+          </td>
+          <td>
+            <span class="cat-badge" style="background:${typeBadge.bg};color:${typeBadge.text}">
+              ${ASSET_TYPE_LABEL[pos.assetType] || pos.assetType}
+            </span>
+          </td>
+          <td><span class="account-pill">${providerLabel}</span></td>
+          <td class="text-right">${qtyStr}</td>
+          <td class="text-right" data-eur="${pos.buyPrice}">${fmt(pos.buyPrice)}</td>
+          <td class="text-right" data-eur="${pos.currentPrice}">${fmt(pos.currentPrice)}</td>
+          <td class="text-right">
+            <span class="day-pill ${dayCls}">${dayPos ? '+' : ''}${(pos.dayChangePct ?? 0).toFixed(2)}%</span>
+          </td>
+          <td class="text-right ${pnlCls}" data-eur="${pos.pnl}">
+            ${prefix}${fmt(pos.pnl, { noDecimals: true })}
+            <div class="pos-name">${prefix}${pct}%</div>
+          </td>
+          <td class="text-right" data-eur="${pos.value}">
+            <strong>${fmt(pos.value, { noDecimals: true })}</strong>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  const typeAct = posColTypes.length > 0     ? ' th-filter--active' : '';
+  const provAct = posColProviders.length > 0 ? ' th-filter--active' : '';
 
   el.innerHTML = `
     <table class="pos-table">
       <thead>
         <tr>
           <th>Asset</th>
+          <th class="th-filter${typeAct}" id="thPosType">Type <span class="th-chevron">▾</span></th>
+          <th class="th-filter${provAct}" id="thPosProvider">Provider <span class="th-chevron">▾</span></th>
           <th class="text-right">Qty</th>
           <th class="text-right">Buy</th>
           <th class="text-right">Price</th>
@@ -1334,9 +1738,34 @@ function renderPositions() {
           <th class="text-right">Value</th>
         </tr>
       </thead>
-      <tbody>${rows}</tbody>
+      <tbody>${rowsHtml}</tbody>
     </table>
   `;
+
+  const thType = document.getElementById('thPosType');
+  const thProv = document.getElementById('thPosProvider');
+  if (thType) thType.addEventListener('click', e => { e.stopPropagation(); openPosColDropdown('type', e.currentTarget); });
+  if (thProv) thProv.addEventListener('click', e => { e.stopPropagation(); openPosColDropdown('provider', e.currentTarget); });
+}
+
+function setPositionFilter(filterValue) {
+  closeColDropdown();
+  posFilter = filterValue;
+  document.querySelectorAll('#posFilters .filter-btn[data-filter]').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.filter === filterValue);
+  });
+  renderPositions();
+}
+
+function clearAllPositionFilters() {
+  closeColDropdown();
+  posFilter = 'all';
+  posColTypes = [];
+  posColProviders = [];
+  document.querySelectorAll('#posFilters .filter-btn[data-filter]').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.filter === 'all');
+  });
+  renderPositions();
 }
 
 // ════════════════════════════════════════════════════════
@@ -1495,6 +1924,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Apply light mode by default
   try { applyTheme(false); } catch(e) { console.error(e); }
 
+  // Kick off live FX rates; refresh UI once resolved (no-op if offline).
+  loadExchangeRates().then(res => {
+    if (res.source === 'fallback') return;
+    updateAllCurrencyValues();
+    updateChartCurrency();
+  });
+
   // Theme toggle
   document.getElementById('themeToggle').addEventListener('click', () => {
     applyTheme(!document.body.classList.contains('dark'));
@@ -1567,6 +2003,13 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('#perfPeriodToggle .filter-btn').forEach(btn => {
     btn.addEventListener('click', () => setPerfPeriod(btn.dataset.period));
   });
+
+  // Portfolio — positions filter pills
+  document.querySelectorAll('#posFilters .filter-btn[data-filter]').forEach(btn => {
+    btn.addEventListener('click', () => setPositionFilter(btn.dataset.filter));
+  });
+  const clearPosBtn = document.getElementById('clearPosFiltersBtn');
+  if (clearPosBtn) clearPosBtn.addEventListener('click', clearAllPositionFilters);
 
   // AI Insights — Coming Soon modal
   const aiBtn     = document.getElementById('aiInsightsBtn');

@@ -15,7 +15,7 @@
   <!-- ── Demo Banner ── -->
   <div class="demo-banner" id="demoBanner">
     <span>Interactive demo &mdash; all figures are sample data only.</span>
-    <a href="contact.html" class="demo-banner-cta">Sign up for real insights &rarr;</a>
+    <a href="index.html#contact" class="demo-banner-cta">Sign up for real insights &rarr;</a>
     <button class="demo-banner-close" onclick="document.getElementById('demoBanner').style.display='none'">&#x2715;</button>
   </div>
 
@@ -91,7 +91,7 @@
             <option value="ZAR">R ZAR — South African Rand</option>
           </optgroup>
         </select>
-        <a href="contact.html" class="sidebar-cta">Get Early Access</a>
+        <a href="index.html#contact" class="sidebar-cta">Get Early Access</a>
         <a href="index.html" class="sidebar-back">&larr; Back to site</a>
       </div>
     </aside>
@@ -367,8 +367,25 @@
           <div id="spendingBarWrap" class="chart-wrap" style="height:280px">
             <canvas id="spendingChart"></canvas>
           </div>
-          <div id="spendingPieWrap" class="chart-wrap" style="height:280px;display:none">
-            <canvas id="spendingPieChart"></canvas>
+          <div id="spendingPieWrap" class="spending-pie-wrap" style="display:none">
+            <div class="chart-wrap spending-pie-chart-col">
+              <canvas id="spendingPieChart"></canvas>
+            </div>
+            <div class="spending-pie-side">
+              <div class="spending-pie-summary">
+                <div class="spending-pie-kpi">
+                  <div class="spending-pie-kpi-label">Total Spending</div>
+                  <div class="spending-pie-kpi-value" id="pieTotalSpend">€0</div>
+                  <div class="spending-pie-kpi-sub" id="pieTotalSpendSub">This month</div>
+                </div>
+                <div class="spending-pie-kpi">
+                  <div class="spending-pie-kpi-label">Top Category</div>
+                  <div class="spending-pie-kpi-value" id="pieTopCat">—</div>
+                  <div class="spending-pie-kpi-sub" id="pieTopCatSub">—</div>
+                </div>
+              </div>
+              <div class="breakdown-list spending-pie-legend" id="spendingPieLegend"></div>
+            </div>
           </div>
         </div>
 
@@ -438,13 +455,32 @@
             <button class="filter-btn provider-tab" data-provider="lightyear" type="button">Lightyear</button>
             <button class="filter-btn provider-tab" data-provider="binance" type="button">Binance</button>
             <button class="filter-btn provider-tab" data-provider="coinbase" type="button">Coinbase</button>
+            <button class="filter-btn provider-tab" data-provider="ibkr" type="button">IBKR</button>
+            <button class="filter-btn provider-tab" data-provider="traderepublic" type="button">Trade Republic</button>
+            <button class="filter-btn provider-tab" data-provider="sparkasse" type="button">Sparkasse</button>
+            <button class="filter-btn provider-tab" data-provider="fidelity" type="button">Fidelity</button>
+            <button class="filter-btn provider-tab" data-provider="real_estate" type="button">Real Estate</button>
           </div>
 
           <div class="allocation-wrap">
             <div class="allocation-chart-col">
               <canvas id="allocationChart"></canvas>
             </div>
-            <div class="breakdown-list allocation-legend" id="allocationLegend"></div>
+            <div class="allocation-side">
+              <div class="allocation-kpis">
+                <div class="allocation-kpi">
+                  <div class="allocation-kpi-label">Top Holding</div>
+                  <div class="allocation-kpi-value" id="allocTopName">—</div>
+                  <div class="allocation-kpi-sub" id="allocTopSub">—</div>
+                </div>
+                <div class="allocation-kpi">
+                  <div class="allocation-kpi-label">Holdings</div>
+                  <div class="allocation-kpi-value" id="allocCount">—</div>
+                  <div class="allocation-kpi-sub" id="allocConcentration">—</div>
+                </div>
+              </div>
+              <div class="breakdown-list allocation-legend" id="allocationLegend"></div>
+            </div>
           </div>
         </div>
 
@@ -478,6 +514,21 @@
           <div class="card-header card-header--adaptive">
             <h3 class="card-title card-title--header">Positions</h3>
             <span class="card-meta">Holdings across connected providers</span>
+          </div>
+          <div class="spending-toolbar">
+            <div class="filter-bar" id="posFilters" style="margin-bottom:0;flex:1">
+              <button class="filter-btn active" data-filter="all">All</button>
+              <button class="filter-btn" data-filter="crypto">Crypto</button>
+              <button class="filter-btn" data-filter="etf">ETFs</button>
+              <button class="filter-btn" data-filter="stock">Stocks</button>
+              <button class="filter-btn" data-filter="bond">Bonds</button>
+              <button class="filter-btn" data-filter="cash">Cash</button>
+              <button class="filter-btn" data-filter="real_estate">Real Estate</button>
+              <button class="filter-btn" data-filter="commodity">Commodity</button>
+            </div>
+            <div class="toolbar-actions">
+              <button class="btn-toolbar btn-toolbar-ghost" id="clearPosFiltersBtn" title="Reset every active filter">Clear All</button>
+            </div>
           </div>
           <div id="positionsTable"></div>
         </div>
