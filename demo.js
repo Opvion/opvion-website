@@ -1921,8 +1921,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Init dashboard pie chart
   initWealthPieChart();
 
-  // Apply light mode by default
-  try { applyTheme(false); } catch(e) { console.error(e); }
+  // Apply dark mode by default
+  try { applyTheme(true); } catch(e) { console.error(e); }
 
   // Kick off live FX rates; refresh UI once resolved (no-op if offline).
   loadExchangeRates().then(res => {
