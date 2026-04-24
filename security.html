@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Security at Opvion — How we protect your financial data with bank-grade security, encryption, and EU data residency." />
+  <title>Security — Opvion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="security" class="page-subpage">
+
+  <div id="nav-mount"></div>
+
+  <section id="security">
+    <div class="container">
+      <div class="section-label">Security</div>
+      <h2>Your data is safe with us.</h2>
+      <p class="section-sub">Bank-grade security, EU data residency, and zero data selling.</p>
+
+      <div class="features-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-top: 3rem;">
+
+        <div class="features-plan-block">
+          <div class="features-plan-header">
+            <div class="features-plan-name">Encryption</div>
+          </div>
+          <div class="features-list">
+            <div class="feature-row"><div class="fr-icon">🛡️</div><div class="fr-body"><h5>AES-256 Encryption at Rest</h5><p>All your financial data is encrypted at rest using AES-256, the same standard used by banks and governments worldwide.</p></div></div>
+            <div class="feature-row"><div class="fr-icon">🔐</div><div class="fr-body"><h5>TLS 1.3 in Transit</h5><p>Every connection between your device and our servers is protected by TLS 1.3, ensuring no data can be intercepted in transit.</p></div></div>
+            <div class="feature-row"><div class="fr-icon">🗝️</div><div class="fr-body"><h5>Credential Isolation</h5><p>The tokens we use to fetch your bank data are stored in a separate, access-controlled vault, not alongside your account information.</p></div></div>
+          </div>
+        </div>
+
+        <div class="features-plan-block">
+          <div class="features-plan-header">
+            <div class="features-plan-name">Data & Privacy</div>
+          </div>
+          <div class="features-list">
+            <div class="feature-row"><div class="fr-icon">🏳️</div><div class="fr-body"><h5>Data Stays in the European Union</h5><p>All servers are hosted in EU member states. Your data never leaves the EU and is subject to the strictest privacy laws in the world.</p></div></div>
+            <div class="feature-row"><div class="fr-icon">📜</div><div class="fr-body"><h5>GDPR Compliant</h5><p>We are fully compliant with the General Data Protection Regulation. You have the right to access, export, or delete your data at any time.</p></div></div>
+            <div class="feature-row"><div class="fr-icon">🚫</div><div class="fr-body"><h5>Zero Data Selling</h5><p>We do not sell, rent, or share your personal or financial data with third parties, ever. Our business model is subscriptions, not your data.</p></div></div>
+          </div>
+        </div>
+
+        <div class="features-plan-block">
+          <div class="features-plan-header">
+            <div class="features-plan-name">Banking Integrations</div>
+          </div>
+          <div class="features-list">
+            <div class="feature-row"><div class="fr-icon">🔗</div><div class="fr-body"><h5>Read-Only Bank Access</h5><p>Opvion only ever requests read-only access to your accounts. We cannot initiate payments, move funds, or make any changes on your behalf.</p></div></div>
+            <div class="feature-row"><div class="fr-icon">✅</div><div class="fr-body"><h5>Regulated Providers</h5><p>Bank connections are powered by Plaid (FCA-regulated) and TrueLayer (FCA & BaFin-regulated), both operate under strict open-banking laws.</p></div></div>
+            <div class="feature-row"><div class="fr-icon">🔄</div><div class="fr-body"><h5>Re-authentication Required</h5><p>Connections to your bank expire regularly and require your explicit re-approval, giving you full control over what Opvion has access to at all times.</p></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="security-faq">
+    <div class="container">
+      <h2>Frequently Asked Questions</h2>
+      <p class="section-sub" style="text-align: center; margin-left: auto; margin-right: auto;">Everything you might want to know about how we handle your data and keep you safe.</p>
+
+      <div class="faq-list faq-list--centered">
+
+        <details class="faq-item">
+          <summary class="faq-question">What data do you collect and store?</summary>
+          <div class="faq-answer">
+            <p>We collect only what's needed to show you your financial picture. This comes either from your manual input or your read-only bank connections, which are powered by <strong>Plaid</strong>, <strong>Salt Edge</strong>, and <strong>TrueLayer</strong>. We can never move or modify your money. We never store your bank login credentials.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">How is my data protected?</summary>
+          <div class="faq-answer">
+            <p>We're based in the European Union, which means we're held to GDPR, the strictest data privacy regulation in the world. Our banking partners (<strong>Plaid</strong>, <strong>Salt Edge</strong>, and <strong>TrueLayer</strong>) use encrypted connections (TLS) and tokenization to protect data in transit, and all stored data is encrypted with AES-256. Your data is stored exclusively on EU servers, and we never sell it to anyone. We make our money through subscriptions, not by selling your data.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">Can I execute transactions through Opvion?</summary>
+          <div class="faq-answer">
+            <p>No, and that's by design. We connect to your bank with read-only access, which means it is impossible to move or modify your money through our app for anyone, including our own team. Even if someone gained access to your Opvion account, there is simply no mechanism to initiate any transaction.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">How does Opvion make money?</summary>
+          <div class="faq-answer">
+            <p>Through subscriptions, not your data. We offer several plans to suit different needs. You can <a href="pricing.html" class="faq-link">view all plans and pricing here</a>.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">Can I delete my account and all my data?</summary>
+          <div class="faq-answer">
+            <p>Yes. You can delete your account at any time directly from your account settings. The process is straightforward and permanently removes your account along with all associated data from our systems. We'd be sorry to see you go, but we make it easy.</p>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-mount"></div>
+  <div id="modals-mount"></div>
+
+  <script src="layout.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

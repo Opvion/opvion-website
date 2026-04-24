@@ -26,6 +26,7 @@
           ${navLink('why-us.html', 'Why Us', 'why-us')}
           ${navLink('pricing.html', 'Pricing', 'pricing')}
           ${navLink('features.html', 'Features', 'features')}
+          ${navLink('security.html', 'Security', 'security')}
           <li><a href="index.html#contact" class="btn-nav">Get Early Access</a></li>
         </ul>
         <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -36,6 +37,7 @@
         ${mobileLink('why-us.html', 'Why Us', 'why-us')}
         ${mobileLink('pricing.html', 'Pricing', 'pricing')}
         ${mobileLink('features.html', 'Features', 'features')}
+        ${mobileLink('security.html', 'Security', 'security')}
         <a href="index.html#contact" class="btn-mobile">Get Early Access</a>
       </div>
     </nav>
