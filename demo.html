@@ -251,7 +251,10 @@
 
           <!-- Connected Accounts -->
           <div class="card">
-            <h3 class="card-title">Connected Accounts</h3>
+            <div class="card-header">
+              <h3 class="card-title" style="margin:0">Connected Accounts</h3>
+              <button class="btn-add-account" id="addAccountBtn" type="button">+ Add Account</button>
+            </div>
             <div id="accountsList"></div>
           </div>
 
@@ -537,6 +540,17 @@
 
     </main>
   </div><!-- /app-shell -->
+
+  <!-- Add Account Modal -->
+  <div class="demo-modal-overlay" id="addAccountModal" role="dialog" aria-modal="true" aria-labelledby="addAccountTitle">
+    <div class="demo-modal-card" role="document" style="max-width:420px;text-align:center">
+      <h3 class="card-title card-title--header" id="addAccountTitle" style="margin-bottom:16px">Add Account</h3>
+      <p class="coming-soon-text">Available in the full version. <a href="index.html#contact" class="inline-link">Sign up here &rarr;</a></p>
+      <div class="coming-soon-actions" style="margin-top:24px">
+        <button class="coming-soon-btn" id="addAccountCloseBtn" type="button">Back to demo</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Coming Soon Modal -->
   <div class="demo-modal-overlay" id="comingSoonModal" role="dialog" aria-modal="true" aria-labelledby="comingSoonTitle">

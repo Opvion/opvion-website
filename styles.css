@@ -1152,16 +1152,18 @@ footer {
 }
 
 .strength-card h3 {
-  font-size: 1rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: var(--text);
-  margin-bottom: 10px;
+  margin-bottom: 18px;
+  text-align: center;
 }
 
 .strength-card p {
   font-size: 0.875rem;
   color: var(--text-muted);
   line-height: 1.65;
+  text-align: center;
 }
 
 /* ── COMPARE TOGGLE ──────────────────────────────── */

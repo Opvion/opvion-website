@@ -514,7 +514,7 @@ body::before {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 0;
+  padding: 5px 0;
   border-bottom: 1px solid #f1f5f9;
 }
 .account-row:last-child { border-bottom: none; }
@@ -551,6 +551,33 @@ body::before {
   white-space: nowrap;
 }
 .account-balance.negative { color: #dc2626; }
+
+/* ── Account Category Groups ───────────────────────── */
+.accounts-category { margin-bottom: 4px; }
+.accounts-category:last-child { margin-bottom: 0; }
+.accounts-category-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1e293b;
+  padding: 8px 0 4px;
+  border-top: 1px solid #f1f5f9;
+}
+.accounts-category:first-child .accounts-category-label { border-top: none; padding-top: 0; }
+
+/* ── Add Account Button ────────────────────────────── */
+.btn-add-account {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #2563eb;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  padding: 5px 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s;
+}
+.btn-add-account:hover { background: #dbeafe; border-color: #93c5fd; }
 
 /* ── Quick Stats Row ───────────────────────────────── */
 .quick-stats-row {
@@ -995,6 +1022,9 @@ body.dark .badge-checking    { background: #1e3a8a; color: #93c5fd; }
 body.dark .badge-savings     { background: #064e3b; color: #6ee7b7; }
 body.dark .badge-investment  { background: #3b0764; color: #c4b5fd; }
 body.dark .badge-credit_card { background: #450a0a; color: #fca5a5; }
+body.dark .accounts-category-label { color: #f1f5f9; border-top-color: rgba(255,255,255,0.06); }
+body.dark .btn-add-account { background: rgba(37,99,235,0.15); border-color: rgba(37,99,235,0.3); color: #93c5fd; }
+body.dark .btn-add-account:hover { background: rgba(37,99,235,0.25); border-color: rgba(37,99,235,0.5); }
 
 /* Quick stats (dashboard recent activity) */
 body.dark .quick-stats-row { background: rgba(255,255,255,0.03); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-color: rgba(255,255,255,0.07); }

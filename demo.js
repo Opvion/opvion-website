@@ -10,15 +10,16 @@ const MOCK = {
   },
 
   accounts: [
-    { id: 'acc-revolut',    name: 'Personal EUR',      institution: 'Revolut',    type: 'checking',   balance:   1280.45 },
-    { id: 'acc-wise',       name: 'Multi-Currency',    institution: 'Wise',       type: 'checking',   balance:   5420.10 },
-    { id: 'acc-commerz',    name: 'Girokonto',         institution: 'Commerzbank',type: 'checking',   balance:   3640.55 },
-    { id: 'acc-sparkasse',  name: 'Savings Plus',      institution: 'Sparkasse',  type: 'savings',    balance:  12750.00 },
-    { id: 'acc-n26',        name: 'Daily Account',     institution: 'N26',        type: 'checking',   balance:    890.20 },
-    { id: 'acc-brokerage',  name: 'Brokerage Account', institution: 'Fidelity',   type: 'investment', balance:  10750.00 },
-    { id: 'acc-ibkr',       name: 'Global Stocks',     institution: 'IBKR',       type: 'investment', balance:  27438.50 },
-    { id: 'acc-traderepublic', name: 'ETF Savings',    institution: 'Trade Republic', type: 'investment', balance: 63413.00 },
-    { id: 'acc-realestate', name: 'Berlin Apartment',  institution: 'Real Estate', type: 'investment', balance: 265000.00 },
+    { id: 'acc-revolut',       name: 'Personal EUR',      institution: 'Revolut',        categories: ['bank_account', 'crypto_account'], balance:   1280.45 },
+    { id: 'acc-wise',          name: 'Multi-Currency',    institution: 'Wise',           categories: ['bank_account'],                    balance:   5420.10 },
+    { id: 'acc-commerz',       name: 'Girokonto',         institution: 'Commerzbank',    categories: ['bank_account'],                    balance:   3640.55 },
+    { id: 'acc-sparkasse',     name: 'Savings Plus',      institution: 'Sparkasse',      categories: ['bank_account'],                    balance:  12750.00 },
+    { id: 'acc-n26',           name: 'Daily Account',     institution: 'N26',            categories: ['bank_account'],                    balance:    890.20 },
+    { id: 'acc-brokerage',     name: 'Brokerage Account', institution: 'Fidelity',       categories: ['investment_account'],              balance:  10750.00 },
+    { id: 'acc-ibkr',          name: 'Global Stocks',     institution: 'IBKR',           categories: ['investment_account'],              balance:  27438.50 },
+    { id: 'acc-traderepublic', name: 'ETF Savings',       institution: 'Trade Republic', categories: ['investment_account'],              balance:  63413.00 },
+    { id: 'acc-realestate',    name: 'Berlin Apartment',  institution: 'Real Estate',    categories: ['real_estate'],                     balance: 265000.00 },
+    { id: 'acc-car',           name: 'BMW 3 Series',      institution: 'Vehicle',        categories: ['vehicle'],                         balance:  18500.00 },
   ],
 
   transactions: [
@@ -403,10 +404,11 @@ const CAT_COLORS = {
 };
 
 const ACCOUNT_EMOJI = {
-  checking:    '💳',
-  savings:     '🏦',
-  investment:  '📈',
-  credit_card: '💳',
+  bank_account:       '🏦',
+  investment_account: '📈',
+  crypto_account:     '₿',
+  real_estate:        '🏠',
+  vehicle:            '🚗',
 };
 
 function getAccountById(accountId) {
@@ -1170,21 +1172,30 @@ function updateChartCurrency() {
 // ════════════════════════════════════════════════════════
 function renderAccounts() {
   const el = document.getElementById('accountsList');
-  el.innerHTML = MOCK.accounts.map(acc => {
-    const neg = acc.balance < 0;
-    const badgeClass = 'badge-' + acc.type;
-    const label = acc.type.replace('_', ' ');
+  const CATEGORIES = [
+    { key: 'bank_account',       label: 'Bank Account' },
+    { key: 'investment_account', label: 'Investment Account' },
+    { key: 'crypto_account',     label: 'Crypto Account' },
+    { key: 'real_estate',        label: 'Real Estate' },
+    { key: 'vehicle',            label: 'Vehicle' },
+  ];
+  el.innerHTML = CATEGORIES.map(cat => {
+    const accounts = MOCK.accounts.filter(acc => (acc.categories || []).includes(cat.key));
+    if (!accounts.length) return '';
     return `
-      <div class="account-row">
-        <div class="account-icon">${ACCOUNT_EMOJI[acc.type] || '💳'}</div>
-        <div>
-          <div class="account-name">${acc.name}</div>
-          <div class="account-inst">${acc.institution}</div>
-        </div>
-        <span class="account-badge ${badgeClass}">${label}</span>
-        <div class="account-balance ${neg ? 'negative' : ''}" data-eur="${acc.balance}">
-          ${fmt(acc.balance)}
-        </div>
+      <div class="accounts-category">
+        <div class="accounts-category-label">${cat.label}</div>
+        ${accounts.map(acc => {
+          const neg = acc.balance < 0;
+          return `
+            <div class="account-row">
+              <div class="account-inst">${acc.institution}</div>
+              <div class="account-balance ${neg ? 'negative' : ''}" data-eur="${acc.balance}">
+                ${fmt(acc.balance)}
+              </div>
+            </div>
+          `;
+        }).join('')}
       </div>
     `;
   }).join('');
@@ -2030,6 +2041,19 @@ document.addEventListener('DOMContentLoaded', () => {
   if (csModal)  csModal.addEventListener('click', e => { if (e.target === csModal) closeCS(); });
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && csModal && csModal.classList.contains('is-open')) closeCS();
+  });
+
+  // Add Account modal
+  const addAccountBtn   = document.getElementById('addAccountBtn');
+  const addAccountModal = document.getElementById('addAccountModal');
+  const addAccountClose = document.getElementById('addAccountCloseBtn');
+  const openAA  = () => { if (!addAccountModal) return; addAccountModal.classList.add('is-open'); document.body.classList.add('modal-open'); };
+  const closeAA = () => { if (!addAccountModal) return; addAccountModal.classList.remove('is-open'); document.body.classList.remove('modal-open'); };
+  if (addAccountBtn)   addAccountBtn.addEventListener('click', openAA);
+  if (addAccountClose) addAccountClose.addEventListener('click', closeAA);
+  if (addAccountModal) addAccountModal.addEventListener('click', e => { if (e.target === addAccountModal) closeAA(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && addAccountModal && addAccountModal.classList.contains('is-open')) closeAA();
   });
 
 });
