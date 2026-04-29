@@ -8,7 +8,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="demo.css?20260421b" />
+  <link rel="stylesheet" href="demo.css?20260429c" />
 </head>
 <body>
 
@@ -32,28 +32,9 @@
         <span class="demo-tag">Demo</span>
       </div>
 
-      <nav class="sidebar-nav">
-        <button class="nav-item active" data-tab="dashboard">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-          Dashboard
-        </button>
-        <button class="nav-item" data-tab="spending">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg>
-          Spending
-        </button>
-        <button class="nav-item" data-tab="portfolio">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-          Portfolio
-        </button>
-      </nav>
-
-      <div class="sidebar-bottom">
-        <button class="theme-toggle-btn" id="themeToggle">
-          <span id="themeIcon">☀️</span>
-          <span id="themeLabel">Light Mode</span>
-        </button>
-        <div class="currency-label">Display Currency</div>
-        <select class="currency-select" id="currencySelect">
+      <div class="sidebar-currency">
+        <label class="currency-label" for="currencySelect">Display Currency</label>
+        <select class="currency-select" id="currencySelect" aria-label="Display currency">
           <optgroup label="Europe">
             <option value="EUR">&euro; EUR — Euro</option>
             <option value="GBP">&pound; GBP — British Pound</option>
@@ -91,6 +72,28 @@
             <option value="ZAR">R ZAR — South African Rand</option>
           </optgroup>
         </select>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-tab="dashboard">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Dashboard
+        </button>
+        <button class="nav-item" data-tab="spending">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg>
+          Spending
+        </button>
+        <button class="nav-item" data-tab="portfolio">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          Portfolio
+        </button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <button class="theme-toggle-btn" id="themeToggle">
+          <span id="themeIcon">☀️</span>
+          <span id="themeLabel">Light Mode</span>
+        </button>
         <a href="index.html#contact" class="sidebar-cta">Get Early Access</a>
         <a href="index.html" class="sidebar-back">&larr; Back to site</a>
       </div>
@@ -576,6 +579,6 @@
     </div>
   </div>
 
-  <script src="demo.js?20260421"></script>
+  <script src="demo.js?20260429c"></script>
 </body>
 </html>

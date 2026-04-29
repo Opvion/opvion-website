@@ -112,21 +112,59 @@ const MOCK = {
   ],
 
   investmentPositions: [
+    // Binance (crypto exchange)
     { ticker: 'BTC',  name: 'Bitcoin',             assetType: 'crypto',      provider: 'binance',       qty: 0.28,  buyPrice: 207142.86, currentPrice: 222142.86, value: 62200, pnl:  4200, dayChangePct:  1.82 },
+    { ticker: 'ETH',  name: 'Ethereum',            assetType: 'crypto',      provider: 'binance',       qty: 2.6,   buyPrice:   2750.00, currentPrice:   3050.00, value:  7930, pnl:   780, dayChangePct:  1.10 },
+    { ticker: 'BNB',  name: 'BNB',                 assetType: 'crypto',      provider: 'binance',       qty: 8,     buyPrice:    280.00, currentPrice:    320.00, value:  2560, pnl:   320, dayChangePct:  0.45 },
+
+    // Lightyear (EU broker)
     { ticker: 'EXXT', name: 'iShares MSCI World',  assetType: 'etf',         provider: 'lightyear',     qty: 150,   buyPrice:    126.00, currentPrice:    146.67, value: 22000, pnl:  3100, dayChangePct:  0.45 },
     { ticker: 'CNDX', name: 'Nasdaq 100 ETF',      assetType: 'etf',         provider: 'lightyear',     qty: 80,    buyPrice:    158.75, currentPrice:    193.75, value: 15500, pnl:  2800, dayChangePct:  1.12 },
-    { ticker: 'EIMI', name: 'Emerging Markets ETF',assetType: 'etf',         provider: 'coinbase',      qty: 200,   buyPrice:     42.00, currentPrice:     40.00, value:  8000, pnl:  -400, dayChangePct: -0.68 },
     { ticker: 'MEUD', name: 'Euro Stoxx 600',      assetType: 'etf',         provider: 'lightyear',     qty: 100,   buyPrice:     61.80, currentPrice:     65.00, value:  6500, pnl:   320, dayChangePct:  0.21 },
+    { ticker: 'VUSA', name: 'Vanguard S&P 500',    assetType: 'etf',         provider: 'lightyear',     qty: 35,    buyPrice:     95.00, currentPrice:    110.20, value:  3857, pnl:   532, dayChangePct:  0.62 },
+    { ticker: 'TSLA', name: 'Tesla Inc.',          assetType: 'stock',       provider: 'lightyear',     qty: 18,    buyPrice:    215.00, currentPrice:    248.50, value:  4473, pnl:   603, dayChangePct: -1.45 },
+
+    // Coinbase (crypto exchange)
+    { ticker: 'EIMI', name: 'Emerging Markets ETF',assetType: 'etf',         provider: 'coinbase',      qty: 200,   buyPrice:     42.00, currentPrice:     40.00, value:  8000, pnl:  -400, dayChangePct: -0.68 },
+    { ticker: 'ETH',  name: 'Ethereum',            assetType: 'crypto',      provider: 'coinbase',      qty: 1.4,   buyPrice:   2700.00, currentPrice:   3050.00, value:  4270, pnl:   490, dayChangePct:  1.05 },
+    { ticker: 'USDC', name: 'USD Coin',            assetType: 'cash',        provider: 'coinbase',      qty: 1800,  buyPrice:      0.92, currentPrice:      0.92, value:  1656, pnl:     0, dayChangePct:  0.00 },
+
+    // Nexo (crypto yield)
     { ticker: 'NEXO', name: 'Nexo Token',          assetType: 'crypto',      provider: 'nexo',          qty: 500,   buyPrice:      5.90, currentPrice:      5.60, value:  2800, pnl:  -150, dayChangePct: -2.10 },
+    { ticker: 'ETH',  name: 'Ethereum',            assetType: 'crypto',      provider: 'nexo',          qty: 0.85,  buyPrice:   2900.00, currentPrice:   3050.00, value:  2592, pnl:   127, dayChangePct:  1.20 },
+    { ticker: 'USDT', name: 'Tether',              assetType: 'cash',        provider: 'nexo',          qty: 1500,  buyPrice:      0.92, currentPrice:      0.92, value:  1380, pnl:     0, dayChangePct:  0.00 },
+
+    // Phantom (Solana wallet)
     { ticker: 'SOL',  name: 'Solana',              assetType: 'crypto',      provider: 'phantom',       qty: 10,    buyPrice:     81.00, currentPrice:    170.00, value:  1700, pnl:   890, dayChangePct:  3.45 },
+    { ticker: 'JUP',  name: 'Jupiter',             assetType: 'crypto',      provider: 'phantom',       qty: 850,   buyPrice:      0.78, currentPrice:      0.92, value:   782, pnl:   119, dayChangePct:  2.40 },
+    { ticker: 'JTO',  name: 'Jito',                assetType: 'crypto',      provider: 'phantom',       qty: 250,   buyPrice:      2.10, currentPrice:      2.85, value:   712, pnl:   187, dayChangePct: -0.85 },
+
+    // IBKR (global broker)
     { ticker: 'AAPL', name: 'Apple Inc.',          assetType: 'stock',       provider: 'ibkr',          qty: 45,    buyPrice:    150.00, currentPrice:    220.50, value:  9922.5, pnl: 3172.5, dayChangePct:  0.85 },
     { ticker: 'MSFT', name: 'Microsoft Corp.',     assetType: 'stock',       provider: 'ibkr',          qty: 30,    buyPrice:    310.00, currentPrice:    415.20, value: 12456, pnl:  3156, dayChangePct: -0.15 },
+    { ticker: 'GOOGL',name: 'Alphabet Inc.',       assetType: 'stock',       provider: 'ibkr',          qty: 22,    buyPrice:    132.00, currentPrice:    158.40, value:  3485, pnl:   581, dayChangePct:  0.55 },
+    { ticker: 'NVDA', name: 'Nvidia Corp.',        assetType: 'stock',       provider: 'ibkr',          qty: 28,    buyPrice:    280.00, currentPrice:    410.00, value: 11480, pnl:  3640, dayChangePct:  1.65 },
+    { ticker: 'USD',  name: 'US Dollar Cash',      assetType: 'cash',        provider: 'ibkr',          qty: 5500,  buyPrice:      0.90, currentPrice:      0.92, value:  5060, pnl:   110, dayChangePct:  0.10 },
+
+    // Trade Republic (EU broker)
     { ticker: 'IBON', name: 'Govt Bond ETF',       assetType: 'bond',        provider: 'traderepublic', qty: 250,   buyPrice:     98.50, currentPrice:    102.10, value: 25525, pnl:   900, dayChangePct:  0.05 },
     { ticker: 'VWCE', name: 'Vanguard All-World',  assetType: 'etf',         provider: 'traderepublic', qty: 320,   buyPrice:     95.00, currentPrice:    118.40, value: 37888, pnl:  7488, dayChangePct:  0.35 },
+    { ticker: 'ASML', name: 'ASML Holding',        assetType: 'stock',       provider: 'traderepublic', qty: 8,     buyPrice:    580.00, currentPrice:    720.00, value:  5760, pnl:  1120, dayChangePct: -0.42 },
+    { ticker: 'SAP',  name: 'SAP SE',              assetType: 'stock',       provider: 'traderepublic', qty: 22,    buyPrice:    130.00, currentPrice:    165.00, value:  3630, pnl:   770, dayChangePct:  0.28 },
+
+    // Sparkasse (bank)
     { ticker: 'EUR',  name: 'Euro Cash',           assetType: 'cash',        provider: 'sparkasse',     qty: 12000, buyPrice:      1.00, currentPrice:      1.00, value: 12000, pnl:     0, dayChangePct:  0.00 },
-    { ticker: 'USD',  name: 'US Dollar Cash',      assetType: 'cash',        provider: 'ibkr',          qty: 5500,  buyPrice:      0.90, currentPrice:      0.92, value:  5060, pnl:   110, dayChangePct:  0.10 },
-    { ticker: 'PROP', name: 'Berlin Apartment',    assetType: 'real_estate', provider: 'real_estate',   qty: 1,     buyPrice: 240000.00, currentPrice: 265000.00, value: 265000, pnl:25000, dayChangePct:  0.00 },
+    { ticker: 'FDEP', name: 'Fixed Deposit',       assetType: 'cash',        provider: 'sparkasse',     qty: 4500,  buyPrice:      1.00, currentPrice:      1.00, value:  4500, pnl:     0, dayChangePct:  0.00 },
+    { ticker: 'DBND', name: 'German Bund 10Y',     assetType: 'bond',        provider: 'sparkasse',     qty: 60,    buyPrice:     95.00, currentPrice:     98.50, value:  5910, pnl:   210, dayChangePct:  0.05 },
+
+    // Fidelity (commodities & funds)
     { ticker: 'GOLD', name: 'Physical Gold',       assetType: 'commodity',   provider: 'fidelity',      qty: 5,     buyPrice:   1800.00, currentPrice:   2150.00, value: 10750, pnl:  1750, dayChangePct:  0.40 },
+    { ticker: 'SLV',  name: 'Physical Silver',     assetType: 'commodity',   provider: 'fidelity',      qty: 60,    buyPrice:     22.00, currentPrice:     28.50, value:  1710, pnl:   390, dayChangePct: -0.35 },
+    { ticker: 'FXAIX',name: 'Fidelity 500 Index',  assetType: 'etf',         provider: 'fidelity',      qty: 25,    buyPrice:    145.00, currentPrice:    178.00, value:  4450, pnl:   825, dayChangePct:  0.48 },
+
+    // Real estate
+    { ticker: 'PROP', name: 'Berlin Apartment',    assetType: 'real_estate', provider: 'real_estate',   qty: 1,     buyPrice: 240000.00, currentPrice: 265000.00, value: 265000, pnl: 25000, dayChangePct:  0.00 },
+    { ticker: 'MUC',  name: 'Munich Apartment',    assetType: 'real_estate', provider: 'real_estate',   qty: 1,     buyPrice:  95000.00, currentPrice: 105000.00, value: 105000, pnl: 10000, dayChangePct:  0.00 },
   ],
 
   netWorthHistory: {
@@ -140,13 +178,24 @@ const MOCK = {
 // provider tabs, and allocation charts always stay in sync.
 function derivePortfolioModel() {
   const typeMeta = {
-    stock:  { name: 'Stocks', color: '#3182CE' },
-    etf:    { name: 'ETFs', color: '#4C51BF' },
-    crypto: { name: 'Crypto', color: '#F59E0B' },
-    bond:   { name: 'Bonds', color: '#38B2AC' },
+    stock:       { name: 'Stocks',      color: '#3182CE' },
+    etf:         { name: 'ETFs',        color: '#4C51BF' },
+    crypto:      { name: 'Crypto',      color: '#F59E0B' },
+    bond:        { name: 'Bonds',       color: '#38B2AC' },
+    cash:        { name: 'Cash',        color: '#10B981' },
+    real_estate: { name: 'Real Estate', color: '#EC4899' },
+    commodity:   { name: 'Commodities', color: '#D97706' },
   };
 
+  // Distinct, accessible palette for individual holdings within a provider.
+  const tickerPalette = [
+    '#3B82F6', '#8B5CF6', '#F59E0B', '#10B981', '#EF4444',
+    '#06B6D4', '#EC4899', '#D97706', '#6366F1', '#14B8A6',
+    '#F43F5E', '#84CC16',
+  ];
+
   const byProviderType = {};
+  const byProviderPositions = {};
   let totalValue = 0;
   let totalPnl = 0;
   let dayGain = 0;
@@ -160,6 +209,9 @@ function derivePortfolioModel() {
 
     if (!byProviderType[provider]) byProviderType[provider] = {};
     byProviderType[provider][type] = (byProviderType[provider][type] || 0) + value;
+
+    if (!byProviderPositions[provider]) byProviderPositions[provider] = [];
+    byProviderPositions[provider].push({ pos, value });
 
     totalValue += value;
     totalPnl += pnl;
@@ -175,10 +227,22 @@ function derivePortfolioModel() {
       .sort((a, b) => b.value - a.value);
   }
 
+  function positionsToAllocation(entries) {
+    return entries
+      .slice()
+      .sort((a, b) => b.value - a.value)
+      .map((entry, idx) => ({
+        name: entry.pos.name || entry.pos.ticker,
+        ticker: entry.pos.ticker,
+        value: Math.round(entry.value),
+        color: tickerPalette[idx % tickerPalette.length],
+      }));
+  }
+
   const providerAllocations = {};
   const aggregatedBucket = {};
   Object.entries(byProviderType).forEach(([provider, bucket]) => {
-    providerAllocations[provider] = bucketToAllocation(bucket);
+    providerAllocations[provider] = positionsToAllocation(byProviderPositions[provider] || []);
     Object.entries(bucket).forEach(([type, value]) => {
       aggregatedBucket[type] = (aggregatedBucket[type] || 0) + value;
     });
