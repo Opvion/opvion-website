@@ -354,11 +354,11 @@ function applyTheme(dark) {
 const FALLBACK_RATES = {
   EUR: 1,       USD: 1.08,    GBP: 0.85,    CHF: 0.95,
   SEK: 11.20,   NOK: 11.55,   DKK: 7.46,    PLN: 4.28,
-  CZK: 25.10,   HUF: 388.0,   RON: 4.97,    BGN: 1.96,
-  HRK: 7.53,    RSD: 117.2,   TRY: 34.90,   CAD: 1.47,
-  AUD: 1.65,    NZD: 1.78,    JPY: 161.5,   CNY: 7.82,
-  HKD: 8.42,    SGD: 1.45,    INR: 90.20,   AED: 3.97,
-  SAR: 4.05,    ZAR: 20.30,   BRL: 5.48,    MXN: 18.60,
+  CZK: 25.10,   HUF: 388.0,   RON: 4.97,    RSD: 117.2,
+  TRY: 34.90,   CAD: 1.47,    AUD: 1.65,    NZD: 1.78,
+  JPY: 161.5,   CNY: 7.82,    HKD: 8.42,    SGD: 1.45,
+  INR: 90.20,   AED: 3.97,    SAR: 4.05,    ZAR: 20.30,
+  BRL: 5.48,    MXN: 18.60,
 };
 let RATES = { ...FALLBACK_RATES };
 
@@ -415,11 +415,11 @@ async function loadExchangeRates() {
 const SYMBOLS = {
   EUR: '€',     USD: '$',     GBP: '£',     CHF: 'Fr',
   SEK: 'kr',    NOK: 'kr',    DKK: 'kr',    PLN: 'zł',
-  CZK: 'Kč',   HUF: 'Ft',    RON: 'lei',   BGN: 'лв',
-  HRK: 'kn',   RSD: 'din',   TRY: '₺',     CAD: '$',
-  AUD: '$',     NZD: '$',     JPY: '¥',     CNY: '¥',
-  HKD: '$',     SGD: '$',     INR: '₹',     AED: 'د.إ',
-  SAR: '﷼',    ZAR: 'R',     BRL: 'R$',    MXN: '$',
+  CZK: 'Kč',   HUF: 'Ft',    RON: 'lei',   RSD: 'din',
+  TRY: '₺',     CAD: '$',     AUD: '$',     NZD: '$',
+  JPY: '¥',     CNY: '¥',     HKD: '$',     SGD: '$',
+  INR: '₹',     AED: 'د.إ',   SAR: '﷼',    ZAR: 'R',
+  BRL: 'R$',    MXN: '$',
 };
 let currency = 'EUR';
 let spendingPeriod = 'month';
@@ -642,7 +642,7 @@ function switchSpendingView(view) {
     btn.classList.toggle('active', btn.dataset.view === view);
   });
   document.getElementById('spendingBarWrap').style.display = view === 'bar' ? 'block' : 'none';
-  document.getElementById('spendingPieWrap').style.display = view === 'pie' ? 'flex' : 'none';
+  document.getElementById('spendingPieWrap').style.display = view === 'pie' ? 'grid' : 'none';
   if (view === 'pie') {
     initSpendingPieChart();
     renderSpendingPieSide();
@@ -1085,12 +1085,17 @@ function initPerfChart() {
   const isPositive = values[values.length - 1] >= values[0];
   const stroke     = isPositive ? '#10b981' : '#ef4444';
   const fillColor  = isPositive ? 'rgba(16,185,129,0.12)' : 'rgba(239,68,68,0.12)';
+  const startVal   = values[0] * RATES[currency];
+  const baseline   = labels.map(() => startVal);
 
   if (charts.perf) {
     charts.perf.data.labels = labels;
     charts.perf.data.datasets[0].data = values.map(v => v * RATES[currency]);
     charts.perf.data.datasets[0].borderColor = stroke;
     charts.perf.data.datasets[0].backgroundColor = fillColor;
+    if (charts.perf.data.datasets[1]) {
+      charts.perf.data.datasets[1].data = baseline;
+    }
     charts.perf.options.scales.y.ticks.callback = v => SYMBOLS[currency] + (v / 1000).toFixed(0) + 'k';
     charts.perf.update('none');
     updatePerfChangeLabel(values);
@@ -1101,16 +1106,32 @@ function initPerfChart() {
     type: 'line',
     data: {
       labels,
-      datasets: [{
-        data: values.map(v => v * RATES[currency]),
-        borderColor: stroke,
-        backgroundColor: fillColor,
-        fill: true,
-        tension: 0.35,
-        pointRadius: 0,
-        pointHoverRadius: 5,
-        borderWidth: 2,
-      }],
+      datasets: [
+        {
+          label: 'Value',
+          data: values.map(v => v * RATES[currency]),
+          borderColor: stroke,
+          backgroundColor: fillColor,
+          fill: true,
+          tension: 0.35,
+          pointRadius: 0,
+          pointHoverRadius: 5,
+          borderWidth: 2,
+          order: 1,
+        },
+        {
+          label: 'Starting value',
+          data: baseline,
+          borderColor: 'rgba(100, 116, 139, 0.7)',
+          borderDash: [5, 5],
+          borderWidth: 1.5,
+          fill: false,
+          pointRadius: 0,
+          pointHoverRadius: 0,
+          tension: 0,
+          order: 0,
+        },
+      ],
     },
     options: {
       responsive: true,
@@ -1119,6 +1140,7 @@ function initPerfChart() {
       plugins: {
         legend: { display: false },
         tooltip: {
+          filter: item => item.datasetIndex === 0,
           callbacks: {
             label: ctx => '  ' + fmt(ctx.raw / RATES[currency], { noDecimals: true }),
           },
@@ -1641,6 +1663,85 @@ let posFilter       = 'all';
 let posColTypes     = [];
 let posColProviders = [];
 
+// Positions table column definitions. `posColumnOrder` controls the visible
+// order and is mutated by drag-and-drop on the table headers.
+const POS_COLUMN_DEFS = {
+  asset: {
+    label: 'Asset',
+    align: 'left',
+    cell: (pos) => {
+      const icon = ASSET_TYPE_ICON[pos.assetType] || '💰';
+      return `
+        <div class="pos-asset-cell">
+          <div class="pos-icon">${icon}</div>
+          <div>
+            <div class="ticker">${pos.ticker}</div>
+            <div class="pos-name">${pos.name}</div>
+          </div>
+        </div>`;
+    },
+  },
+  type: {
+    label: 'Type',
+    align: 'left',
+    filter: 'type',
+    cell: (pos) => {
+      const badge = ASSET_TYPE_BADGE[pos.assetType] || ASSET_TYPE_BADGE.bond;
+      return `<span class="cat-badge" style="background:${badge.bg};color:${badge.text}">${ASSET_TYPE_LABEL[pos.assetType] || pos.assetType}</span>`;
+    },
+  },
+  provider: {
+    label: 'Provider',
+    align: 'left',
+    filter: 'provider',
+    cell: (pos) => `<span class="account-pill">${PROVIDER_LABEL[pos.provider] || pos.provider}</span>`,
+  },
+  value: {
+    label: 'Value',
+    align: 'right',
+    cell: (pos) => `<span data-eur="${pos.value}"><strong>${fmt(pos.value, { noDecimals: true })}</strong></span>`,
+  },
+  pnl: {
+    label: 'P&amp;L',
+    align: 'right',
+    cell: (pos) => {
+      const gain   = pos.pnl >= 0;
+      const cls    = gain ? 'pnl-pos' : 'pnl-neg';
+      const prefix = gain ? '+' : '';
+      const cost   = pos.value - pos.pnl;
+      const pct    = cost > 0 ? ((pos.pnl / cost) * 100).toFixed(1) : '0.0';
+      return `<span class="${cls}" data-eur="${pos.pnl}">${prefix}${fmt(pos.pnl, { noDecimals: true })}</span><div class="pos-name">${prefix}${pct}%</div>`;
+    },
+  },
+  currentPrice: {
+    label: 'Current Price',
+    align: 'right',
+    cell: (pos) => `<span data-eur="${pos.currentPrice}">${fmt(pos.currentPrice)}</span>`,
+  },
+  qty: {
+    label: 'Qty',
+    align: 'right',
+    cell: (pos) => pos.qty.toLocaleString('en-US', { maximumFractionDigits: 4 }),
+  },
+  buyPrice: {
+    label: 'Buy Price',
+    align: 'right',
+    cell: (pos) => `<span data-eur="${pos.buyPrice}">${fmt(pos.buyPrice)}</span>`,
+  },
+  day: {
+    label: 'Day',
+    align: 'right',
+    cell: (pos) => {
+      const dayPos = (pos.dayChangePct ?? 0) >= 0;
+      const dayCls = dayPos ? 'is-positive' : 'is-negative';
+      return `<span class="day-pill ${dayCls}">${dayPos ? '+' : ''}${(pos.dayChangePct ?? 0).toFixed(2)}%</span>`;
+    },
+  },
+};
+
+let posColumnOrder = ['asset', 'type', 'provider', 'value', 'pnl', 'currentPrice', 'qty', 'buyPrice', 'day'];
+let _posDragColId = null;
+
 function openPosColDropdown(col, thEl) {
   if (_openColDrop) {
     const same = _openColDrop.col === 'pos-' + col;
@@ -1744,83 +1845,105 @@ function renderPositions() {
     filtered = filtered.filter(p => posColProviders.includes(p.provider));
   }
 
+  // Drop any column ids that no longer exist (defensive) and append any new ones.
+  posColumnOrder = posColumnOrder.filter(id => POS_COLUMN_DEFS[id]);
+  Object.keys(POS_COLUMN_DEFS).forEach(id => {
+    if (!posColumnOrder.includes(id)) posColumnOrder.push(id);
+  });
+
+  const cols = posColumnOrder.map(id => ({ id, def: POS_COLUMN_DEFS[id] }));
+
+  const headerCells = cols.map(({ id, def }) => {
+    const alignClass = def.align === 'right' ? ' text-right' : '';
+    let filterClass = '';
+    let chevron = '';
+    if (def.filter === 'type') {
+      filterClass = posColTypes.length > 0 ? ' th-filter th-filter--active' : ' th-filter';
+      chevron = ' <span class="th-chevron">▾</span>';
+    } else if (def.filter === 'provider') {
+      filterClass = posColProviders.length > 0 ? ' th-filter th-filter--active' : ' th-filter';
+      chevron = ' <span class="th-chevron">▾</span>';
+    }
+    return `<th class="pos-th${alignClass}${filterClass}" draggable="true" data-col-id="${id}"><span class="pos-th-grip" aria-hidden="true">⋮⋮</span>${def.label}${chevron}</th>`;
+  }).join('');
+
   let rowsHtml = '';
   if (!filtered.length) {
-    rowsHtml = '<tr><td colspan="8" style="padding: 24px; text-align: center; color: #64748b;">No positions match your filters.</td></tr>';
+    rowsHtml = `<tr><td colspan="${cols.length}" style="padding: 24px; text-align: center; color: #64748b;">No positions match your filters.</td></tr>`;
   } else {
     rowsHtml = filtered.map(pos => {
-      const gain   = pos.pnl >= 0;
-      const pnlCls = gain ? 'pnl-pos' : 'pnl-neg';
-      const prefix = gain ? '+' : '';
-      const cost   = pos.value - pos.pnl;
-      const pct    = cost > 0 ? ((pos.pnl / cost) * 100).toFixed(1) : '0.0';
-      const icon   = ASSET_TYPE_ICON[pos.assetType] || '💰';
-      const dayPos = (pos.dayChangePct ?? 0) >= 0;
-      const dayCls = dayPos ? 'is-positive' : 'is-negative';
-      const qtyStr = pos.qty.toLocaleString('en-US', { maximumFractionDigits: 4 });
-      const typeBadge = ASSET_TYPE_BADGE[pos.assetType] || ASSET_TYPE_BADGE.bond;
-      const providerLabel = PROVIDER_LABEL[pos.provider] || pos.provider;
-      return `
-        <tr>
-          <td>
-            <div class="pos-asset-cell">
-              <div class="pos-icon">${icon}</div>
-              <div>
-                <div class="ticker">${pos.ticker}</div>
-                <div class="pos-name">${pos.name}</div>
-              </div>
-            </div>
-          </td>
-          <td>
-            <span class="cat-badge" style="background:${typeBadge.bg};color:${typeBadge.text}">
-              ${ASSET_TYPE_LABEL[pos.assetType] || pos.assetType}
-            </span>
-          </td>
-          <td><span class="account-pill">${providerLabel}</span></td>
-          <td class="text-right">${qtyStr}</td>
-          <td class="text-right" data-eur="${pos.buyPrice}">${fmt(pos.buyPrice)}</td>
-          <td class="text-right" data-eur="${pos.currentPrice}">${fmt(pos.currentPrice)}</td>
-          <td class="text-right">
-            <span class="day-pill ${dayCls}">${dayPos ? '+' : ''}${(pos.dayChangePct ?? 0).toFixed(2)}%</span>
-          </td>
-          <td class="text-right ${pnlCls}" data-eur="${pos.pnl}">
-            ${prefix}${fmt(pos.pnl, { noDecimals: true })}
-            <div class="pos-name">${prefix}${pct}%</div>
-          </td>
-          <td class="text-right" data-eur="${pos.value}">
-            <strong>${fmt(pos.value, { noDecimals: true })}</strong>
-          </td>
-        </tr>
-      `;
+      const cells = cols.map(({ def }) => {
+        const alignClass = def.align === 'right' ? ' class="text-right"' : '';
+        return `<td${alignClass}>${def.cell(pos)}</td>`;
+      }).join('');
+      return `<tr>${cells}</tr>`;
     }).join('');
   }
-
-  const typeAct = posColTypes.length > 0     ? ' th-filter--active' : '';
-  const provAct = posColProviders.length > 0 ? ' th-filter--active' : '';
 
   el.innerHTML = `
     <table class="pos-table">
       <thead>
-        <tr>
-          <th>Asset</th>
-          <th class="th-filter${typeAct}" id="thPosType">Type <span class="th-chevron">▾</span></th>
-          <th class="th-filter${provAct}" id="thPosProvider">Provider <span class="th-chevron">▾</span></th>
-          <th class="text-right">Qty</th>
-          <th class="text-right">Buy</th>
-          <th class="text-right">Price</th>
-          <th class="text-right">Day</th>
-          <th class="text-right">P&amp;L</th>
-          <th class="text-right">Value</th>
-        </tr>
+        <tr>${headerCells}</tr>
       </thead>
       <tbody>${rowsHtml}</tbody>
     </table>
   `;
 
-  const thType = document.getElementById('thPosType');
-  const thProv = document.getElementById('thPosProvider');
-  if (thType) thType.addEventListener('click', e => { e.stopPropagation(); openPosColDropdown('type', e.currentTarget); });
-  if (thProv) thProv.addEventListener('click', e => { e.stopPropagation(); openPosColDropdown('provider', e.currentTarget); });
+  el.querySelectorAll('th.pos-th').forEach(th => {
+    const id = th.dataset.colId;
+    const def = POS_COLUMN_DEFS[id];
+    if (def && def.filter) {
+      th.addEventListener('click', e => {
+        e.stopPropagation();
+        openPosColDropdown(def.filter, e.currentTarget);
+      });
+    }
+    th.addEventListener('dragstart', onPosColDragStart);
+    th.addEventListener('dragover',  onPosColDragOver);
+    th.addEventListener('dragleave', onPosColDragLeave);
+    th.addEventListener('drop',      onPosColDrop);
+    th.addEventListener('dragend',   onPosColDragEnd);
+  });
+}
+
+function onPosColDragStart(e) {
+  _posDragColId = e.currentTarget.dataset.colId;
+  e.currentTarget.classList.add('pos-th-dragging');
+  if (e.dataTransfer) {
+    e.dataTransfer.effectAllowed = 'move';
+    try { e.dataTransfer.setData('text/plain', _posDragColId); } catch {}
+  }
+  closeColDropdown();
+}
+function onPosColDragOver(e) {
+  if (!_posDragColId) return;
+  e.preventDefault();
+  if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
+  e.currentTarget.classList.add('pos-th-drop-target');
+}
+function onPosColDragLeave(e) {
+  e.currentTarget.classList.remove('pos-th-drop-target');
+}
+function onPosColDrop(e) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('pos-th-drop-target');
+  const targetId = e.currentTarget.dataset.colId;
+  const sourceId = _posDragColId;
+  if (!sourceId || !targetId || sourceId === targetId) return;
+  const from = posColumnOrder.indexOf(sourceId);
+  const to   = posColumnOrder.indexOf(targetId);
+  if (from < 0 || to < 0) return;
+  posColumnOrder.splice(from, 1);
+  posColumnOrder.splice(to, 0, sourceId);
+  renderPositions();
+  updateAllCurrencyValues();
+}
+function onPosColDragEnd() {
+  _posDragColId = null;
+  document.querySelectorAll('th.pos-th').forEach(th => {
+    th.classList.remove('pos-th-dragging');
+    th.classList.remove('pos-th-drop-target');
+  });
 }
 
 function setPositionFilter(filterValue) {

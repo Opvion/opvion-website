@@ -833,6 +833,33 @@ body.dark .sidebar-currency .currency-label { color: #94a3b8; }
 .pnl-pos { color: #059669; font-weight: 700; }
 .pnl-neg { color: #dc2626; font-weight: 700; }
 
+/* ── Draggable position table headers ─────────────────── */
+.pos-th { cursor: grab; position: relative; transition: background 0.15s, color 0.15s; }
+.pos-th:active { cursor: grabbing; }
+.pos-th-grip {
+  display: inline-block;
+  margin-right: 6px;
+  color: #cbd5e1;
+  font-size: 0.7em;
+  letter-spacing: -2px;
+  transform: translateY(-1px);
+  transition: color 0.15s;
+}
+.pos-th:hover .pos-th-grip { color: #2563eb; }
+.pos-th-dragging { opacity: 0.4; }
+.pos-th-drop-target {
+  background: rgba(37, 99, 235, 0.08);
+  box-shadow: inset 2px 0 0 #2563eb;
+  color: #2563eb;
+}
+body.dark .pos-th-grip { color: rgba(255,255,255,0.25); }
+body.dark .pos-th:hover .pos-th-grip { color: #60a5fa; }
+body.dark .pos-th-drop-target {
+  background: rgba(96, 165, 250, 0.12);
+  box-shadow: inset 2px 0 0 #60a5fa;
+  color: #60a5fa;
+}
+
 /* ── No Results ────────────────────────────────────── */
 .no-results {
   text-align: center;
@@ -1257,23 +1284,25 @@ body.dark .coming-soon-points .breakdown-row { color: #cbd5e1; }
    SPENDING — PIE VIEW (donut + side panel)
 ══════════════════════════════════════════════════════ */
 .spending-pie-wrap {
-  align-items: center;
-  justify-content: center;
-  gap: 28px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(0, 1.15fr);
+  align-items: stretch;
+  gap: 36px;
 }
 .spending-pie-chart-col {
-  flex: 0 0 260px;
-  height: 260px;
-  max-width: 100%;
+  position: relative;
+  width: 100%;
+  height: 280px;
+}
+.spending-pie-chart-col canvas {
+  width: 100% !important;
+  height: 100% !important;
 }
 .spending-pie-side {
-  flex: 1 1 280px;
-  min-width: 240px;
-  max-width: 420px;
   display: flex;
   flex-direction: column;
   gap: 14px;
+  min-width: 0;
 }
 .spending-pie-summary {
   display: grid;
@@ -1331,8 +1360,14 @@ body.dark .spending-pie-legend .sp-name { color: #cbd5e1; }
 body.dark .spending-pie-legend .sp-amount { color: #f1f5f9; }
 body.dark .spending-pie-legend .sp-pct { color: #94a3b8; }
 
+@media (max-width: 900px) {
+  .spending-pie-wrap {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
 @media (max-width: 560px) {
-  .spending-pie-chart-col { flex: 0 0 220px; height: 220px; }
+  .spending-pie-chart-col { height: 220px; }
   .spending-pie-summary { grid-template-columns: 1fr; }
 }
 
