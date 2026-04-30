@@ -5,8 +5,8 @@ const MOCK = {
 
   financialSummary: {
     totalAssets:       520000,
-    totalLiabilities:  285500,
-    netWorth:          234500,
+    totalLiabilities:  233360,
+    netWorth:          286640,
   },
 
   accounts: [
@@ -169,8 +169,23 @@ const MOCK = {
 
   netWorthHistory: {
     labels: ['Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan'],
-    values: [195000,198500,202000,199500,205000,210000,215500,218000,222000,228500,231000,234500],
+    values: [247000,252000,257000,254000,261000,267000,273000,277000,281000,284500,286000,286640],
   },
+
+  // Credit cards: revolving credit lines with utilisation
+  creditCards: [
+    { id: 'cc1', name: 'American Express Gold',  type: 'credit_card', issuer: 'Amex',         used:  1850.00, limit:  5000, interestRate: 19.99, minimumPayment:  60, dueDate: '2026-05-15' },
+    { id: 'cc2', name: 'Visa Cashback',          type: 'credit_card', issuer: 'Commerzbank',  used:   720.40, limit:  2500, interestRate: 17.49, minimumPayment:  35, dueDate: '2026-05-08' },
+    { id: 'cc3', name: 'Travel Mastercard',      type: 'credit_card', issuer: 'N26',          used:  2940.00, limit:  3500, interestRate: 21.99, minimumPayment:  85, dueDate: '2026-05-22' },
+  ],
+
+  // Installment debts: amortising loans with start/end dates
+  debts: [
+    { id: 'd1', name: 'Berlin Apartment Mortgage', type: 'mortgage',      lender: 'Sparkasse Berlin', principal: 240000, currentBalance: 198400, interestRate: 3.10, minimumPayment: 1180, dueDate: '2026-05-01', startDate: '2020-06-01', endDate: '2050-06-01' },
+    { id: 'd2', name: 'BMW 3 Series Loan',         type: 'auto_loan',     lender: 'Santander',        principal:  28000, currentBalance:  16800, interestRate: 4.20, minimumPayment:  420, dueDate: '2026-05-05', startDate: '2023-03-15', endDate: '2028-03-15' },
+    { id: 'd3', name: 'Education Loan',            type: 'student_loan',  lender: 'KfW',              principal:  18000, currentBalance:   9200, interestRate: 2.40, minimumPayment:  165, dueDate: '2026-05-10', startDate: '2019-09-01', endDate: '2027-09-01' },
+    { id: 'd4', name: 'Personal Line of Credit',   type: 'personal_loan', lender: 'Revolut',          principal:   7000, currentBalance:   3450, interestRate: 8.90, minimumPayment:  120, dueDate: '2026-05-18', startDate: '2024-01-10', endDate: '2027-01-10' },
+  ],
 
 };
 
@@ -1967,6 +1982,259 @@ function clearAllPositionFilters() {
 }
 
 // ════════════════════════════════════════════════════════
+//  RENDER — CREDIT & DEBT (portfolio + dashboard tile)
+// ════════════════════════════════════════════════════════
+let creditFilter = 'all';
+
+const DEBT_TYPE_META = {
+  credit_card:   { label: 'Credit Card',   icon: '💳', color: '#dc2626' },
+  mortgage:      { label: 'Mortgage',      icon: '🏠', color: '#2563eb' },
+  auto_loan:     { label: 'Auto Loan',     icon: '🚗', color: '#ea580c' },
+  student_loan:  { label: 'Student Loan',  icon: '🎓', color: '#7c3aed' },
+  personal_loan: { label: 'Personal Loan', icon: '💼', color: '#ca8a04' },
+};
+
+function buildUnifiedDebts() {
+  const cards = (MOCK.creditCards || []).map(c => ({
+    id: c.id,
+    name: c.name,
+    type: c.type,
+    lender: c.issuer,
+    currentBalance: c.used,
+    principal: c.limit,
+    interestRate: c.interestRate,
+    minimumPayment: c.minimumPayment,
+    dueDate: c.dueDate,
+    isCard: true,
+  }));
+  const loans = (MOCK.debts || []).map(d => ({
+    id: d.id,
+    name: d.name,
+    type: d.type,
+    lender: d.lender,
+    currentBalance: d.currentBalance,
+    principal: d.principal,
+    interestRate: d.interestRate,
+    minimumPayment: d.minimumPayment,
+    dueDate: d.dueDate,
+    startDate: d.startDate,
+    endDate: d.endDate,
+    isCard: false,
+  }));
+  return [...cards, ...loans];
+}
+
+function getCreditTotals() {
+  const cards = MOCK.creditCards || [];
+  const debts = MOCK.debts || [];
+  const totalCardUsed   = cards.reduce((s, c) => s + (c.used   || 0), 0);
+  const totalCardLimit  = cards.reduce((s, c) => s + (c.limit  || 0), 0);
+  const totalLoanBal    = debts.reduce((s, d) => s + (d.currentBalance || 0), 0);
+  const totalDebt       = totalCardUsed + totalLoanBal;
+  const utilisationPct  = totalCardLimit > 0 ? (totalCardUsed / totalCardLimit) * 100 : 0;
+  const minPayment      = cards.reduce((s, c) => s + (c.minimumPayment || 0), 0)
+                        + debts.reduce((s, d) => s + (d.minimumPayment || 0), 0);
+  const availableCredit = Math.max(0, totalCardLimit - totalCardUsed);
+  return {
+    totalCardUsed, totalCardLimit, totalLoanBal,
+    totalDebt, utilisationPct, minPayment, availableCredit,
+    cardCount: cards.length, loanCount: debts.length,
+  };
+}
+
+function utilisationFillClass(pct) {
+  if (pct >= 80) return 'util-high';
+  if (pct >= 50) return 'util-med';
+  return 'util-low';
+}
+
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, ch => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+  }[ch]));
+}
+
+function renderCreditSection() {
+  const t = getCreditTotals();
+  const all = buildUnifiedDebts();
+
+  // Summary stats
+  const totalDebtEl = document.getElementById('creditTotalDebt');
+  if (totalDebtEl) {
+    totalDebtEl.dataset.eur = -t.totalDebt;
+    totalDebtEl.textContent = fmt(-t.totalDebt, { noDecimals: true });
+  }
+  const subDebt = document.getElementById('creditTotalDebtSub');
+  if (subDebt) subDebt.textContent = `${t.cardCount} card${t.cardCount === 1 ? '' : 's'} · ${t.loanCount} loan${t.loanCount === 1 ? '' : 's'}`;
+
+  const utilEl = document.getElementById('creditUtilValue');
+  if (utilEl) utilEl.textContent = t.utilisationPct.toFixed(0) + '%';
+  const utilFill = document.getElementById('creditUtilFill');
+  if (utilFill) {
+    utilFill.style.width = Math.min(t.utilisationPct, 100) + '%';
+    utilFill.className = 'credit-util-fill ' + utilisationFillClass(t.utilisationPct);
+  }
+
+  const minEl = document.getElementById('creditMinPayment');
+  if (minEl) {
+    minEl.dataset.eur = t.minPayment;
+    minEl.textContent = fmt(t.minPayment, { noDecimals: true });
+  }
+  const nextDue = [...all]
+    .filter(d => d.dueDate)
+    .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))[0];
+  const nextDueSub = document.getElementById('creditNextDueSub');
+  if (nextDueSub) {
+    nextDueSub.textContent = nextDue
+      ? `Next due ${new Date(nextDue.dueDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}`
+      : '—';
+  }
+
+  const availEl = document.getElementById('creditAvailable');
+  if (availEl) {
+    availEl.dataset.eur = t.availableCredit;
+    availEl.textContent = fmt(t.availableCredit, { noDecimals: true });
+  }
+  const availSub = document.getElementById('creditAvailableSub');
+  if (availSub) {
+    availSub.textContent = `of ${fmt(t.totalCardLimit, { noDecimals: true })} limit`;
+  }
+
+  // Payoff strategies
+  const targets = [...all].filter(d => d.currentBalance > 0);
+  const avalanche = [...targets].sort((a, b) => (b.interestRate || 0) - (a.interestRate || 0))[0];
+  const snowball  = [...targets].sort((a, b) => a.currentBalance - b.currentBalance)[0];
+  const av = document.getElementById('payoffAvalancheTarget');
+  const sn = document.getElementById('payoffSnowballTarget');
+  if (av) av.textContent = avalanche ? `${avalanche.name} (${avalanche.interestRate}% APR)` : '—';
+  if (sn) sn.textContent = snowball  ? `${snowball.name} (${fmt(snowball.currentBalance, { noDecimals: true })})` : '—';
+
+  // List
+  const filtered = creditFilter === 'all'
+    ? all
+    : creditFilter === 'credit_cards'
+      ? all.filter(d => d.type === 'credit_card')
+      : all.filter(d => d.type !== 'credit_card');
+
+  const listEl = document.getElementById('creditList');
+  if (listEl) {
+    if (!filtered.length) {
+      listEl.innerHTML = `<div class="no-results">No items match the current filter.</div>`;
+    } else {
+      listEl.innerHTML = filtered.map(renderCreditRow).join('');
+    }
+  }
+
+  // Dashboard tile
+  updateDashboardCreditTile(t);
+}
+
+function renderCreditRow(d) {
+  const meta  = DEBT_TYPE_META[d.type] || { label: d.type, icon: '💰', color: '#64748b' };
+  const util  = d.principal > 0 ? (d.currentBalance / d.principal) * 100 : 0;
+  const utilCls = utilisationFillClass(util);
+  const dueStr  = d.dueDate ? new Date(d.dueDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : '—';
+  const totalLabel = d.isCard ? 'limit' : 'principal';
+
+  let timeline = '';
+  if (d.startDate && d.endDate) {
+    const start = new Date(d.startDate).getTime();
+    const end   = new Date(d.endDate).getTime();
+    const now   = Date.now();
+    const pct   = Math.max(0, Math.min(100, ((now - start) / (end - start)) * 100));
+    timeline = `
+      <div class="credit-timeline">
+        <div class="credit-timeline-labels">
+          <span>Started ${new Date(d.startDate).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' })}</span>
+          <span>Payoff ${new Date(d.endDate).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' })}</span>
+        </div>
+        <div class="credit-timeline-bar">
+          <div class="credit-timeline-fill" style="width:${pct.toFixed(1)}%"></div>
+        </div>
+      </div>`;
+  }
+
+  return `
+    <div class="credit-row">
+      <div class="credit-row-head">
+        <div class="credit-row-ident">
+          <div class="credit-row-icon" style="background:${meta.color}1a;color:${meta.color}">${meta.icon}</div>
+          <div>
+            <div class="credit-row-name">${escapeHtml(d.name)}</div>
+            <div class="credit-row-sub">${meta.label}${d.lender ? ' · ' + escapeHtml(d.lender) : ''}</div>
+          </div>
+        </div>
+        <div class="credit-row-balance">
+          <div class="credit-row-balance-val" data-eur="${d.currentBalance}">${fmt(d.currentBalance, { noDecimals: true })}</div>
+          <div class="credit-row-balance-sub">of <span data-eur="${d.principal}">${fmt(d.principal, { noDecimals: true })}</span> ${totalLabel}</div>
+        </div>
+      </div>
+      <div class="credit-progress">
+        <div class="credit-progress-fill ${utilCls}" style="width:${Math.min(util, 100).toFixed(1)}%"></div>
+      </div>
+      <div class="credit-row-details">
+        <div class="credit-detail">
+          <div class="credit-detail-label">Utilisation</div>
+          <div class="credit-detail-value">${util.toFixed(1)}%</div>
+        </div>
+        <div class="credit-detail">
+          <div class="credit-detail-label">Interest</div>
+          <div class="credit-detail-value">${d.interestRate ? d.interestRate.toFixed(2) + '% APR' : '—'}</div>
+        </div>
+        <div class="credit-detail">
+          <div class="credit-detail-label">Min. Payment</div>
+          <div class="credit-detail-value" data-eur="${d.minimumPayment || 0}">${fmt(d.minimumPayment || 0, { noDecimals: true })}</div>
+        </div>
+        <div class="credit-detail">
+          <div class="credit-detail-label">Due Date</div>
+          <div class="credit-detail-value">${dueStr}</div>
+        </div>
+      </div>
+      ${timeline}
+    </div>
+  `;
+}
+
+function setCreditFilter(filterValue) {
+  creditFilter = filterValue;
+  document.querySelectorAll('#creditFilters .filter-btn[data-credit-filter]').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.creditFilter === filterValue);
+  });
+  renderCreditSection();
+}
+
+function updateDashboardCreditTile(t) {
+  const sym = SYMBOLS[currency];
+  const valEl = document.getElementById('dashCreditTotal');
+  if (valEl) {
+    const conv = t.totalDebt * RATES[currency];
+    valEl.textContent = '−' + sym + Math.round(conv).toLocaleString('en-US');
+  }
+  const pctEl = document.getElementById('dashCreditUtilPct');
+  if (pctEl) pctEl.textContent = t.utilisationPct.toFixed(0) + '%';
+  const fill = document.getElementById('dashCreditUtilFill');
+  if (fill) {
+    fill.style.width = Math.min(t.utilisationPct, 100) + '%';
+    fill.className = 'snapshot-credit-util-fill ' + utilisationFillClass(t.utilisationPct);
+  }
+
+  // Asset / debt split bar
+  const assets = MOCK.financialSummary.totalAssets;
+  const debt   = t.totalDebt;
+  const denom  = assets + debt;
+  if (denom > 0) {
+    const aPct = (assets / denom) * 100;
+    const lPct = 100 - aPct;
+    const barFill = document.getElementById('dashAssetBarFill');
+    if (barFill) barFill.style.width = aPct.toFixed(1) + '%';
+    const aLab = document.getElementById('dashAssetPct');
+    const lLab = document.getElementById('dashLiabPct');
+    if (aLab) aLab.textContent = aPct.toFixed(1) + '%';
+    if (lLab) lLab.textContent = lPct.toFixed(1) + '%';
+  }
+}
+
+// ════════════════════════════════════════════════════════
 //  UPDATE ALL CURRENCY VALUES IN DOM
 // ════════════════════════════════════════════════════════
 function updateAllCurrencyValues() {
@@ -1986,7 +2254,6 @@ function updateAllCurrencyValues() {
 
   document.getElementById('heroNetWorth').textContent  = sym + Math.round(nw).toLocaleString('en-US');
   document.getElementById('dashAssets').textContent    = sym + Math.round(as).toLocaleString('en-US');
-  document.getElementById('dashLiabilities').textContent = sym + Math.round(li).toLocaleString('en-US');
   document.getElementById('dashNetWorth').textContent  = sym + Math.round(nw).toLocaleString('en-US');
 
   // Re-render dynamic lists
@@ -1996,6 +2263,7 @@ function updateAllCurrencyValues() {
   renderPositions();
   renderPortfolioSummary();
   renderAssetCards();
+  renderCreditSection();
 }
 
 // ════════════════════════════════════════════════════════
@@ -2107,12 +2375,12 @@ document.addEventListener('DOMContentLoaded', () => {
   renderPositions();
   renderPortfolioSummary();
   renderAssetCards();
+  renderCreditSection();
 
   // Animate the hero counter on load
   setTimeout(() => {
     animateCounter(document.getElementById('heroNetWorth'),   MOCK.financialSummary.netWorth);
     animateCounter(document.getElementById('dashAssets'),     MOCK.financialSummary.totalAssets, 900);
-    animateCounter(document.getElementById('dashLiabilities'),MOCK.financialSummary.totalLiabilities, 900);
     animateCounter(document.getElementById('dashNetWorth'),   MOCK.financialSummary.netWorth, 900);
   }, 150);
 
@@ -2208,6 +2476,11 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   const clearPosBtn = document.getElementById('clearPosFiltersBtn');
   if (clearPosBtn) clearPosBtn.addEventListener('click', clearAllPositionFilters);
+
+  // Portfolio — credit & debt filter pills
+  document.querySelectorAll('#creditFilters .filter-btn[data-credit-filter]').forEach(btn => {
+    btn.addEventListener('click', () => setCreditFilter(btn.dataset.creditFilter));
+  });
 
   // AI Insights — Coming Soon modal
   const aiBtn     = document.getElementById('aiInsightsBtn');

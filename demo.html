@@ -8,7 +8,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="demo.css?20260430b" />
+  <link rel="stylesheet" href="demo.css?20260430d" />
 </head>
 <body>
 
@@ -166,7 +166,7 @@
               </div>
               <div class="hero-value" id="heroNetWorth">€0</div>
               <div class="hero-change">
-                &#8593; +<span class="cv" data-eur="3500">€3,500</span> this month
+                &#8593; +<span class="cv" data-eur="4300">€4,300</span> this month
                 <span class="hero-pct">(+1.5%)</span>
               </div>
             </div>
@@ -196,9 +196,17 @@
                 <div class="snapshot-label">Total Assets</div>
                 <div class="snapshot-val is-positive" id="dashAssets">€0</div>
               </div>
-              <div class="snapshot-item">
-                <div class="snapshot-label">Liabilities</div>
-                <div class="snapshot-val is-negative" id="dashLiabilities">€0</div>
+              <div class="snapshot-item snapshot-credit-tile">
+                <div class="snapshot-label">Credit &amp; Debt</div>
+                <div class="snapshot-val is-negative" id="dashCreditTotal">€0</div>
+                <div class="snapshot-credit-meta">
+                  <span class="snapshot-credit-util-label">
+                    Utilisation <span id="dashCreditUtilPct">0%</span>
+                  </span>
+                  <div class="snapshot-credit-util-bar">
+                    <div class="snapshot-credit-util-fill" id="dashCreditUtilFill" style="width:0%"></div>
+                  </div>
+                </div>
               </div>
               <div class="snapshot-item">
                 <div class="snapshot-label">Net Worth</div>
@@ -208,11 +216,11 @@
 
             <div class="asset-bar-wrap">
               <div class="asset-bar">
-                <div class="asset-bar-fill" style="width:64.6%"></div>
+                <div class="asset-bar-fill" id="dashAssetBarFill" style="width:69.0%"></div>
               </div>
               <div class="asset-bar-labels">
-                <span class="asset-label asset-label-assets">&#9679; Assets 64.6%</span>
-                <span class="asset-label asset-label-liabilities">&#9679; Liabilities 35.4%</span>
+                <span class="asset-label asset-label-assets">&#9679; Assets <span id="dashAssetPct">69.0%</span></span>
+                <span class="asset-label asset-label-liabilities">&#9679; Credit &amp; Debt <span id="dashLiabPct">31.0%</span></span>
               </div>
             </div>
 
@@ -237,8 +245,8 @@
                   </div>
                   <div class="breakdown-row">
                     <span class="dot" style="background:#f43f5e"></span>
-                    <span>Liabilities</span>
-                    <span class="ml-auto cv is-negative" data-eur="-285500">−€285,500</span>
+                    <span>Credit &amp; Debt</span>
+                    <span class="ml-auto cv is-negative" data-eur="-233360">−€233,360</span>
                   </div>
                 </div>
                 <div class="chart-wrap" style="flex:0 0 200px;height:200px">
@@ -535,6 +543,69 @@
           <div id="positionsTable"></div>
         </div>
 
+        <!-- Credit & Debt -->
+        <div class="card">
+          <div class="card-header card-header--adaptive">
+            <h3 class="card-title card-title--header">Credit &amp; Debt</h3>
+            <span class="card-meta">Cards, loans &amp; payoff plan</span>
+          </div>
+
+          <div class="credit-stats-row">
+            <div class="credit-stat">
+              <div class="credit-stat-label">Total Debt</div>
+              <div class="credit-stat-value is-negative" id="creditTotalDebt">€0</div>
+              <div class="credit-stat-sub" id="creditTotalDebtSub">Across all credit lines</div>
+            </div>
+            <div class="credit-stat">
+              <div class="credit-stat-label">Credit Utilisation</div>
+              <div class="credit-stat-value" id="creditUtilValue">0%</div>
+              <div class="credit-util-bar">
+                <div class="credit-util-fill" id="creditUtilFill" style="width:0%"></div>
+              </div>
+            </div>
+            <div class="credit-stat">
+              <div class="credit-stat-label">Min. Monthly Payment</div>
+              <div class="credit-stat-value credit-stat-warning" id="creditMinPayment">€0</div>
+              <div class="credit-stat-sub" id="creditNextDueSub">—</div>
+            </div>
+            <div class="credit-stat">
+              <div class="credit-stat-label">Available Credit</div>
+              <div class="credit-stat-value is-positive" id="creditAvailable">€0</div>
+              <div class="credit-stat-sub" id="creditAvailableSub">—</div>
+            </div>
+          </div>
+
+          <div class="filter-bar credit-filter-bar" id="creditFilters">
+            <button class="filter-btn active" data-credit-filter="all">All</button>
+            <button class="filter-btn" data-credit-filter="credit_cards">Credit Cards</button>
+            <button class="filter-btn" data-credit-filter="loans">Loans</button>
+          </div>
+
+          <div id="creditList" class="credit-list"></div>
+
+          <div class="payoff-strategies">
+            <div class="payoff-strategies-header">Payoff Strategies</div>
+            <div class="payoff-strategies-grid">
+              <div class="payoff-strategy">
+                <div class="payoff-strategy-head">
+                  <span class="payoff-strategy-icon payoff-strategy-icon--avalanche" aria-hidden="true">📈</span>
+                  <span class="payoff-strategy-title">Avalanche</span>
+                </div>
+                <p class="payoff-strategy-desc">Pay highest-interest balances first to minimise total interest.</p>
+                <div class="payoff-strategy-meta">First target: <span id="payoffAvalancheTarget">—</span></div>
+              </div>
+              <div class="payoff-strategy">
+                <div class="payoff-strategy-head">
+                  <span class="payoff-strategy-icon payoff-strategy-icon--snowball" aria-hidden="true">⚡</span>
+                  <span class="payoff-strategy-title">Snowball</span>
+                </div>
+                <p class="payoff-strategy-desc">Knock out the smallest balance first to build momentum.</p>
+                <div class="payoff-strategy-meta">First target: <span id="payoffSnowballTarget">—</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div><!-- /tab-portfolio -->
 
     </main>
@@ -575,6 +646,6 @@
     </div>
   </div>
 
-  <script src="demo.js?20260430b"></script>
+  <script src="demo.js?20260430d"></script>
 </body>
 </html>
