@@ -13,47 +13,174 @@
 
   <div id="nav-mount"></div>
 
+  <!-- ═══════════ HOW IT WORKS ═══════════ -->
+  <section id="security-flow">
+    <div class="container">
+      <div class="section-label">How it works</div>
+      <h2>Your data, the journey.</h2>
+      <p class="section-sub">Opvion never sees your bank login credentials. All bank connections run through regulated open banking partners that operate under strict EU and national open-banking laws.</p>
+
+      <div class="flow-grid">
+        <div class="flow-node">
+          <div class="flow-node-icon">🏦</div>
+          <h3>Your bank</h3>
+          <p>You authenticate directly with your bank through the partner's secure open banking interface.</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">
+          <div class="flow-node-icon">🔗</div>
+          <h3>Open banking partner</h3>
+          <p>A regulated provider handles authentication and transmits your financial data securely.</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">
+          <div class="flow-node-icon">📊</div>
+          <h3>Opvion</h3>
+          <p>We receive read-only transaction and balance data to power your dashboard.</p>
+        </div>
+      </div>
+
+      <div class="info-callout">
+        <div class="info-callout-badge">i</div>
+        <p>
+          <strong>About our open banking partners.</strong> Open banking providers are regulated financial-data companies that power bank connections for thousands of fintech applications. They use AES-256 encryption, TLS for data in transit, and undergo regular third-party security audits. They never share your data without your explicit permission, and you can revoke access at any time.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ WHAT WE STORE ═══════════ -->
+  <section id="security-store">
+    <div class="container">
+      <div class="section-label">Transparency</div>
+      <h2>What we store, and what we never touch.</h2>
+      <p class="section-sub">Here's exactly what information lives on our servers, what stays with our open banking partners, and what we never have access to.</p>
+
+      <div class="store-wrap">
+        <table class="store-table">
+          <thead>
+            <tr>
+              <th>Data type</th>
+              <th>On Opvion?</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Bank login credentials</td>
+              <td><span class="pill pill-no">Never</span></td>
+              <td class="col-detail">Your username and password are entered directly in your bank's secure open banking interface. They never reach our servers.</td>
+            </tr>
+            <tr>
+              <td>Bank account numbers</td>
+              <td><span class="pill pill-no">Never</span></td>
+              <td class="col-detail">Full account and routing numbers remain with the open banking partner. We receive only masked identifiers.</td>
+            </tr>
+            <tr>
+              <td>Transaction history</td>
+              <td><span class="pill pill-yes">Yes — encrypted</span></td>
+              <td class="col-detail">Stored to power spending analytics, trend reports, and your dashboard. Encrypted at rest with AES-256.</td>
+            </tr>
+            <tr>
+              <td>Account balances</td>
+              <td><span class="pill pill-yes">Yes — encrypted</span></td>
+              <td class="col-detail">Current and available balances are stored to display your net worth and financial snapshot.</td>
+            </tr>
+            <tr>
+              <td>Account metadata</td>
+              <td><span class="pill pill-yes">Yes — encrypted</span></td>
+              <td class="col-detail">Account names, types (checking, savings, credit), and institution names for dashboard display.</td>
+            </tr>
+            <tr>
+              <td>Open banking access tokens</td>
+              <td><span class="pill pill-vault">Isolated vault</span></td>
+              <td class="col-detail">API tokens used to fetch your data are stored in a separate, access-controlled credential vault — never alongside your financial data.</td>
+            </tr>
+            <tr>
+              <td>Your email &amp; name</td>
+              <td><span class="pill pill-yes">Yes</span></td>
+              <td class="col-detail">Basic account information needed to operate your Opvion account.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ HOW WE PROTECT IT ═══════════ -->
   <section id="security">
     <div class="container">
-      <div class="section-label">Security</div>
-      <h2>Your data is safe with us.</h2>
-      <p class="section-sub">Bank-grade security, EU data residency, and zero data selling.</p>
+      <div class="section-label">Protection</div>
+      <h2>How we protect your data.</h2>
+      <p class="section-sub">Multiple layers of protection, from encryption to infrastructure.</p>
 
-      <div class="features-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-top: 3rem;">
+      <div class="features-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
 
         <div class="features-plan-block">
           <div class="features-plan-header">
             <div class="features-plan-name">Encryption</div>
           </div>
           <div class="features-list">
-            <div class="feature-row"><div class="fr-icon">🛡️</div><div class="fr-body"><h5>AES-256 Encryption at Rest</h5><p>All your financial data is encrypted at rest using AES-256, the same standard used by banks and governments worldwide.</p></div></div>
-            <div class="feature-row"><div class="fr-icon">🔐</div><div class="fr-body"><h5>TLS 1.3 in Transit</h5><p>Every connection between your device and our servers is protected by TLS 1.3, ensuring no data can be intercepted in transit.</p></div></div>
-            <div class="feature-row"><div class="fr-icon">🗝️</div><div class="fr-body"><h5>Credential Isolation</h5><p>The tokens we use to fetch your bank data are stored in a separate, access-controlled vault, not alongside your account information.</p></div></div>
+            <div class="feature-row"><div class="fr-icon">🛡️</div><div class="fr-body"><h5>AES-256 at rest</h5><p>All financial data on our servers is encrypted using AES-256 — the same standard used by banks and governments worldwide.</p></div></div>
+            <div class="feature-row"><div class="fr-icon">🔐</div><div class="fr-body"><h5>TLS 1.3 in transit</h5><p>Every connection between your device, our servers, and our open banking partners is protected by TLS 1.3, ensuring data cannot be intercepted in transit.</p></div></div>
+            <div class="feature-row"><div class="fr-icon">🗝️</div><div class="fr-body"><h5>Credential isolation</h5><p>Open banking API tokens are stored in a separate, access-controlled vault — never co-located with your financial data or account information.</p></div></div>
           </div>
         </div>
 
         <div class="features-plan-block">
           <div class="features-plan-header">
-            <div class="features-plan-name">Data & Privacy</div>
+            <div class="features-plan-name">Data &amp; Privacy</div>
           </div>
           <div class="features-list">
-            <div class="feature-row"><div class="fr-icon">🏳️</div><div class="fr-body"><h5>Data Stays in the European Union</h5><p>All servers are hosted in EU member states. Your data never leaves the EU and is subject to the strictest privacy laws in the world.</p></div></div>
-            <div class="feature-row"><div class="fr-icon">📜</div><div class="fr-body"><h5>GDPR Compliant</h5><p>We are fully compliant with the General Data Protection Regulation. You have the right to access, export, or delete your data at any time.</p></div></div>
-            <div class="feature-row"><div class="fr-icon">🚫</div><div class="fr-body"><h5>Zero Data Selling</h5><p>We do not sell, rent, or share your personal or financial data with third parties, ever. Our business model is subscriptions, not your data.</p></div></div>
+            <div class="feature-row"><div class="fr-icon">🇪🇺</div><div class="fr-body"><h5>EU data residency</h5><p>All servers are hosted in EU member states. Your data never leaves the European Union and is subject to the strictest privacy laws in the world.</p></div></div>
+            <div class="feature-row"><div class="fr-icon">📜</div><div class="fr-body"><h5>GDPR compliant</h5><p>Fully compliant with the General Data Protection Regulation. You have the right to access, export, or delete your data at any time.</p></div></div>
+            <div class="feature-row"><div class="fr-icon">🚫</div><div class="fr-body"><h5>Zero data selling</h5><p>We do not sell, rent, or share your personal or financial data with third parties, ever. Our revenue comes from subscriptions.</p></div></div>
           </div>
         </div>
 
         <div class="features-plan-block">
           <div class="features-plan-header">
-            <div class="features-plan-name">Banking Integrations</div>
+            <div class="features-plan-name">Bank Connections</div>
           </div>
           <div class="features-list">
-            <div class="feature-row"><div class="fr-icon">🔗</div><div class="fr-body"><h5>Read-Only Bank Access</h5><p>Opvion only ever requests read-only access to your accounts. We cannot initiate payments, move funds, or make any changes on your behalf.</p></div></div>
-            <div class="feature-row"><div class="fr-icon">✅</div><div class="fr-body"><h5>Regulated Providers</h5><p>Bank connections are powered by regulated open banking partners operating under strict open-banking laws.</p></div></div>
-            <div class="feature-row"><div class="fr-icon">🔄</div><div class="fr-body"><h5>Re-authentication Required</h5><p>Connections to your bank expire regularly and require your explicit re-approval, giving you full control over what Opvion has access to at all times.</p></div></div>
+            <div class="feature-row"><div class="fr-icon">🔗</div><div class="fr-body"><h5>Read-only access</h5><p>We only request read-only access through our open banking partners. We cannot initiate payments, move funds, or make any changes to your bank accounts.</p></div></div>
+            <div class="feature-row"><div class="fr-icon">✅</div><div class="fr-body"><h5>Trusted &amp; audited</h5><p>Our open banking partners undergo regular third-party security audits, use multi-factor authentication, and are trusted by major financial institutions.</p></div></div>
+            <div class="feature-row"><div class="fr-icon">🔄</div><div class="fr-body"><h5>Revoke access anytime</h5><p>Disconnect your bank from within Opvion at any time, or revoke access directly with your bank or open banking provider.</p></div></div>
           </div>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ COMMITMENTS ═══════════ -->
+  <section id="security-commitments">
+    <div class="container">
+      <div class="section-label">Promises</div>
+      <h2>Our commitments to you.</h2>
+      <p class="section-sub">Principles that don't change with the next pricing page.</p>
+
+      <div class="commit-grid">
+        <div class="commit-card">
+          <div class="commit-icon">🙅</div>
+          <h3>No bank credentials</h3>
+          <p>Your bank username and password are entered in your bank's secure open banking interface — they never pass through Opvion's infrastructure.</p>
+        </div>
+        <div class="commit-card">
+          <div class="commit-icon">💰</div>
+          <h3>No transaction capability</h3>
+          <p>Even if someone gained access to your Opvion account, there's no mechanism to initiate any payment. We are analytics-only.</p>
+        </div>
+        <div class="commit-card">
+          <div class="commit-icon">🗑️</div>
+          <h3>Delete everything, anytime</h3>
+          <p>Delete your account from settings. We wipe all stored data and revoke the open banking connection so no further data is fetched.</p>
+        </div>
+        <div class="commit-card">
+          <div class="commit-icon">📋</div>
+          <h3>Minimal data collection</h3>
+          <p>We only collect what's strictly required to run your dashboard. No hidden data harvesting, no shadow profiles.</p>
+        </div>
       </div>
     </div>
   </section>
