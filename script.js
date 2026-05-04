@@ -1,26 +1,29 @@
 // ── Nav scroll effect
 const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 20);
-});
+if (navbar) {
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+}
 
 // ── Mobile menu
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
-hamburger.addEventListener('click', () => {
-  mobileMenu.classList.toggle('open');
-});
-mobileMenu.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => mobileMenu.classList.remove('open'));
-});
+if (hamburger && mobileMenu) {
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  });
+}
 
-// ── Scroll reveal
+// ── Scroll reveal (fires once when element enters viewport on its page)
 const revealEls = document.querySelectorAll(
   'section h2, .problem-card, .feature-item, ' +
   '.pricing-card, .roadmap-step, .hero-badge, ' +
-  '.section-sub, .comparison-table, .contact-left, .contact-form'
+  '.section-sub, .strength-card, .contact-left, .contact-form'
 );
-
 revealEls.forEach(el => el.classList.add('reveal'));
 
 const observer = new IntersectionObserver((entries) => {
@@ -35,8 +38,19 @@ const observer = new IntersectionObserver((entries) => {
     }
   });
 }, { threshold: 0.1 });
-
 revealEls.forEach(el => observer.observe(el));
+
+// Fallback: reveal any reveal-elements already on-screen at load
+// (on subpages the section is immediately visible, so the observer's
+// threshold + animation timing can leave them invisible)
+window.addEventListener('load', () => {
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      el.classList.add('visible');
+    }
+  });
+});
 
 // ── Disposable email blocklist
 const BLOCKED_DOMAINS = new Set([
@@ -56,60 +70,61 @@ const BLOCKED_DOMAINS = new Set([
   'mailsac.com', 'fakemailz.com', 'tempmailaddress.com', 'mailnew.com', 'tempail.com'
 ]);
 
-// ── Waitlist form — FormSpree submission with email filtering
+// ── Waitlist form (contact page only)
 const form = document.getElementById('waitlistForm');
-const btnText = document.getElementById('btnText');
-const formSuccess = document.getElementById('formSuccess');
-const emailInput = document.getElementById('email');
-const emailError = document.getElementById('emailError');
+if (form) {
+  const btnText = document.getElementById('btnText');
+  const formSuccess = document.getElementById('formSuccess');
+  const emailInput = document.getElementById('email');
+  const emailError = document.getElementById('emailError');
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-  // Disposable email check
-  const emailVal = emailInput.value.trim();
-  const domain = (emailVal.split('@')[1] || '').toLowerCase();
-  if (BLOCKED_DOMAINS.has(domain)) {
-    emailError.classList.remove('hidden');
-    emailInput.focus();
-    return;
-  }
-  emailError.classList.add('hidden');
+    const emailVal = emailInput.value.trim();
+    const domain = (emailVal.split('@')[1] || '').toLowerCase();
+    if (BLOCKED_DOMAINS.has(domain)) {
+      emailError.classList.remove('hidden');
+      emailInput.focus();
+      return;
+    }
+    emailError.classList.add('hidden');
 
-  // Submit to FormSpree
-  btnText.textContent = 'Joining...';
-  const submitBtn = form.querySelector('.btn-submit');
-  submitBtn.disabled = true;
+    btnText.textContent = 'Joining...';
+    const submitBtn = form.querySelector('.btn-submit');
+    submitBtn.disabled = true;
 
-  try {
-    const resp = await fetch(form.action, {
-      method: 'POST',
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
-    });
+    try {
+      const resp = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
 
-    if (resp.ok) {
-      form.querySelectorAll('input:not([type=hidden]), select, textarea').forEach(el => el.value = '');
-      submitBtn.style.display = 'none';
-      formSuccess.classList.remove('hidden');
-    } else {
+      if (resp.ok) {
+        form.querySelectorAll('input:not([type=hidden]), select, textarea').forEach(el => el.value = '');
+        submitBtn.style.display = 'none';
+        formSuccess.classList.remove('hidden');
+      } else {
+        btnText.textContent = 'Join the Waitlist';
+        submitBtn.disabled = false;
+        alert('Something went wrong. Please try again or email us directly at prayag.sharma@esmt.berlin');
+      }
+    } catch {
       btnText.textContent = 'Join the Waitlist';
       submitBtn.disabled = false;
-      alert('Something went wrong. Please try again or email us directly at prayag.sharma@esmt.berlin');
+      alert('Network error. Please check your connection and try again.');
     }
-  } catch {
-    btnText.textContent = 'Join the Waitlist';
-    submitBtn.disabled = false;
-    alert('Network error. Please check your connection and try again.');
-  }
-});
+  });
 
-// Clear email error as user types
-emailInput.addEventListener('input', () => emailError.classList.add('hidden'));
+  emailInput.addEventListener('input', () => emailError.classList.add('hidden'));
+}
 
 // ── Modal system
 function openModal(id) {
-  document.getElementById(id).classList.add('active');
+  const m = document.getElementById(id);
+  if (!m) return;
+  m.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
 
@@ -118,7 +133,6 @@ function closeModalEl(overlayEl) {
   document.body.style.overflow = '';
 }
 
-// Footer legal link triggers
 document.querySelectorAll('.modal-trigger').forEach(trigger => {
   trigger.addEventListener('click', (e) => {
     e.preventDefault();
@@ -126,37 +140,18 @@ document.querySelectorAll('.modal-trigger').forEach(trigger => {
   });
 });
 
-// Close button inside each modal
 document.querySelectorAll('.modal-close').forEach(btn => {
   btn.addEventListener('click', () => closeModalEl(btn.closest('.modal-overlay')));
 });
 
-// Click overlay background to close
 document.querySelectorAll('.modal-overlay').forEach(overlay => {
   overlay.addEventListener('click', (e) => {
     if (e.target === overlay) closeModalEl(overlay);
   });
 });
 
-// ESC key closes any open modal
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     document.querySelectorAll('.modal-overlay.active').forEach(closeModalEl);
   }
-});
-
-// ── Smooth active nav highlight on scroll
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
-
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(section => {
-    if (window.scrollY >= section.offsetTop - 100) {
-      current = section.id;
-    }
-  });
-  navLinks.forEach(a => {
-    a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--text)' : '';
-  });
 });
