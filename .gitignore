@@ -8,3 +8,7 @@ __pycache__/
 .vscode/launch.json
 .vscode/*.log
 .idea/
+# Generated PDF documents
+Opvion-Privacy-Policy.pdf
+Opvion-Security-Practices.pdf
+pdf-build/
