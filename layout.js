@@ -19,7 +19,7 @@
     <nav id="navbar">
       <div class="nav-inner">
         <a href="index.html" class="logo">
-          <img src="opvion_unified_prism_dark_1024.png" alt="Opvion Logo" class="logo-icon" width="48" height="48">
+          <img src="opvion-logo.svg" alt="Opvion Logo" class="logo-icon" width="48" height="48">
           <span class="wordmark">Opvion</span>
         </a>
         <ul class="nav-links">
@@ -48,7 +48,7 @@
       <div class="container footer-inner">
         <div class="footer-brand">
           <span class="logo">
-            <img src="opvion_unified_prism_dark_1024.png" alt="Opvion Logo" class="logo-icon" width="40" height="40">
+            <img src="opvion-logo.svg" alt="Opvion Logo" class="logo-icon" width="40" height="40">
             <span class="wordmark">Opvion</span>
           </span>
           <p>One place for your complete financial picture.</p>
