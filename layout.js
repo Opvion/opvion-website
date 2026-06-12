@@ -75,7 +75,7 @@
       </div>
       <div class="footer-bottom">
         <span>© 2026 Opvion. All rights reserved.</span>
-        <span>Built in Europe 🇪🇺 · Data stays in the EU 🔒</span>
+        <span>Built in Europe · Data stays in the EU</span>
       </div>
     </footer>
   `;
