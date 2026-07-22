@@ -15,6 +15,8 @@
     return `<a href="${href}" class="${extraClass}${active}">${label}</a>`;
   };
 
+  const personalActive = (page === 'pricing' || page === 'features') ? ' is-active' : '';
+
   const navHTML = `
     <nav id="navbar">
       <div class="nav-inner">
@@ -24,8 +26,27 @@
         </a>
         <ul class="nav-links">
           ${navLink('why-us.html', 'Why Us', 'why-us')}
-          ${navLink('pricing.html', 'Pricing', 'pricing')}
-          ${navLink('features.html', 'Features', 'features')}
+          <li class="nav-dropdown-wrap">
+            <button class="nav-dropdown-trigger${personalActive}" aria-expanded="false" aria-haspopup="true">
+              Personal
+              <svg class="nav-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="nav-dropdown" role="menu">
+              <a href="features.html" class="nav-dropdown-item${page === 'features' ? ' is-active' : ''}" role="menuitem">
+                <span>
+                  <strong>Features</strong>
+                  <em>Everything Opvion can do</em>
+                </span>
+              </a>
+              <a href="pricing.html" class="nav-dropdown-item${page === 'pricing' ? ' is-active' : ''}" role="menuitem">
+                <span>
+                  <strong>Pricing</strong>
+                  <em>Plans &amp; early access perks</em>
+                </span>
+              </a>
+            </div>
+          </li>
+          <li><a href="business.html" class="">Business</a></li>
           ${navLink('security.html', 'Security', 'security')}
           <li><a href="index.html#contact" class="btn-nav">Get Early Access</a></li>
         </ul>
@@ -35,8 +56,12 @@
       </div>
       <div class="mobile-menu" id="mobileMenu">
         ${mobileLink('why-us.html', 'Why Us', 'why-us')}
-        ${mobileLink('pricing.html', 'Pricing', 'pricing')}
-        ${mobileLink('features.html', 'Features', 'features')}
+        <div class="mobile-group">
+          <span class="mobile-group-label">Personal</span>
+          ${mobileLink('features.html', 'Features', 'features', 'mobile-sub ')}
+          ${mobileLink('pricing.html', 'Pricing', 'pricing', 'mobile-sub ')}
+        </div>
+        <a href="business.html" class="">Business</a>
         ${mobileLink('security.html', 'Security', 'security')}
         <a href="index.html#contact" class="btn-mobile">Get Early Access</a>
       </div>
@@ -142,4 +167,34 @@
   if (navMount) navMount.outerHTML = navHTML;
   if (footerMount) footerMount.outerHTML = footerHTML;
   if (modalsMount) modalsMount.outerHTML = modalsHTML;
+
+  // ── Dropdown toggle (click + keyboard) ──────────────
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('.nav-dropdown-trigger');
+    const wrap = e.target.closest('.nav-dropdown-wrap');
+    // Close all open dropdowns when clicking outside
+    document.querySelectorAll('.nav-dropdown-wrap.open').forEach(el => {
+      if (el !== wrap) {
+        el.classList.remove('open');
+        const btn = el.querySelector('.nav-dropdown-trigger');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+    if (trigger) {
+      const parent = trigger.closest('.nav-dropdown-wrap');
+      const isOpen = parent.classList.toggle('open');
+      trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      e.stopPropagation();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.nav-dropdown-wrap.open').forEach(el => {
+        el.classList.remove('open');
+        const btn = el.querySelector('.nav-dropdown-trigger');
+        if (btn) { btn.setAttribute('aria-expanded', 'false'); btn.focus(); }
+      });
+    }
+  });
 })();
