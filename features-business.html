@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Opvion Business: institutional analytics for family offices and emerging managers. Multi-entity structure, performance reporting, attribution, scenario analysis, operations, and access control." />
+  <title>Business Features · Opvion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="features-business" class="page-subpage">
+
+  <div id="nav-mount"></div>
+
+  <section id="features-hero">
+    <div class="container">
+      <div class="section-label">Business</div>
+      <h2>Institutional analytics. Without the institutional price tag.</h2>
+      <p class="section-sub">Built for family offices and emerging managers stuck between Excel and a €30K/year platform.</p>
+      <div class="features-tier-legend">
+        <span class="tier-chip tier-biz">Business</span>
+        <span class="tier-chip tier-enterprise">Enterprise</span>
+        <span class="tier-chip tier-roadmap">Roadmap</span>
+        <a class="tier-legend-link" href="pricing.html">See pricing →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 1: STRUCTURE ─────────────────────────────────────── -->
+  <section class="feature-block" data-block="biz-structure" data-side="right">
+    <div class="container feature-block-inner">
+      <div class="feature-sticky">
+        <div class="feature-eyebrow">01 · Structure</div>
+        <h3 class="feature-headline">Your entities aren't one portfolio. Stop treating them like one.</h3>
+        <p class="feature-lede">Model any firm structure: fund over SPV over account, or flat HNWI over brokers. Toggle between the consolidated view and a per-entity drilldown without touching a spreadsheet.</p>
+        <ul class="feature-bullets">
+          <li data-tier="biz" data-popup="Model the full Firm → Entity → Account → Position hierarchy. Each level rolls up automatically with correct FX and performance calculations.">
+            <span class="fb-icon">🏗️</span>
+            <span class="fb-label">Multi-Entity Hierarchy</span>
+            <span class="tier-chip tier-biz">Business</span>
+          </li>
+          <li data-tier="biz" data-popup="Tag entities as fund, HNWI, SPV, trust, pension, or custom. Drives filtering, reporting templates, and dashboard presets.">
+            <span class="fb-icon">🏷️</span>
+            <span class="fb-label">Entity Types</span>
+            <span class="tier-chip tier-biz">Business</span>
+          </li>
+          <li data-tier="enterprise" data-popup="Track beneficial owners, ownership percentages, and UBO chains across all entities. Meets standard KYC documentation requirements.">
+            <span class="fb-icon">🔗</span>
+            <span class="fb-label">Beneficial Ownership Tracking</span>
+            <span class="tier-chip tier-enterprise">Enterprise</span>
+          </li>
+          <li data-tier="biz" data-popup="Switch between the full consolidated view and any single entity in one click. Same data, different lens.">
+            <span class="fb-icon">🔀</span>
+            <span class="fb-label">Consolidated vs Per-Entity View</span>
+            <span class="tier-chip tier-biz">Business</span>
+          </li>
+          <li data-tier="biz" data-popup="Transfers between entities you control are identified and netted at the consolidated level so they don't inflate your gross figures.">
+            <span class="fb-icon">↔️</span>
+            <span class="fb-label">Inter-Entity Transfer Netting</span>
+            <span class="tier-chip tier-biz">Business</span>
+          </li>
+        </ul>
+      </div>
+      <div class="feature-visual feature-visual-biz-structure">
+        <div class="entity-tree-mock">
+          <div class="et-header">
+            <span class="et-title">Entity Structure</span>
+            <div class="et-toggle">
+              <button class="ett-btn ett-active">Consolidated</button>
+              <button class="ett-btn">Per Entity</button>
+            </div>
+          </div>
+          <div class="et-node et-firm">
+            <span class="et-icon">🏢</span>
+            <span class="et-name">Horizon Capital</span>
+            <span class="et-val">€18.4M</span>
+            <span class="et-delta et-up">▲ 3.1%</span>
+          </div>
+          <div class="et-children">
+            <div class="et-node et-entity">
+              <span class="et-icon">📂</span>
+              <span class="et-name">EU Growth Fund</span>
+              <span class="et-val">€12.4M</span>
+              <span class="et-delta et-up">▲ 4.2%</span>
+            </div>
+            <div class="et-sub-children">
+              <div class="et-node et-account">
+                <span class="et-icon">🏦</span>
+                <span class="et-name">IB Securities</span>
+                <span class="et-val">€8.1M</span>
+              </div>
+              <div class="et-node et-account">
+                <span class="et-icon">🏦</span>
+                <span class="et-name">Saxo Bank</span>
+                <span class="et-val">€4.3M</span>
+              </div>
+            </div>
+            <div class="et-node et-entity">
+              <span class="et-icon">📂</span>
+              <span class="et-name">HNWI Portfolio</span>
+              <span class="et-val">€6.0M</span>
+              <span class="et-delta et-up">▲ 1.7%</span>
+            </div>
+            <div class="et-sub-children">
+              <div class="et-node et-account">
+                <span class="et-icon">🏦</span>
+                <span class="et-name">DeGiro</span>
+                <span class="et-val">€6.0M</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 2: REPORTING ─────────────────────────────────────── -->
+  <section class="feature-block" data-block="biz-reporting" data-side="left">
+    <div class="container feature-block-inner">
+      <div class="feature-sticky">
+        <div class="feature-eyebrow">02 · Reporting</div>
+        <h3 class="feature-headline">The quarterly pack, without the weekend.</h3>
+        <p class="feature-lede">Pre-built templates for every standard deliverable. Add your logo, schedule delivery, and send per-recipient variants, all from one place.</p>
+        <ul class="feature-bullets">
+          <li data-tier="biz" data-popup="Monthly performance summary, quarterly review, board pack, and LP report. All pre-structured, all editable, all yours to schedule.">
+            <span class="fb-icon">📋</span>
+            <span class="fb-label">Report Templates</span>
+            <span class="tier-chip tier-biz">Business</span>
+          </li>
+          <li data-tier="biz" data-popup="Upload your logo and brand colours once. Every generated PDF carries your identity, not Opvion's.">
+            <span class="fb-icon">🎨</span>
+            <span class="fb-label">Branded PDF with Logo &amp; Cover</span>
+            <span class="tier-chip tier-biz">Business</span>
+          </li>
+          <li data-tier="enterprise" data-popup="IPS compliance report checks your actual holdings against the investment policy statement and flags any drift before it becomes a problem.">
+            <span class="fb-icon">📐</span>
+            <span class="fb-label">IPS Compliance Report</span>
+            <span class="tier-chip tier-enterprise">Enterprise</span>
+          </li>
+          <li data-tier="biz" data-popup="Set a schedule (monthly on the 3rd, quarterly on the first business day) and reports are generated and emailed automatically.">
+            <span class="fb-icon">🗓️</span>
+            <span class="fb-label">Scheduled Delivery</span>
+            <span class="tier-chip tier-biz">Business</span>
+          </li>
+          <li data-tier="enterprise" data-popup="Send each LP a version that shows only their allocation. One run, multiple personalised outputs.">
+            <span class="fb-icon">📬</span>
+            <span class="fb-label">Per-Recipient Variants</span>
+            <span class="tier-chip tier-enterprise">Enterprise</span>
+          </li>
+        </ul>
+      </div>
+      <div class="feature-visual feature-visual-biz-reporting">
+        <div class="report-cover-mock">
+          <div class="rc-header">
+            <div class="rc-logo">
+              <div class="rc-logo-box">H</div>
+              <span class="rc-firm">Horizon Capital</span>
+            </div>
+            <span class="rc-confidential">Confidential</span>
+          </div>
+          <div class="rc-body">
+            <div class="rc-report-type">Quarterly Performance Review</div>
+            <div class="rc-period">Q2 2025</div>
+            <div class="rc-divider"></div>
+            <div class="rc-meta-row"><span>AUM</span><span>€18.4M</span></div>
+            <div class="rc-meta-row"><span>Period Return</span><span class="rc-up">+4.2%</span></div>
+            <div class="rc-meta-row"><span>Benchmark</span><span>MSCI ACWI</span></div>
+            <div class="rc-meta-row"><span>Benchmark Return</span><span>+2.6%</span></div>
+          </div>
+          <div class="rc-footer">
+            <span class="rc-gen">Generated 01 Jul 2025 · PDF</span>
+            <span class="rc-download">↓</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 3: ATTRIBUTION ───────────────────────────────────── -->
+  <section class="feature-block" data-block="biz-attribution" data-side="right">
+    <div class="container feature-block-inner">
+      <div class="feature-sticky">
+        <div class="feature-eyebrow">03 · Attribution</div>
+        <h3 class="feature-headline">Why the portfolio did what it did.</h3>
+        <p class="feature-lede">Brinson-Fachler decomposition across every dimension you care about. Know whether you made money from being in the right sectors or picking the right names, or both.</p>
+        <ul class="feature-bullets">
+          <li data-tier="biz" data-popup="Full Brinson-Fachler decomposition into allocation, selection, and interaction effects. Slice by sector, geography, asset class, or individual position.">
+            <span class="fb-icon">📊</span>
+            <span class="fb-label">Brinson-Fachler Attribution</span>
+            <span class="tier-chip tier-biz">Business</span>
+          </li>
+          <li data-tier="biz" data-popup="Break down returns by sector (GICS), geography (country or region), and asset class. See where alpha is really coming from.">
+            <span class="fb-icon">🌍</span>
+            <span class="fb-label">Sector / Geography / Asset Class Breakdown</span>
+            <span class="tier-chip tier-biz">Business</span>
+          </li>
+          <li data-tier="biz" data-popup="Separate the FX component from the local-currency return. See how much of your EUR return came from the USD/EUR move versus the stock itself.">
+            <span class="fb-icon">💱</span>
+            <span class="fb-label">Currency Attribution</span>
+            <span class="tier-chip tier-biz">Business</span>
+          </li>
+          <li data-tier="biz" data-popup="Every position's contribution to total portfolio return and total portfolio risk, in basis points.">
+            <span class="fb-icon">⚖️</span>
+            <span class="fb-label">Contribution to Return &amp; Risk</span>
+            <span class="tier-chip tier-biz">Business</span>
+          </li>
+        </ul>
+      </div>
+      <div class="feature-visual feature-visual-attribution">
+        <div class="waterfall-mock">
+          <div class="wf-title">Brinson-Fachler Attribution · Q2 2025</div>
+          <div class="wf-bars">
+            <div class="wf-row">
+              <span class="wf-label">Portfolio Return</span>
+              <div class="wf-bar-wrap"><div class="wf-bar wf-total" style="width:84%"></div></div>
+              <span class="wf-val wf-up">+8.4%</span>
+            </div>
+            <div class="wf-row">
+              <span class="wf-label">Allocation Effect</span>
+              <div class="wf-bar-wrap"><div class="wf-bar wf-alloc" style="width:21%"></div></div>
+              <span class="wf-val wf-up">+2.1%</span>
+            </div>
+            <div class="wf-row">
+              <span class="wf-label">Selection Effect</span>
+              <div class="wf-bar-wrap"><div class="wf-bar wf-select" style="width:56%"></div></div>
+              <span class="wf-val wf-up">+5.6%</span>
+            </div>
+            <div class="wf-row">
+              <span class="wf-label">Interaction</span>
+              <div class="wf-bar-wrap"><div class="wf-bar wf-interact" style="width:7%"></div></div>
+              <span class="wf-val wf-up">+0.7%</span>
+            </div>
+            <div class="wf-row">
+              <span class="wf-label">Benchmark</span>
+              <div class="wf-bar-wrap"><div class="wf-bar wf-bench" style="width:68%"></div></div>
+              <span class="wf-val wf-down">−6.8%</span>
+            </div>
+          </div>
+          <div class="wf-excess">Active Return: <strong>+1.6%</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 4: SCENARIOS ─────────────────────────────────────── -->
+  <section class="feature-block" data-block="biz-scenarios" data-side="left">
+    <div class="container feature-block-inner">
+      <div class="feature-sticky">
+        <div class="feature-eyebrow">04 · Scenarios</div>
+        <h3 class="feature-headline">What happens if you're wrong.</h3>
+        <p class="feature-lede">Replay your current book through the events that already happened, shock it with anything parametric, or run Monte Carlo to see how the distribution of outcomes actually looks.</p>
+        <ul class="feature-bullets">
+          <li data-tier="biz" data-popup="Run your current portfolio through 2008 (GFC), March 2020 (COVID), 2022 rates shock, and the FTX contagion. See drawdown, duration, and recovery path.">
+            <span class="fb-icon">📅</span>
+            <span class="fb-label">Historical Replays</span>
+            <span class="tier-chip tier-biz">Business</span>
+          </li>
+          <li data-tier="biz" data-popup="Shock equity by −20%, rates by +200bps, EUR/USD by −15%, or define any custom multi-factor scenario. Results update in real time.">
+            <span class="fb-icon">⚡</span>
+            <span class="fb-label">Parametric &amp; Custom Shocks</span>
+            <span class="tier-chip tier-biz">Business</span>
+          </li>
+          <li data-tier="enterprise" data-popup="10,000-path simulation with configurable drift and volatility. Fan chart output with 68% and 95% confidence intervals. Export to PDF or CSV.">
+            <span class="fb-icon">🎲</span>
+            <span class="fb-label">Monte Carlo with Confidence Intervals</span>
+            <span class="tier-chip tier-enterprise">Enterprise</span>
+          </li>
+        </ul>
+      </div>
+      <div class="feature-visual feature-visual-biz-scenarios">
+        <div class="fan-chart-mock">
+          <div class="fc-header">
+            <span class="fc-title">Monte Carlo · 10,000 paths · 3Y</span>
+            <span class="fc-scenario-select">2022 rates shock ▾</span>
+          </div>
+          <svg class="fan-chart-svg" viewBox="0 0 320 150" preserveAspectRatio="none">
+            <path class="fan-band-outer" d="M160,75 L190,55 L220,30 L260,8 L320,0 L320,150 L260,125 L220,118 L190,108 L160,75 Z"/>
+            <path class="fan-band-inner" d="M160,75 L190,65 L220,52 L260,38 L320,28 L320,150 L260,118 L220,108 L190,98 L160,75 Z"/>
+            <path class="fan-history" d="M0,120 L20,115 L40,110 L60,100 L80,95 L100,88 L120,84 L140,79 L160,75"/>
+            <path class="fan-median"  d="M160,75 L190,68 L220,60 L260,50 L320,42"/>
+            <path class="fan-shock-line" d="M160,75 L185,95 L210,115 L235,125 L260,118 L290,108 L320,100"/>
+            <line class="fan-today" x1="160" y1="10" x2="160" y2="148"/>
+            <text class="fan-today-label" x="163" y="22">Today</text>
+          </svg>
+          <div class="fc-legend">
+            <div class="fc-legend-item"><span class="fc-dot fc-dot-base"></span> Median</div>
+            <div class="fc-legend-item"><span class="fc-dot fc-dot-ci95"></span> 95% CI</div>
+            <div class="fc-legend-item"><span class="fc-dot fc-dot-shock"></span> 2022 Rates</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 5: OPERATIONS ────────────────────────────────────── -->
+  <section class="feature-block" data-block="biz-operations" data-side="right">
+    <div class="container feature-block-inner">
+      <div class="feature-sticky">
+        <div class="feature-eyebrow">05 · Operations</div>
+        <h3 class="feature-headline">The unglamorous work, automated.</h3>
+        <p class="feature-lede">Recon, document management, drift monitoring, and liquidity planning. The operational backbone that usually falls to a spreadsheet and a junior analyst at 9 PM.</p>
+        <ul class="feature-bullets">
+          <li data-tier="biz" data-popup="Upload custodian statements and Opvion flags every position and cash break automatically. Breaks are logged, assigned, and tracked to resolution.">
+            <span class="fb-icon">⚖️</span>
+            <span class="fb-label">Custodian Reconciliation &amp; Break Flagging</span>
+            <span class="tier-chip tier-biz">Business</span>
+          </li>
+          <li data-tier="biz" data-popup="Upload statements, contracts, and regulatory documents. OCR extracts key fields automatically and links documents to the relevant positions or entities.">
+            <span class="fb-icon">📁</span>
+            <span class="fb-label">Document Vault with OCR</span>
+            <span class="tier-chip tier-biz">Business</span>
+          </li>
+          <li data-tier="biz" data-popup="Define your IPS constraints: max sector weight, min cash, asset class limits. Receive an alert the moment any holding drifts outside the bounds.">
+            <span class="fb-icon">🔔</span>
+            <span class="fb-label">IPS Drift Alerts</span>
+            <span class="tier-chip tier-biz">Business</span>
+          </li>
+          <li data-tier="enterprise" data-popup="Track capital call schedules, expected drawdowns, and liquidity runway across entities. Projected cash positions 30, 60, and 90 days out.">
+            <span class="fb-icon">💧</span>
+            <span class="fb-label">Capital Call &amp; Liquidity Planning</span>
+            <span class="tier-chip tier-enterprise">Enterprise</span>
+          </li>
+        </ul>
+      </div>
+      <div class="feature-visual feature-visual-biz-operations">
+        <div class="recon-mock">
+          <div class="rm-header">
+            <span class="rm-title">Reconciliation · IB Securities</span>
+            <span class="rm-date">24 Jul 2025</span>
+          </div>
+          <div class="rm-summary">
+            <span class="rm-ok-count">12 matched</span>
+            <span class="rm-break-count">1 break</span>
+          </div>
+          <div class="rm-rows">
+            <div class="rm-row rm-match">
+              <span class="rm-ticker">VWCE</span>
+              <span class="rm-pos">1,200 / 1,200</span>
+              <span class="rm-status rm-ok">✓ Match</span>
+            </div>
+            <div class="rm-row rm-break">
+              <span class="rm-ticker">MSFT</span>
+              <span class="rm-pos">450 / 445</span>
+              <span class="rm-status rm-err">⚠ Break</span>
+            </div>
+            <div class="rm-row rm-match">
+              <span class="rm-ticker">Cash EUR</span>
+              <span class="rm-pos">€12,450 / €12,450</span>
+              <span class="rm-status rm-ok">✓ Match</span>
+            </div>
+            <div class="rm-row rm-match">
+              <span class="rm-ticker">BTC</span>
+              <span class="rm-pos">0.485 / 0.485</span>
+              <span class="rm-status rm-ok">✓ Match</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 6: CONTROL ───────────────────────────────────────── -->
+  <section class="feature-block" data-block="biz-control" data-side="left">
+    <div class="container feature-block-inner">
+      <div class="feature-sticky">
+        <div class="feature-eyebrow">06 · Control</div>
+        <h3 class="feature-headline">Who saw what, and when.</h3>
+        <p class="feature-lede">Six role types with granular permissions, a 7-year immutable audit log, and SSO for Enterprise. No shared passwords. No ambiguity about what any counterparty can access.</p>
+        <ul class="feature-bullets">
+          <li data-tier="biz" data-popup="Owner, Admin, Analyst, Viewer, Accountant, External Advisor. Each with a distinct default permission set that you can fine-tune per entity.">
+            <span class="fb-icon">👥</span>
+            <span class="fb-label">6 Role Types</span>
+            <span class="tier-chip tier-biz">Business</span>
+          </li>
+          <li data-tier="biz" data-popup="Restrict any role to specific entities, date ranges, or data types. An LP viewer sees their allocation. An external auditor sees transactions only.">
+            <span class="fb-icon">🔒</span>
+            <span class="fb-label">Granular Permissions</span>
+            <span class="tier-chip tier-biz">Business</span>
+          </li>
+          <li data-tier="biz" data-popup="Every read, export, permission change, and login is recorded with user, timestamp, and IP. Retained for 7 years. Immutable.">
+            <span class="fb-icon">📜</span>
+            <span class="fb-label">7-Year Audit Log</span>
+            <span class="tier-chip tier-biz">Business</span>
+          </li>
+          <li data-tier="enterprise" data-popup="SAML 2.0 / OIDC SSO. Provision and deprovision users through your existing IdP. Pair with enforced MFA for full compliance posture.">
+            <span class="fb-icon">🔑</span>
+            <span class="fb-label">SSO</span>
+            <span class="tier-chip tier-enterprise">Enterprise</span>
+          </li>
+        </ul>
+      </div>
+      <div class="feature-visual feature-visual-biz-control">
+        <div class="roles-mock">
+          <div class="ro-header">
+            <span class="ro-title">Access Control</span>
+            <button class="ro-add">+ Add member</button>
+          </div>
+          <div class="ro-rows">
+            <div class="ro-row">
+              <span class="ro-avatar ro-av-1">AK</span>
+              <span class="ro-name">Anna K.</span>
+              <span class="ro-role ro-owner">Owner</span>
+              <span class="ro-scope">All entities</span>
+            </div>
+            <div class="ro-row">
+              <span class="ro-avatar ro-av-2">MR</span>
+              <span class="ro-name">Max R.</span>
+              <span class="ro-role ro-analyst">Analyst</span>
+              <span class="ro-scope">EU Growth Fund</span>
+            </div>
+            <div class="ro-row">
+              <span class="ro-avatar ro-av-3">LP</span>
+              <span class="ro-name">LP GmbH</span>
+              <span class="ro-role ro-viewer">Viewer</span>
+              <span class="ro-scope">Read-only</span>
+            </div>
+            <div class="ro-row">
+              <span class="ro-avatar ro-av-4">EY</span>
+              <span class="ro-name">EY Audit</span>
+              <span class="ro-role ro-external">Accountant</span>
+              <span class="ro-scope">Transactions only</span>
+            </div>
+          </div>
+          <div class="ro-log-pill">
+            <span>🔒</span> 7-year audit log active
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 7: EXTEND ────────────────────────────────────────── -->
+  <section class="feature-block" data-block="biz-extend" data-side="right">
+    <div class="container feature-block-inner">
+      <div class="feature-sticky">
+        <div class="feature-eyebrow">07 · Extend</div>
+        <h3 class="feature-headline">Opvion as a data layer, not just a dashboard.</h3>
+        <p class="feature-lede">REST API, webhooks, native integrations with the accounting and CRM tools you already use, and a full white-label option for firms that want the product under their own brand.</p>
+        <ul class="feature-bullets">
+          <li data-tier="biz" data-popup="Full OpenAPI spec. Read and write access to positions, transactions, entities, and reports. Sandbox environment available before production.">
+            <span class="fb-icon">🔌</span>
+            <span class="fb-label">REST API &amp; Webhooks</span>
+            <span class="tier-chip tier-biz">Business</span>
+          </li>
+          <li data-tier="biz" data-popup="Sync transactions and positions to QuickBooks Online, Xero, or Sage Intacct. Chart of accounts mapping is configurable per entity.">
+            <span class="fb-icon">📒</span>
+            <span class="fb-label">QuickBooks / Xero / Sage Intacct</span>
+            <span class="tier-chip tier-biz">Business</span>
+          </li>
+          <li data-tier="biz" data-popup="Two-way sync with Wealthbox and Redtail. Client records, households, and notes stay in one place across both systems.">
+            <span class="fb-icon">🤝</span>
+            <span class="fb-label">Wealthbox / Redtail CRM</span>
+            <span class="tier-chip tier-biz">Business</span>
+          </li>
+          <li data-tier="enterprise" data-popup="Your domain, your logo, your colour scheme. Clients see your brand at every touchpoint: login, dashboard, reports, and emails.">
+            <span class="fb-icon">🏷️</span>
+            <span class="fb-label">White-Label</span>
+            <span class="tier-chip tier-enterprise">Enterprise</span>
+          </li>
+        </ul>
+      </div>
+      <div class="feature-visual feature-visual-biz-extend">
+        <div class="integrations-mock">
+          <div class="int-grid">
+            <div class="int-pill int-api">REST API</div>
+            <div class="int-pill int-webhook">Webhooks</div>
+            <div class="int-pill">QuickBooks</div>
+            <div class="int-pill">Xero</div>
+            <div class="int-pill">Sage Intacct</div>
+            <div class="int-pill">Wealthbox</div>
+            <div class="int-pill">Redtail</div>
+            <div class="int-pill int-wl">White-Label</div>
+          </div>
+          <div class="int-hint">Full OpenAPI spec · Sandbox environment</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 8: ROADMAP ───────────────────────────────────────── -->
+  <section id="features-roadmap">
+    <div class="container">
+      <div class="roadmap-eyebrow">
+        08 · Roadmap
+        <span class="roadmap-eyebrow-badge">Customer-pull</span>
+      </div>
+      <h3 class="roadmap-headline">What we're scoping next, with your input.</h3>
+      <p class="roadmap-lede">The items below are unbuilt and on the radar. If any of them are blockers for your firm, tell us and we'll scope them directly against your requirements. For this buyer, that conversation is a feature, not a workaround.</p>
+      <div class="roadmap-grid">
+        <div class="roadmap-item">
+          <div class="roadmap-item-header">
+            <span class="roadmap-icon">📋</span>
+            <span class="roadmap-item-name">IBOR-Lite</span>
+            <span class="tier-chip tier-roadmap">Roadmap</span>
+          </div>
+          <p class="roadmap-item-desc">Investment book of record: transaction-level NAV computed daily, with full audit trail and time-series export. Bridges the gap between a broker statement and a proper fund accounting system.</p>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-item-header">
+            <span class="roadmap-icon">📝</span>
+            <span class="roadmap-item-name">Regulatory Templates</span>
+            <span class="tier-chip tier-roadmap">Roadmap</span>
+          </div>
+          <p class="roadmap-item-desc">Pre-structured outputs for ADV Part 2, Form PF, AIFMD Annex IV, 13F, and GIPS composite construction. Tell us which jurisdiction you file in and we'll scope the field mapping.</p>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-item-header">
+            <span class="roadmap-icon">⚡</span>
+            <span class="roadmap-item-name">Execution Analytics</span>
+            <span class="tier-chip tier-roadmap">Roadmap</span>
+          </div>
+          <p class="roadmap-item-desc">TCA-style trade cost analysis: implementation shortfall, market impact, and slippage versus arrival price and VWAP benchmarks. Requires execution venue data feed.</p>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-item-header">
+            <span class="roadmap-icon">🚫</span>
+            <span class="roadmap-item-name">Compliance &amp; Restricted Lists</span>
+            <span class="tier-chip tier-roadmap">Roadmap</span>
+          </div>
+          <p class="roadmap-item-desc">Pre-trade compliance checks against firm-level restricted lists, sector exclusions, and ESG screens. Real-time block on any proposed trade that violates a rule.</p>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-item-header">
+            <span class="roadmap-icon">📐</span>
+            <span class="roadmap-item-name">Advanced Quant</span>
+            <span class="tier-chip tier-roadmap">Roadmap</span>
+          </div>
+          <p class="roadmap-item-desc">Factor exposure (Fama-French, Barra-style), VaR and CVaR at position and portfolio level, tail-risk analytics, and drawdown path analysis with conditional overlays.</p>
+        </div>
+      </div>
+      <div class="roadmap-cta-wrap">
+        <div class="roadmap-cta-text">
+          <h4>Tell us what you need.</h4>
+          <p>If any item above is a hard requirement, contact us and we'll scope it against your specific setup: timeline, data sources, and output format included.</p>
+        </div>
+        <a href="index.html#contact" class="btn-roadmap">Start the conversation →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ────────────────────────────────────────────────────────── -->
+  <section id="features-cta">
+    <div class="container">
+      <h3>Ready to move beyond spreadsheets?</h3>
+      <p>Get in touch and we'll show you exactly what Opvion looks like on your structure.</p>
+      <div class="features-cta-actions">
+        <a href="index.html#contact" class="btn-primary">Request a walkthrough</a>
+        <a href="pricing.html" class="btn-ghost">Compare pricing</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hover popup tooltip (positioned by JS) -->
+  <div id="featurePopup" class="feature-popup" hidden></div>
+
+  <div id="footer-mount"></div>
+  <div id="modals-mount"></div>
+
+  <script src="layout.js"></script>
+  <script src="script.js"></script>
+  <script src="features.js"></script>
+</body>
+</html>

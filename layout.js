@@ -16,6 +16,7 @@
   };
 
   const personalActive = (page === 'pricing' || page === 'features') ? ' is-active' : '';
+  const businessActive = (page === 'features-business') ? ' is-active' : '';
 
   const navHTML = `
     <nav id="navbar">
@@ -46,7 +47,26 @@
               </a>
             </div>
           </li>
-          <li><a href="business.html" class="">Business</a></li>
+          <li class="nav-dropdown-wrap">
+            <button class="nav-dropdown-trigger${businessActive}" aria-expanded="false" aria-haspopup="true">
+              Business
+              <svg class="nav-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="nav-dropdown" role="menu">
+              <a href="business.html" class="nav-dropdown-item${page === 'business' ? ' is-active' : ''}" role="menuitem">
+                <span>
+                  <strong>Overview</strong>
+                  <em>Opvion for family offices &amp; managers</em>
+                </span>
+              </a>
+              <a href="features-business.html" class="nav-dropdown-item${page === 'features-business' ? ' is-active' : ''}" role="menuitem">
+                <span>
+                  <strong>Features</strong>
+                  <em>Institutional analytics in full detail</em>
+                </span>
+              </a>
+            </div>
+          </li>
           ${navLink('security.html', 'Security', 'security')}
           <li><a href="index.html#contact" class="btn-nav">Get Early Access</a></li>
         </ul>
@@ -61,7 +81,11 @@
           ${mobileLink('features.html', 'Features', 'features', 'mobile-sub ')}
           ${mobileLink('pricing.html', 'Pricing', 'pricing', 'mobile-sub ')}
         </div>
-        <a href="business.html" class="">Business</a>
+        <div class="mobile-group">
+          <span class="mobile-group-label">Business</span>
+          <a href="business.html" class="mobile-sub ${page === 'business' ? 'is-active' : ''}">Overview</a>
+          <a href="features-business.html" class="mobile-sub ${page === 'features-business' ? 'is-active' : ''}">Features</a>
+        </div>
         ${mobileLink('security.html', 'Security', 'security')}
         <a href="index.html#contact" class="btn-mobile">Get Early Access</a>
       </div>
