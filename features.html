@@ -32,7 +32,7 @@
     <div class="container feature-block-inner">
       <div class="feature-sticky">
         <div class="feature-eyebrow">01 · Connectivity</div>
-        <h3 class="feature-headline">Plug into 300+ European banks. Sync stops being a chore.</h3>
+        <h3 class="feature-headline">Plug into 300+ Banks, brokers and crypto wallets. Sync stops being a chore.</h3>
         <p class="feature-lede">Link accounts via our open banking partners and let Opvion pull every transaction in the background. Categorized on import, ready to act on.</p>
         <ul class="feature-bullets">
           <li data-tier="basic" data-popup="Connect any EU bank that supports IBAN. Sparkasse, Deutsche Bank, DKB, BNP Paribas, Santander, ING, plus modern players like N26, Revolut, Wise, Monzo, Barclays.">
@@ -71,11 +71,56 @@
     </div>
   </section>
 
-  <!-- ── SECTION 2: SPENDING INSIGHTS ───────────────────────────────── -->
-  <section class="feature-block" data-block="spending" data-side="left">
+  <!-- ── SECTION 2: WEALTH ─────────────────────────────────────────── -->
+  <section class="feature-block" data-block="wealth" data-side="left">
     <div class="container feature-block-inner">
       <div class="feature-sticky">
-        <div class="feature-eyebrow">02 · Insights</div>
+        <div class="feature-eyebrow">02 · Wealth</div>
+        <h3 class="feature-headline">One number that tells you where you actually stand.</h3>
+        <p class="feature-lede">Assets minus liabilities, every account, every currency, tracked over time. Watch the line go up, or know exactly why it didn't.</p>
+        <ul class="feature-bullets">
+          <li data-tier="basic" data-popup="Assets vs liabilities across all accounts in one number, with historical tracking so you can see your wealth grow over time.">
+            <span class="fb-icon">📈</span>
+            <span class="fb-label">Net Worth Tracking</span>
+            <span class="tier-chip tier-basic">Basic</span>
+          </li>
+          <li data-tier="pro" data-popup="Track credit card balances, utilization, and repayments alongside your full financial picture.">
+            <span class="fb-icon">💳</span>
+            <span class="fb-label">Credit Tracker <span class="badge-soon">Soon</span></span>
+            <span class="tier-chip tier-pro">Pro</span>
+          </li>
+          <li data-tier="free" data-popup="EUR, USD, GBP, CHF, SEK, NOK, DKK, PLN, CZK and 10+ more. Accurate symbols, decimals, and conversion.">
+            <span class="fb-icon">💱</span>
+            <span class="fb-label">19+ Currencies</span>
+            <span class="tier-chip tier-free">Free</span>
+          </li>
+        </ul>
+      </div>
+      <div class="feature-visual feature-visual-wealth">
+        <div class="wealth-ring-wrap">
+          <svg viewBox="0 0 160 160" class="wealth-ring">
+            <circle cx="80" cy="80" r="64" fill="transparent" stroke="#1f2937" stroke-width="12"/>
+            <circle cx="80" cy="80" r="64" fill="transparent" stroke="#3b82f6" stroke-width="12" stroke-linecap="round" stroke-dasharray="402" stroke-dashoffset="80" transform="rotate(-90 80 80)" class="wealth-ring-fg"/>
+          </svg>
+          <div class="wealth-center">
+            <div class="wealth-label">Net Worth</div>
+            <div class="wealth-value" data-target="84210">€0</div>
+            <div class="wealth-delta">▲ €1,420 this month</div>
+          </div>
+        </div>
+        <div class="wealth-bars">
+          <div class="wealth-bar"><span class="wb-label">Assets</span><span class="wb-fill wb-asset"></span><span class="wb-amt">€96,430</span></div>
+          <div class="wealth-bar"><span class="wb-label">Liabilities</span><span class="wb-fill wb-liab"></span><span class="wb-amt">€12,220</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 3: SPENDING INSIGHTS ───────────────────────────────── -->
+  <section class="feature-block" data-block="spending" data-side="right">
+    <div class="container feature-block-inner">
+      <div class="feature-sticky">
+        <div class="feature-eyebrow">03 · Spending Insights</div>
         <h3 class="feature-headline">Every euro, traced. Every pattern, surfaced.</h3>
         <p class="feature-lede">From a clean monthly breakdown to AI that warns you before a category blows up. Your spending stops being a mystery.</p>
         <ul class="feature-bullets">
@@ -125,17 +170,22 @@
     </div>
   </section>
 
-  <!-- ── SECTION 3: INVESTMENTS & MARKETS ───────────────────────────── -->
-  <section class="feature-block" data-block="invest" data-side="right">
+  <!-- ── SECTION 4: INVESTMENTS & MARKETS ───────────────────────────── -->
+  <section class="feature-block" data-block="invest" data-side="left">
     <div class="container feature-block-inner">
       <div class="feature-sticky">
-        <div class="feature-eyebrow">03 · Investments</div>
+        <div class="feature-eyebrow">04 · Investments</div>
         <h3 class="feature-headline">Stocks, ETFs, crypto, alternatives. One portfolio.</h3>
-        <p class="feature-lede">The only tracker that applies historical FX rates retroactively, so your performance number is accurate at any point in time, not just today.</p>
+        <p class="feature-lede">Historical FX applied retroactively, so your return is accurate at every point in time, not just today.</p>
         <ul class="feature-bullets">
           <li data-tier="pro" data-popup="Track stocks, ETFs, crypto, bonds, private equity, and alternative assets, all in one portfolio view with live prices.">
             <span class="fb-icon">📉</span>
             <span class="fb-label">Investment Portfolio Tracker</span>
+            <span class="tier-chip tier-pro">Pro</span>
+          </li>
+          <li data-tier="pro" data-popup="Every buy is stored as its own lot with its date, price, fees, and the FX rate at the moment you bought. See the return on each one separately, how long you've held it.">
+            <span class="fb-icon">🗂️</span>
+            <span class="fb-label">Per-Lot Performance Tracking</span>
             <span class="tier-chip tier-pro">Pro</span>
           </li>
           <li data-tier="pro" data-popup="Live stock and ETF prices via Yahoo Finance. Live crypto via CoinGecko. Positions update every 30 seconds.">
@@ -146,6 +196,11 @@
           <li data-tier="pro" data-popup="Daily mid market FX rates applied retroactively. A NAV denominated in EUR for March 2022 reflects March 2022 rates, not today's.">
             <span class="fb-icon">📆</span>
             <span class="fb-label">Historical FX Rates</span>
+            <span class="tier-chip tier-pro">Pro</span>
+          </li>
+          <li data-tier="pro" data-popup="Ex-dates, pay dates, and expected amounts for everything you hold. Plus full payment history with yield on cost and withholding tax.">
+            <span class="fb-icon">📅</span>
+            <span class="fb-label">Dividend Calendar &amp; History</span>
             <span class="tier-chip tier-pro">Pro</span>
           </li>
         </ul>
@@ -171,51 +226,6 @@
             <div class="invest-row"><span class="ir-tag">BTC</span> Bitcoin <span class="ir-pct ir-up">+3.40%</span></div>
             <div class="invest-row"><span class="ir-tag">NVDA</span> Nvidia <span class="ir-pct ir-down">−0.61%</span></div>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── SECTION 4: WEALTH ─────────────────────────────────────────── -->
-  <section class="feature-block" data-block="wealth" data-side="left">
-    <div class="container feature-block-inner">
-      <div class="feature-sticky">
-        <div class="feature-eyebrow">04 · Wealth</div>
-        <h3 class="feature-headline">One number that tells you where you actually stand.</h3>
-        <p class="feature-lede">Assets minus liabilities, every account, every currency, tracked over time. Watch the line go up, or know exactly why it didn't.</p>
-        <ul class="feature-bullets">
-          <li data-tier="basic" data-popup="Assets vs liabilities across all accounts in one number, with historical tracking so you can see your wealth grow over time.">
-            <span class="fb-icon">📈</span>
-            <span class="fb-label">Net Worth Tracking</span>
-            <span class="tier-chip tier-basic">Basic</span>
-          </li>
-          <li data-tier="pro" data-popup="Track credit card balances, utilization, and repayments alongside your full financial picture.">
-            <span class="fb-icon">💳</span>
-            <span class="fb-label">Credit Tracker <span class="badge-soon">Soon</span></span>
-            <span class="tier-chip tier-pro">Pro</span>
-          </li>
-          <li data-tier="free" data-popup="EUR, USD, GBP, CHF, SEK, NOK, DKK, PLN, CZK and 10+ more. Accurate symbols, decimals, and conversion.">
-            <span class="fb-icon">💱</span>
-            <span class="fb-label">19+ Currencies</span>
-            <span class="tier-chip tier-free">Free</span>
-          </li>
-        </ul>
-      </div>
-      <div class="feature-visual feature-visual-wealth">
-        <div class="wealth-ring-wrap">
-          <svg viewBox="0 0 160 160" class="wealth-ring">
-            <circle cx="80" cy="80" r="64" fill="transparent" stroke="#1f2937" stroke-width="12"/>
-            <circle cx="80" cy="80" r="64" fill="transparent" stroke="#3b82f6" stroke-width="12" stroke-linecap="round" stroke-dasharray="402" stroke-dashoffset="80" transform="rotate(-90 80 80)" class="wealth-ring-fg"/>
-          </svg>
-          <div class="wealth-center">
-            <div class="wealth-label">Net Worth</div>
-            <div class="wealth-value" data-target="84210">€0</div>
-            <div class="wealth-delta">▲ €1,420 this month</div>
-          </div>
-        </div>
-        <div class="wealth-bars">
-          <div class="wealth-bar"><span class="wb-label">Assets</span><span class="wb-fill wb-asset"></span><span class="wb-amt">€96,430</span></div>
-          <div class="wealth-bar"><span class="wb-label">Liabilities</span><span class="wb-fill wb-liab"></span><span class="wb-amt">€12,220</span></div>
         </div>
       </div>
     </div>
