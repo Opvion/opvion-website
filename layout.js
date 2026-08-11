@@ -15,8 +15,12 @@
     return `<a href="${href}" class="${extraClass}${active}">${label}</a>`;
   };
 
-  const personalActive = (page === 'pricing' || page === 'features') ? ' is-active' : '';
-  const businessActive = (page === 'features-business') ? ' is-active' : '';
+  const personalActive = (page === 'pricing' || page === 'features' || page === 'why-us') ? ' is-active' : '';
+  const businessActive = (page === 'business' || page === 'features-business' || page === 'pricing-business') ? ' is-active' : '';
+
+  const businessPages = new Set(['business', 'features-business', 'pricing-business']);
+  const ctaHref = businessPages.has(page) ? 'business.html#contact' : 'index.html#contact';
+  const ctaLabel = businessPages.has(page) ? 'Request a Demo' : 'Get Early Access';
 
   const navHTML = `
     <nav id="navbar">
@@ -26,13 +30,18 @@
           <span class="wordmark">Opvion</span>
         </a>
         <ul class="nav-links">
-          ${navLink('why-us.html', 'Why Us', 'why-us')}
           <li class="nav-dropdown-wrap">
             <button class="nav-dropdown-trigger${personalActive}" aria-expanded="false" aria-haspopup="true">
               Personal
               <svg class="nav-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
             <div class="nav-dropdown" role="menu">
+              <a href="why-us.html" class="nav-dropdown-item${page === 'why-us' ? ' is-active' : ''}" role="menuitem">
+                <span>
+                  <strong>Why Us</strong>
+                  <em>What makes Opvion different</em>
+                </span>
+              </a>
               <a href="features.html" class="nav-dropdown-item${page === 'features' ? ' is-active' : ''}" role="menuitem">
                 <span>
                   <strong>Features</strong>
@@ -55,8 +64,8 @@
             <div class="nav-dropdown" role="menu">
               <a href="business.html" class="nav-dropdown-item${page === 'business' ? ' is-active' : ''}" role="menuitem">
                 <span>
-                  <strong>Overview</strong>
-                  <em>Opvion for family offices &amp; managers</em>
+                  <strong>Why Us</strong>
+                  <em>Why firms choose Opvion</em>
                 </span>
               </a>
               <a href="features-business.html" class="nav-dropdown-item${page === 'features-business' ? ' is-active' : ''}" role="menuitem">
@@ -65,29 +74,36 @@
                   <em>Institutional analytics in full detail</em>
                 </span>
               </a>
+              <a href="pricing-business.html" class="nav-dropdown-item${page === 'pricing-business' ? ' is-active' : ''}" role="menuitem">
+                <span>
+                  <strong>Pricing</strong>
+                  <em>Request a demo &amp; get a quote</em>
+                </span>
+              </a>
             </div>
           </li>
           ${navLink('security.html', 'Security', 'security')}
-          <li><a href="index.html#contact" class="btn-nav">Get Early Access</a></li>
+          <li><a href="${ctaHref}" class="btn-nav">${ctaLabel}</a></li>
         </ul>
         <button class="hamburger" id="hamburger" aria-label="Menu">
           <span></span><span></span><span></span>
         </button>
       </div>
       <div class="mobile-menu" id="mobileMenu">
-        ${mobileLink('why-us.html', 'Why Us', 'why-us')}
         <div class="mobile-group">
           <span class="mobile-group-label">Personal</span>
+          ${mobileLink('why-us.html', 'Why Us', 'why-us', 'mobile-sub ')}
           ${mobileLink('features.html', 'Features', 'features', 'mobile-sub ')}
           ${mobileLink('pricing.html', 'Pricing', 'pricing', 'mobile-sub ')}
         </div>
         <div class="mobile-group">
           <span class="mobile-group-label">Business</span>
-          <a href="business.html" class="mobile-sub ${page === 'business' ? 'is-active' : ''}">Overview</a>
+          <a href="business.html" class="mobile-sub ${page === 'business' ? 'is-active' : ''}">Why Us</a>
           <a href="features-business.html" class="mobile-sub ${page === 'features-business' ? 'is-active' : ''}">Features</a>
+          <a href="pricing-business.html" class="mobile-sub ${page === 'pricing-business' ? 'is-active' : ''}">Pricing</a>
         </div>
         ${mobileLink('security.html', 'Security', 'security')}
-        <a href="index.html#contact" class="btn-mobile">Get Early Access</a>
+        <a href="${ctaHref}" class="btn-mobile">${ctaLabel}</a>
       </div>
     </nav>
   `;
@@ -108,6 +124,7 @@
             <a href="index.html#solution">How it works</a>
             <a href="features.html">Features</a>
             <a href="pricing.html">Pricing</a>
+            <a href="business.html">Opvion Business</a>
           </div>
           <div class="footer-col">
             <h5>Company</h5>

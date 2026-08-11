@@ -90,7 +90,8 @@ if (form) {
     }
     emailError.classList.add('hidden');
 
-    btnText.textContent = 'Joining...';
+    const originalBtnText = btnText.textContent;
+    btnText.textContent = 'Sending...';
     const submitBtn = form.querySelector('.btn-submit');
     submitBtn.disabled = true;
 
@@ -106,12 +107,12 @@ if (form) {
         submitBtn.style.display = 'none';
         formSuccess.classList.remove('hidden');
       } else {
-        btnText.textContent = 'Join the Waitlist';
+        btnText.textContent = originalBtnText;
         submitBtn.disabled = false;
         alert('Something went wrong. Please try again or email us directly at prayag.sharma@esmt.berlin');
       }
     } catch {
-      btnText.textContent = 'Join the Waitlist';
+      btnText.textContent = originalBtnText;
       submitBtn.disabled = false;
       alert('Network error. Please check your connection and try again.');
     }

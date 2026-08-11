@@ -2976,3 +2976,14 @@ footer {
   .roadmap-cta-wrap { flex-direction: column; text-align: center; }
   .roadmap-cta-text p { max-width: 100%; }
 }
+
+/* ============================================================
+   BUSINESS OVERVIEW & PRICING PAGES
+   ============================================================ */
+#business-who { background: var(--bg-card2); }
+
+/* Single centered pricing card (business-pricing.html) */
+.pricing-single-wrap {
+  max-width: 440px;
+  margin: 48px auto 0;
+}
