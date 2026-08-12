@@ -604,6 +604,50 @@ section h2 {
   text-decoration: underline;
 }
 
+/* ── BELIEVERS ───────────────────────────────────── */
+#believers {
+  background: var(--bg);
+  padding: 48px 0 8px;
+}
+
+.believers-inner {
+  text-align: center;
+}
+
+.believers-tagline {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.believers-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.believers-logo img {
+  height: 38px;
+  width: auto;
+  opacity: 0.8;
+  transition: opacity 0.25s;
+}
+
+.believers-logo:hover img {
+  opacity: 1;
+}
+
+.believers-caption {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
 /* ── PROBLEM ─────────────────────────────────────── */
 #problem { background: var(--bg); }
 
@@ -645,6 +689,14 @@ section h2 {
   color: var(--text-muted);
   font-size: 0.9rem;
   line-height: 1.65;
+}
+
+.problem-subtitle {
+  color: var(--text) !important;
+  font-weight: 700 !important;
+  font-size: 0.98rem !important;
+  line-height: 1.4 !important;
+  margin-bottom: 8px;
 }
 
 /* ── SOLUTION ────────────────────────────────────── */
@@ -1286,11 +1338,7 @@ section h2 {
 .reactions-ticker {
   display: flex;
   width: max-content;
-  animation: ticker-scroll 36s linear infinite;
-}
-
-.reactions-ticker:hover {
-  animation-play-state: paused;
+  animation: ticker-scroll 70s linear infinite;
 }
 
 @keyframes ticker-scroll {
@@ -2232,6 +2280,49 @@ footer {
   color: var(--text);
   font-weight: 700;
   font-variant-numeric: tabular-nums;
+}
+
+/* ── INLINE TERM TOOLTIP (e.g. "AI" opt-in note) ──── */
+.tt-term {
+  position: relative;
+  cursor: help;
+  border-bottom: 1px dotted var(--border-blue);
+  outline: none;
+}
+.tt-bubble {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%) translateY(4px);
+  width: max-content;
+  max-width: 240px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-blue);
+  color: var(--text);
+  font-size: 0.78rem;
+  font-weight: 400;
+  line-height: 1.45;
+  padding: 10px 12px;
+  border-radius: 10px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s, transform 0.15s;
+  z-index: 200;
+}
+.tt-bubble::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--border-blue);
+}
+.tt-term:hover .tt-bubble,
+.tt-term:focus-visible .tt-bubble {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 /* ── HOVER POPUP ──────────────────────────────────── */

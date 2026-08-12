@@ -162,8 +162,8 @@
               </div>
               <div class="features-list">
                 <div class="feature-row"><div class="fr-icon">📊</div><div class="fr-body"><h5>Spending Tracker</h5><p>Manually log every transaction and get a clear view of where your money goes each month.</p></div></div>
-                <div class="feature-row"><div class="fr-icon">🥧</div><div class="fr-body"><h5>Spending Analytics</h5><p>Category breakdowns, monthly trends, and income vs expense summaries — all in one dashboard.</p></div></div>
-                <div class="feature-row"><div class="fr-icon">✏️</div><div class="fr-body"><h5>Manual Transaction Entry</h5><p>Add cash payments, transfers, and any transaction your bank won't report — with custom categories.</p></div></div>
+                <div class="feature-row"><div class="fr-icon">🥧</div><div class="fr-body"><h5>Spending Analytics</h5><p>Category breakdowns, monthly trends, and income vs expense summaries, all in one dashboard.</p></div></div>
+                <div class="feature-row"><div class="fr-icon">✏️</div><div class="fr-body"><h5>Manual Transaction Entry</h5><p>Add cash payments, transfers, and any transaction your bank won't report, with custom categories.</p></div></div>
                 <div class="feature-row"><div class="fr-icon">💱</div><div class="fr-body"><h5>Multi-Currency Support</h5><p>View your finances in any of 19+ European currencies with accurate symbol and decimal formatting.</p></div></div>
               </div>
             </div>
@@ -174,7 +174,7 @@
                 <div class="features-plan-tag">Everything in Free, plus:</div>
               </div>
               <div class="features-list">
-                <div class="feature-row"><div class="fr-icon">🏦</div><div class="fr-body"><h5>Bank Account Connection</h5><p>Link your accounts via our open banking partners — transactions sync automatically so you never enter them manually again.</p></div></div>
+                <div class="feature-row"><div class="fr-icon">🏦</div><div class="fr-body"><h5>Bank Account Connection</h5><p>Link your accounts via our open banking partners, transactions sync automatically so you never enter them manually again.</p></div></div>
                 <div class="feature-row"><div class="fr-icon">🔄</div><div class="fr-body"><h5>Auto Transaction Sync</h5><p>Real-time or on-demand sync from all your connected banks. Transactions are categorised automatically on import.</p></div></div>
                 <div class="feature-row"><div class="fr-icon">📈</div><div class="fr-body"><h5>Net Worth Tracking</h5><p>Assets vs liabilities across all accounts in one number, with historical tracking so you can see your wealth grow over time.</p></div></div>
                 <div class="feature-row"><div class="fr-icon">🏛️</div><div class="fr-body"><h5>300+ European Banks Supported</h5><p>N26, Revolut, Wise, Sparkasse, Deutsche Bank, DKB, BNP Paribas, Santander, ING, Monzo, Barclays and many more.</p></div></div>
@@ -188,10 +188,10 @@
                 <div class="features-plan-tag">Everything in Basic, plus:</div>
               </div>
               <div class="features-list">
-                <div class="feature-row"><div class="fr-icon">📉</div><div class="fr-body"><h5>Investment Portfolio Tracker</h5><p>Track stocks, ETFs, crypto, bonds, private equity, and alternative assets — all in one portfolio view with live prices.</p></div></div>
+                <div class="feature-row"><div class="fr-icon">📉</div><div class="fr-body"><h5>Investment Portfolio Tracker</h5><p>Track stocks, ETFs, crypto, bonds, private equity, and alternative assets, all in one portfolio view with live prices.</p></div></div>
                 <div class="feature-row"><div class="fr-icon">🔴</div><div class="fr-body"><h5>Live Market Prices</h5><p>Real-time stock and ETF prices via Yahoo Finance. Live crypto prices via CoinGecko. Positions update every 30 seconds.</p></div></div>
-                <div class="feature-row"><div class="fr-icon">📆</div><div class="fr-body"><h5>Historical FX Rates</h5><p>The only tracker that applies daily mid-market FX rates retroactively — so your portfolio's performance is accurate at any point in time, not just today.</p></div></div>
-                <div class="feature-row"><div class="fr-icon">🤖</div><div class="fr-body"><h5>AI Spending Analytics <span class="badge-soon">Coming Soon</span></h5><p>Personalised insights, anomaly detection, budget forecasting, and natural language queries — all processed in the European Union, never shared outside the EU.</p></div></div>
+                <div class="feature-row"><div class="fr-icon">📆</div><div class="fr-body"><h5>Historical FX Rates</h5><p>The only tracker that applies daily mid-market FX rates retroactively, so your portfolio's performance is accurate at any point in time, not just today.</p></div></div>
+                <div class="feature-row"><div class="fr-icon">🤖</div><div class="fr-body"><h5>AI Spending Analytics <span class="badge-soon">Coming Soon</span></h5><p>Personalised insights, anomaly detection, budget forecasting, and natural language queries, all processed in the European Union, never shared outside the EU.</p></div></div>
                 <div class="feature-row"><div class="fr-icon">💳</div><div class="fr-body"><h5>Credit Tracker <span class="badge-soon">Coming Soon</span></h5><p>Track credit card balances, utilisation, and repayments alongside your full financial picture.</p></div></div>
               </div>
             </div>
