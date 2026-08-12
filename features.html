@@ -17,7 +17,7 @@
     <div class="container">
       <div class="section-label">Features</div>
       <h2>Every tool in your financial arsenal.</h2>
-      <p class="section-sub">Built around how money actually moves, not artificial pricing tiers. Hover any feature for the details.</p>
+      <p class="section-sub">Built around how money actually moves, not artificial pricing tiers.</p>
       <div class="features-tier-legend">
         <span class="tier-chip tier-free">Free</span>
         <span class="tier-chip tier-basic">Basic</span>
@@ -27,55 +27,98 @@
     </div>
   </section>
 
-  <!-- ── SECTION 1: BANK CONNECTIVITY ───────────────────────────────── -->
-  <section class="feature-block" data-block="bank" data-side="right">
-    <div class="container feature-block-inner">
-      <div class="feature-sticky">
-        <div class="feature-eyebrow">01 · Connectivity</div>
-        <h3 class="feature-headline">Plug into 300+ Banks, brokers and crypto wallets. Sync stops being a chore.</h3>
-        <p class="feature-lede">Link accounts via our open banking partners and let Opvion pull every transaction in the background. Categorized on import, ready to act on.</p>
-        <ul class="feature-bullets">
-          <li data-tier="basic" data-popup="Connect any EU bank that supports IBAN. Sparkasse, Deutsche Bank, DKB, BNP Paribas, Santander, ING, plus modern players like N26, Revolut, Wise, Monzo, Barclays.">
-            <span class="fb-icon">🏦</span>
-            <span class="fb-label">Bank Account Connection</span>
-            <span class="tier-chip tier-basic">Basic</span>
-          </li>
-          <li data-tier="basic" data-popup="Live or on demand sync from every connected institution. Categorization runs automatically the moment a transaction lands.">
-            <span class="fb-icon">🔄</span>
-            <span class="fb-label">Auto Transaction Sync</span>
-            <span class="tier-chip tier-basic">Basic</span>
-          </li>
-          <li data-tier="basic" data-popup="N26, Revolut, Wise, Sparkasse, Deutsche Bank, DKB, BNP Paribas, Santander, ING, Monzo, Barclays. Plus 290+ more across the EU and UK.">
-            <span class="fb-icon">🏛️</span>
-            <span class="fb-label">300+ European Banks Supported</span>
-            <span class="tier-chip tier-basic">Basic</span>
-          </li>
-          <li data-tier="free" data-popup="Cash payments, transfers, anything your bank won't report. Log it manually with custom categories. Free forever.">
-            <span class="fb-icon">✏️</span>
-            <span class="fb-label">Manual Transaction Entry</span>
-            <span class="tier-chip tier-free">Free</span>
-          </li>
-        </ul>
-      </div>
-      <div class="feature-visual feature-visual-bank">
-        <div class="bank-card-stack">
-          <div class="bank-card bank-card-1"><span class="bank-dot"></span> N26 Standard <span class="bank-amt">€2,418.50</span></div>
-          <div class="bank-card bank-card-2"><span class="bank-dot"></span> Revolut Pro <span class="bank-amt">€7,180.22</span></div>
-          <div class="bank-card bank-card-3"><span class="bank-dot"></span> Sparkasse <span class="bank-amt">€11,902.00</span></div>
-          <div class="bank-card bank-card-4"><span class="bank-dot"></span> Wise Multi <span class="bank-amt">$3,415.10</span></div>
-          <div class="bank-sync-pill">
+  <!-- ── CAROUSEL: single-purpose feature cards ───────────────────── -->
+  <section id="features-carousel">
+    <div class="container">
+      <div class="section-label">Everything, at a glance</div>
+      <h2>One scroll. Every feature.</h2>
+    </div>
+    <div class="carousel-wrap">
+      <div class="carousel-track">
+
+        <div class="carousel-card carousel-card--tall">
+          <div class="carousel-card-top">
+            <div class="carousel-card-icon">🏦</div>
+            <h4 class="carousel-card-headline">Link every account in one place</h4>
+            <span class="tier-chip tier-basic carousel-card-tier">Basic</span>
+          </div>
+          <div class="carousel-widget">
+            <span class="bank-dot"></span> N26 Standard <span class="carousel-widget-amt">€2,418.50</span>
+          </div>
+        </div>
+
+        <div class="carousel-card">
+          <div class="carousel-card-top">
+            <div class="carousel-card-icon">🔄</div>
+            <h4 class="carousel-card-headline">Sync runs itself, always current</h4>
+            <span class="tier-chip tier-basic carousel-card-tier">Basic</span>
+          </div>
+          <div class="carousel-widget">
             <span class="bank-sync-spinner"></span> Syncing 4 accounts…
           </div>
         </div>
+
+        <div class="carousel-card">
+          <div class="carousel-card-top">
+            <div class="carousel-card-icon">🏛️</div>
+            <h4 class="carousel-card-headline">N26, Sparkasse, Wise, and 300 more</h4>
+            <span class="tier-chip tier-basic carousel-card-tier">Basic</span>
+          </div>
+          <div class="carousel-widget">
+            🇪🇺 EU &amp; UK <span class="carousel-widget-amt">296 more banks</span>
+          </div>
+        </div>
+
+        <div class="carousel-card">
+          <div class="carousel-card-top">
+            <div class="carousel-card-icon">✏️</div>
+            <h4 class="carousel-card-headline">Log what your bank won't report</h4>
+            <span class="tier-chip tier-free carousel-card-tier">Free</span>
+          </div>
+          <div class="carousel-widget">
+            Cash · Groceries <span class="carousel-widget-amt">−€24.00</span>
+          </div>
+        </div>
+
+        <div class="carousel-card">
+          <div class="carousel-card-top">
+            <div class="carousel-card-icon">🥧</div>
+            <h4 class="carousel-card-headline">Every euro, categorized automatically</h4>
+            <span class="tier-chip tier-free carousel-card-tier">Free</span>
+          </div>
+          <div class="carousel-widget">
+            Leisure <span class="carousel-widget-amt">€186</span>
+          </div>
+        </div>
+
+        <div class="carousel-card">
+          <div class="carousel-card-top">
+            <div class="carousel-card-icon">🤖</div>
+            <h4 class="carousel-card-headline">AI that flags the unusual before you do <span class="badge-soon">Soon</span></h4>
+            <span class="tier-chip tier-pro carousel-card-tier">Pro</span>
+          </div>
+          <div class="carousel-widget">
+            Leisure up <span class="carousel-widget-amt">32%</span> vs avg
+          </div>
+        </div>
+
       </div>
+    </div>
+    <div class="carousel-dots">
+      <span class="carousel-dot is-active"></span>
+      <span class="carousel-dot"></span>
+      <span class="carousel-dot"></span>
+      <span class="carousel-dot"></span>
+      <span class="carousel-dot"></span>
+      <span class="carousel-dot"></span>
     </div>
   </section>
 
-  <!-- ── SECTION 2: WEALTH ─────────────────────────────────────────── -->
-  <section class="feature-block" data-block="wealth" data-side="left">
+  <!-- ── WEALTH: text + uneven card cluster ────────────────────────── -->
+  <section class="feature-block" data-block="wealth" data-side="right">
     <div class="container feature-block-inner">
       <div class="feature-sticky">
-        <div class="feature-eyebrow">02 · Wealth</div>
+        <div class="feature-eyebrow">Wealth</div>
         <h3 class="feature-headline">One number that tells you where you actually stand.</h3>
         <p class="feature-lede">Assets minus liabilities, every account, every currency, tracked over time. Watch your wealth go up, or know exactly why it didn't.</p>
         <ul class="feature-bullets">
@@ -95,86 +138,46 @@
             <span class="tier-chip tier-free">Free</span>
           </li>
         </ul>
+        <a href="demo.html" class="tier-legend-link" style="margin-top:8px;">See it in the demo →</a>
       </div>
-      <div class="feature-visual feature-visual-wealth">
-        <div class="wealth-ring-wrap">
-          <svg viewBox="0 0 160 160" class="wealth-ring">
-            <circle cx="80" cy="80" r="64" fill="transparent" stroke="#1f2937" stroke-width="12"/>
-            <circle cx="80" cy="80" r="64" fill="transparent" stroke="#3b82f6" stroke-width="12" stroke-linecap="round" stroke-dasharray="402" stroke-dashoffset="80" transform="rotate(-90 80 80)" class="wealth-ring-fg"/>
-          </svg>
-          <div class="wealth-center">
-            <div class="wealth-label">Net Worth</div>
-            <div class="wealth-value" data-target="84210">€0</div>
-            <div class="wealth-delta">▲ €1,420 this month</div>
-          </div>
-        </div>
-        <div class="wealth-bars">
-          <div class="wealth-bar"><span class="wb-label">Assets</span><span class="wb-fill wb-asset"></span><span class="wb-amt">€96,430</span></div>
-          <div class="wealth-bar"><span class="wb-label">Liabilities</span><span class="wb-fill wb-liab"></span><span class="wb-amt">€12,220</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── SECTION 3: SPENDING INSIGHTS ───────────────────────────────── -->
-  <section class="feature-block" data-block="spending" data-side="right">
-    <div class="container feature-block-inner">
-      <div class="feature-sticky">
-        <div class="feature-eyebrow">03 · Spending Insights</div>
-        <h3 class="feature-headline">Every euro, traced. Every pattern, surfaced.</h3>
-        <p class="feature-lede">From a clean monthly breakdown to <span class="tt-term" tabindex="0">AI<span class="tt-bubble">AI features are opt-in. You choose when to turn them on.</span></span> that helps you make conscious financial decisions. Your spending stops being a mystery.</p>
-        <ul class="feature-bullets">
-          <li data-tier="free" data-popup="Manually log every transaction and get a clear view of where your money goes each month. Free forever.">
-            <span class="fb-icon">📊</span>
-            <span class="fb-label">Spending Tracker</span>
-            <span class="tier-chip tier-free">Free</span>
-          </li>
-          <li data-tier="free" data-popup="Category breakdowns, monthly trends, and income vs expense summaries, all in one dashboard.">
-            <span class="fb-icon">🥧</span>
-            <span class="fb-label">Spending Analytics</span>
-            <span class="tier-chip tier-free">Free</span>
-          </li>
-          <li data-tier="pro" data-popup="Personalized insights, anomaly detection, budget forecasting, and natural language queries. All processed in the European Union, never shared outside the EU.">
-            <span class="fb-icon">🤖</span>
-            <span class="fb-label">AI Spending Analytics <span class="badge-soon">Soon</span></span>
-            <span class="tier-chip tier-pro">Pro</span>
-          </li>
-          <li data-tier="free" data-popup="View your finances in any of 19+ European currencies with accurate symbol and decimal formatting.">
-            <span class="fb-icon">💱</span>
-            <span class="fb-label">Multi Currency Support</span>
-            <span class="tier-chip tier-free">Free</span>
-          </li>
-        </ul>
-      </div>
-      <div class="feature-visual feature-visual-spending">
-        <div class="pie-mock">
-          <svg viewBox="0 0 120 120" class="pie-svg">
-            <circle r="50" cx="60" cy="60" fill="transparent" stroke="#1f2937" stroke-width="18"/>
-            <circle r="50" cx="60" cy="60" fill="transparent" stroke="#3b82f6" stroke-width="18" stroke-dasharray="110 314" stroke-dashoffset="0" transform="rotate(-90 60 60)" class="pie-seg seg-1"/>
-            <circle r="50" cx="60" cy="60" fill="transparent" stroke="#60a5fa" stroke-width="18" stroke-dasharray="80 314" stroke-dashoffset="-110" transform="rotate(-90 60 60)" class="pie-seg seg-2"/>
-            <circle r="50" cx="60" cy="60" fill="transparent" stroke="#10b981" stroke-width="18" stroke-dasharray="60 314" stroke-dashoffset="-190" transform="rotate(-90 60 60)" class="pie-seg seg-3"/>
-            <circle r="50" cx="60" cy="60" fill="transparent" stroke="#f59e0b" stroke-width="18" stroke-dasharray="64 314" stroke-dashoffset="-250" transform="rotate(-90 60 60)" class="pie-seg seg-4"/>
-          </svg>
-          <div class="pie-legend">
-            <div class="pl-row"><span class="pl-dot" style="background:#3b82f6"></span> Rent <em>€1,200</em></div>
-            <div class="pl-row"><span class="pl-dot" style="background:#60a5fa"></span> Groceries <em>€428</em></div>
-            <div class="pl-row"><span class="pl-dot" style="background:#10b981"></span> Transport <em>€212</em></div>
-            <div class="pl-row"><span class="pl-dot" style="background:#f59e0b"></span> Leisure <em>€186</em></div>
-          </div>
-          <div class="ai-hint-bubble">
-            <span class="ai-hint-icon">🤖</span>
-            Leisure is up 32% vs. your 6 month average.
+      <div class="feature-visual">
+        <div class="feature-cluster">
+          <div class="feature-cluster-row">
+            <div class="cluster-card cluster-card--wide">
+              <div class="cluster-card-label">Net worth, tracked</div>
+              <a href="demo.html" class="cluster-card-link">Net Worth →</a>
+              <div class="wealth-ring-wrap" style="width:140px;height:140px;margin:0 auto;">
+                <svg viewBox="0 0 160 160" class="wealth-ring">
+                  <circle cx="80" cy="80" r="64" fill="transparent" stroke="#1f2937" stroke-width="12"/>
+                  <circle cx="80" cy="80" r="64" fill="transparent" stroke="#3b82f6" stroke-width="12" stroke-linecap="round" stroke-dasharray="402" stroke-dashoffset="80" transform="rotate(-90 80 80)" class="wealth-ring-fg"/>
+                </svg>
+                <div class="wealth-center">
+                  <div class="wealth-label">Net Worth</div>
+                  <div class="wealth-value" data-target="84210">€0</div>
+                </div>
+              </div>
+            </div>
+            <div class="cluster-card cluster-card--narrow">
+              <div class="cluster-card-label">Multi-currency</div>
+              <a href="pricing.html" class="cluster-card-link">Currencies →</a>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;">
+                <span class="tier-chip tier-free">EUR</span>
+                <span class="tier-chip tier-free">USD</span>
+                <span class="tier-chip tier-free">GBP</span>
+                <span class="tier-chip tier-free">+16</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── SECTION 4: INVESTMENTS & MARKETS ───────────────────────────── -->
+  <!-- ── INVESTMENTS: visual + text ────────────────────────────────── -->
   <section class="feature-block" data-block="invest" data-side="left">
     <div class="container feature-block-inner">
       <div class="feature-sticky">
-        <div class="feature-eyebrow">04 · Investments</div>
+        <div class="feature-eyebrow">Investments</div>
         <h3 class="feature-headline">Stocks, ETFs, crypto, alternatives. One portfolio.</h3>
         <p class="feature-lede">Historical FX applied retroactively, so your return is accurate at every point in time, not just today.</p>
         <ul class="feature-bullets">
@@ -204,6 +207,7 @@
             <span class="tier-chip tier-pro">Pro</span>
           </li>
         </ul>
+        <a href="pricing.html" class="tier-legend-link" style="margin-top:8px;">See Pro pricing →</a>
       </div>
       <div class="feature-visual feature-visual-invest">
         <div class="invest-mock">

@@ -22,7 +22,7 @@ if (hamburger && mobileMenu) {
 const revealEls = document.querySelectorAll(
   'section h2, .problem-card, .feature-item, ' +
   '.pricing-card, .roadmap-step, .hero-badge, ' +
-  '.section-sub, .strength-card, .contact-left, .contact-form'
+  '.section-sub, .strength-card, .contact-left, .contact-form, .cluster-card'
 );
 revealEls.forEach(el => el.classList.add('reveal'));
 
