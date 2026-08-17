@@ -86,31 +86,4 @@
 
     window.addEventListener('scroll', () => { if (activeLi) hidePopup(); }, { passive: true });
   }
-
-  // ── Carousel dot sync (scroll-linked active dot) ──────────────
-  const carouselWrap = document.querySelector('.carousel-wrap');
-  const carouselTrack = document.querySelector('.carousel-track');
-  const dots = document.querySelectorAll('.carousel-dot');
-  if (carouselWrap && carouselTrack && dots.length) {
-    const cards = Array.from(carouselTrack.children);
-    const setActive = () => {
-      const wrapMid = carouselWrap.scrollLeft + carouselWrap.clientWidth / 2;
-      let closest = 0;
-      let closestDist = Infinity;
-      cards.forEach((card, i) => {
-        const mid = card.offsetLeft - carouselTrack.offsetLeft + card.offsetWidth / 2;
-        const dist = Math.abs(mid - wrapMid);
-        if (dist < closestDist) { closestDist = dist; closest = i; }
-      });
-      dots.forEach((d, i) => d.classList.toggle('is-active', i === closest));
-    };
-    carouselWrap.addEventListener('scroll', () => requestAnimationFrame(setActive), { passive: true });
-    dots.forEach((dot, i) => {
-      dot.addEventListener('click', () => {
-        const card = cards[i];
-        if (card) carouselWrap.scrollTo({ left: card.offsetLeft - carouselTrack.offsetLeft, behavior: 'smooth' });
-      });
-    });
-    setActive();
-  }
 })();
