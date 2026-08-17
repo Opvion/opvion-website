@@ -441,15 +441,15 @@ body {
 /* Hero node diagram */
 .hero-nodes {
   position: relative;
-  width: 340px;
-  height: 340px;
+  width: 400px;
+  height: 400px;
   margin-top: 16px;
 }
 .center-node {
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  width: 80px; height: 80px;
+  width: 92px; height: 92px;
   background: var(--blue);
   border-radius: 50%;
   display: flex;
@@ -459,13 +459,13 @@ body {
   z-index: 2;
   box-shadow: 0 0 40px rgba(59,130,246,0.4);
 }
-.plus-icon { font-size: 1.6rem; }
-.center-node .node-label { font-size: 0.6rem; font-weight: 700; color: rgba(255,255,255,0.9); }
+.plus-icon { font-size: 1.8rem; }
+.center-node .node-label { font-size: 0.68rem; font-weight: 700; color: rgba(255,255,255,0.9); }
 
 .orbit-node {
   position: absolute;
   top: 50%; left: 50%;
-  --r: 130px;
+  --r: 155px;
   transform: translate(-50%, -50%)
     rotate(var(--angle))
     translateY(calc(-1 * var(--r)))
@@ -482,21 +482,40 @@ body {
   50% { filter: brightness(1.15); }
 }
 .orbit-dot {
-  width: 46px; height: 46px;
+  width: 58px; height: 58px;
   background: var(--bg-card);
   border: 1px solid var(--border-blue);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
 }
 .orbit-node span {
-  font-size: 0.62rem;
+  font-size: 0.7rem;
   color: var(--text-muted);
   font-weight: 500;
   white-space: nowrap;
 }
+
+a.orbit-node {
+  text-decoration: none;
+  cursor: pointer;
+}
+a.orbit-node .orbit-dot {
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+a.orbit-node:hover .orbit-dot,
+a.orbit-node:focus-visible .orbit-dot {
+  transform: scale(1.08);
+  border-color: var(--blue-light);
+  box-shadow: 0 0 24px rgba(59,130,246,0.35);
+}
+a.orbit-node:hover span,
+a.orbit-node:focus-visible span {
+  color: var(--text);
+}
+
 
 /* ── SECTIONS ───────────────────────────────────── */
 section {
@@ -1591,8 +1610,8 @@ footer {
 
 @media (max-width: 600px) {
   section { padding: 70px 0; }
-  .hero-nodes { width: 260px; height: 260px; }
-  .hero-nodes { --r: 100px; }
+  .hero-nodes { width: 300px; height: 300px; }
+  .hero-nodes { --r: 115px; }
   .roadmap-steps { grid-template-columns: 1fr; }
   .contact-form { padding: 24px 20px; }
   .features-grid { grid-template-columns: 1fr; }
