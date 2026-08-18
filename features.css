@@ -43,8 +43,8 @@
 /* ---------- header ---------- */
 .pf-page .eyebrow {
   display: flex; align-items: center; gap: 9px;
-  font-size: 12.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
-  color: var(--blue); margin-bottom: 18px;
+  font-size: 14px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 22px;
 }
 .pf-page .eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 4px var(--blue-soft); }
 .pf-page h1 { font-size: clamp(32px,4.6vw,54px); line-height: 1.06; letter-spacing: -.022em; font-weight: 700; max-width: 760px; margin-top: 32px; margin-bottom: 16px; }
@@ -144,10 +144,10 @@
   box-shadow: 0 30px 60px -28px rgba(0,0,0,.85);
 }
 
-.pf-page .content h2 { font-size: clamp(28px,3.4vw,40px); line-height: 1.1; letter-spacing: -.02em; font-weight: 700; margin-bottom: 20px; }
-.pf-page .content .intro { color: var(--text-2); font-size: 16.5px; line-height: 1.62; margin-bottom: 26px; max-width: 460px; }
-.pf-page .bullets { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-bottom: 32px; }
-.pf-page .bullets li { position: relative; padding-left: 22px; font-size: 16px; line-height: 1.5; color: var(--text); display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.pf-page .content h2 { font-size: clamp(30px,3.9vw,46px); line-height: 1.15; letter-spacing: -.02em; font-weight: 700; margin-bottom: 28px; }
+.pf-page .content .intro { color: var(--text-2); font-size: 18px; line-height: 1.75; margin-bottom: 34px; max-width: 480px; }
+.pf-page .bullets { list-style: none; display: flex; flex-direction: column; gap: 20px; margin-bottom: 38px; }
+.pf-page .bullets li { position: relative; padding-left: 24px; font-size: 17.5px; line-height: 1.6; color: var(--text); display: flex; flex-wrap: wrap; align-items: center; gap: 11px; }
 .pf-page .bullets li::before { content: ""; position: absolute; left: 4px; top: 9px; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
 .pf-page .pf-tag { font-size: 10.5px; font-weight: 700; letter-spacing: .04em; padding: 3px 8px; border-radius: 999px; }
 .pf-page .pf-tag.free { background: rgba(255,255,255,.08); color: #a7afc2; }
@@ -156,8 +156,8 @@
 .pf-page .pf-tag.soon { background: var(--amber-soft); color: var(--amber); }
 .pf-page .pf-cta {
   display: inline-flex; align-items: center; gap: 9px;
-  background: var(--blue); color: #fff; font-size: 15px; font-weight: 600;
-  padding: 13px 24px; border-radius: 999px; text-decoration: none;
+  background: var(--blue); color: #fff; font-size: 16px; font-weight: 600;
+  padding: 15px 27px; border-radius: 999px; text-decoration: none;
   transition: transform .15s, filter .15s;
 }
 .pf-page .pf-cta:hover { filter: brightness(1.08); transform: translateY(-1px); }
