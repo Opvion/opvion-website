@@ -1,89 +1,96 @@
 // ─── Features page interactions ─────────────────────────
-// Scroll-triggered reveals for visuals + bullets, hover popups, and a counter.
+// Card carousel: dot pagination synced to scroll position, prev/next buttons,
+// and a slow endless auto-scroll (paused on hover / manual interaction).
 
 (() => {
-  const isMobile = () => window.matchMedia('(max-width: 900px)').matches;
+  const rail = document.getElementById('rail');
+  if (!rail) return;
 
-  // ── Animate visuals when their block enters viewport
-  const visualObs = new IntersectionObserver((entries) => {
+  const originalCards = Array.from(rail.children);
+  const dotsWrap = document.getElementById('dots');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  originalCards.forEach((_, i) => {
+    const b = document.createElement('button');
+    b.className = i === 0 ? 'on' : '';
+    b.setAttribute('aria-label', 'Card ' + (i + 1));
+    b.addEventListener('click', () => {
+      pause();
+      originalCards[i].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+      resumeAfterIdle();
+    });
+    dotsWrap.appendChild(b);
+  });
+  const dots = Array.from(dotsWrap.children);
+
+  const io = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('fv-visible');
+      if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
+        const i = originalCards.indexOf(entry.target);
+        if (i === -1) return;
+        dots.forEach((d) => d.classList.remove('on'));
+        dots[i].classList.add('on');
       }
     });
-  }, { threshold: 0.25 });
-  document.querySelectorAll('.feature-visual').forEach((el) => visualObs.observe(el));
+  }, { root: rail, threshold: [0.6] });
+  originalCards.forEach((c) => io.observe(c));
 
-  // ── Stagger-reveal each bullet as the sticky text comes into view
-  const bulletObs = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      const items = entry.target.querySelectorAll('.feature-bullets li');
-      items.forEach((li, i) => {
-        setTimeout(() => li.classList.add('fb-visible'), i * 110);
-      });
-      bulletObs.unobserve(entry.target);
-    });
-  }, { threshold: 0.2 });
-  document.querySelectorAll('.feature-sticky').forEach((el) => bulletObs.observe(el));
+  // ── Duplicate the set once so the auto-scroll can loop seamlessly.
+  const clones = originalCards.map((c) => {
+    const clone = c.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    clone.setAttribute('tabindex', '-1');
+    rail.appendChild(clone);
+    return clone;
+  });
 
-  // ── Counter animation for the wealth ring
-  const counterObs = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      const el = entry.target;
-      const target = parseInt(el.dataset.target, 10) || 0;
-      const dur = 1600;
-      const start = performance.now();
-      const fmt = (n) => '€' + Math.round(n).toLocaleString('en-US');
-      const tick = (now) => {
-        const t = Math.min(1, (now - start) / dur);
-        const eased = 1 - Math.pow(1 - t, 3);
-        el.textContent = fmt(target * eased);
-        if (t < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-      counterObs.unobserve(el);
-    });
-  }, { threshold: 0.4 });
-  document.querySelectorAll('[data-target]').forEach((el) => counterObs.observe(el));
+  let loopWidth = 0;
+  const measureLoop = () => {
+    loopWidth = clones[0].offsetLeft - originalCards[0].offsetLeft;
+  };
+  measureLoop();
+  window.addEventListener('resize', measureLoop);
 
-  // ── Hover popup (desktop only)
-  const popup = document.getElementById('featurePopup');
-  if (popup) {
-    let activeLi = null;
+  // ── Slow endless auto-scroll
+  // rail.scrollLeft rounds to whole pixels, so a sub-pixel increment must be
+  // accumulated separately or it gets truncated back to the same integer every frame.
+  let playing = !reduceMotion;
+  let pos = 0;
+  let resumeTimer = null;
+  const SPEED = 0.2; // px per frame, ~12px/s
 
-    const showPopup = (li, e) => {
-      if (isMobile()) return;
-      const text = li.dataset.popup;
-      if (!text) return;
-      popup.textContent = text;
-      popup.hidden = false;
-      requestAnimationFrame(() => {
-        const pw = popup.offsetWidth;
-        const ph = popup.offsetHeight;
-        const pad = 14;
-        let x = e.clientX + 18;
-        let y = e.clientY + 18;
-        if (x + pw + pad > window.innerWidth) x = e.clientX - pw - 18;
-        if (y + ph + pad > window.innerHeight) y = e.clientY - ph - 18;
-        popup.style.left = x + 'px';
-        popup.style.top = y + 'px';
-        popup.classList.add('fp-visible');
-      });
-    };
-    const hidePopup = () => {
-      popup.classList.remove('fp-visible');
-      activeLi = null;
-      setTimeout(() => { if (!activeLi) popup.hidden = true; }, 160);
-    };
+  const pause = () => { playing = false; if (resumeTimer) clearTimeout(resumeTimer); };
+  const resumeAfterIdle = () => {
+    if (reduceMotion) return;
+    if (resumeTimer) clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(() => {
+      pos = rail.scrollLeft;
+      playing = true;
+    }, 2200);
+  };
 
-    document.querySelectorAll('.feature-bullets li[data-popup]').forEach((li) => {
-      li.addEventListener('mouseenter', (e) => { activeLi = li; showPopup(li, e); });
-      li.addEventListener('mousemove', (e) => { if (activeLi === li) showPopup(li, e); });
-      li.addEventListener('mouseleave', hidePopup);
-    });
+  const tick = () => {
+    if (playing && loopWidth > 0) {
+      pos += SPEED;
+      if (pos >= loopWidth) pos -= loopWidth;
+      rail.scrollLeft = pos;
+    }
+    requestAnimationFrame(tick);
+  };
+  if (!reduceMotion) requestAnimationFrame(tick);
 
-    window.addEventListener('scroll', () => { if (activeLi) hidePopup(); }, { passive: true });
-  }
+  rail.addEventListener('mouseenter', pause);
+  rail.addEventListener('mouseleave', resumeAfterIdle);
+  rail.addEventListener('pointerdown', pause);
+  rail.addEventListener('pointerup', resumeAfterIdle);
+  rail.addEventListener('touchstart', pause, { passive: true });
+  rail.addEventListener('touchend', resumeAfterIdle);
+
+  const step = (d) => {
+    pause();
+    rail.scrollBy({ left: d * (originalCards[0].getBoundingClientRect().width + 20), behavior: 'smooth' });
+    resumeAfterIdle();
+  };
+  document.getElementById('prev').addEventListener('click', () => step(-1));
+  document.getElementById('next').addEventListener('click', () => step(1));
 })();

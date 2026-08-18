@@ -172,7 +172,7 @@ const MOCK = {
     values: [247000,252000,257000,254000,261000,267000,273000,277000,281000,284500,286000,286640],
   },
 
-  // Credit cards: revolving credit lines with utilisation
+  // Credit cards: revolving credit lines with utilization
   creditCards: [
     { id: 'cc1', name: 'American Express Gold',  type: 'credit_card', issuer: 'Amex',         used:  1850.00, limit:  5000, interestRate: 19.99, minimumPayment:  60, dueDate: '2026-05-15' },
     { id: 'cc2', name: 'Visa Cashback',          type: 'credit_card', issuer: 'Commerzbank',  used:   720.40, limit:  2500, interestRate: 17.49, minimumPayment:  35, dueDate: '2026-05-08' },
@@ -2031,18 +2031,18 @@ function getCreditTotals() {
   const totalCardLimit  = cards.reduce((s, c) => s + (c.limit  || 0), 0);
   const totalLoanBal    = debts.reduce((s, d) => s + (d.currentBalance || 0), 0);
   const totalDebt       = totalCardUsed + totalLoanBal;
-  const utilisationPct  = totalCardLimit > 0 ? (totalCardUsed / totalCardLimit) * 100 : 0;
+  const utilizationPct  = totalCardLimit > 0 ? (totalCardUsed / totalCardLimit) * 100 : 0;
   const minPayment      = cards.reduce((s, c) => s + (c.minimumPayment || 0), 0)
                         + debts.reduce((s, d) => s + (d.minimumPayment || 0), 0);
   const availableCredit = Math.max(0, totalCardLimit - totalCardUsed);
   return {
     totalCardUsed, totalCardLimit, totalLoanBal,
-    totalDebt, utilisationPct, minPayment, availableCredit,
+    totalDebt, utilizationPct, minPayment, availableCredit,
     cardCount: cards.length, loanCount: debts.length,
   };
 }
 
-function utilisationFillClass(pct) {
+function utilizationFillClass(pct) {
   if (pct >= 80) return 'util-high';
   if (pct >= 50) return 'util-med';
   return 'util-low';
@@ -2068,11 +2068,11 @@ function renderCreditSection() {
   if (subDebt) subDebt.textContent = `${t.cardCount} card${t.cardCount === 1 ? '' : 's'} · ${t.loanCount} loan${t.loanCount === 1 ? '' : 's'}`;
 
   const utilEl = document.getElementById('creditUtilValue');
-  if (utilEl) utilEl.textContent = t.utilisationPct.toFixed(0) + '%';
+  if (utilEl) utilEl.textContent = t.utilizationPct.toFixed(0) + '%';
   const utilFill = document.getElementById('creditUtilFill');
   if (utilFill) {
-    utilFill.style.width = Math.min(t.utilisationPct, 100) + '%';
-    utilFill.className = 'credit-util-fill ' + utilisationFillClass(t.utilisationPct);
+    utilFill.style.width = Math.min(t.utilizationPct, 100) + '%';
+    utilFill.className = 'credit-util-fill ' + utilizationFillClass(t.utilizationPct);
   }
 
   const minEl = document.getElementById('creditMinPayment');
@@ -2132,7 +2132,7 @@ function renderCreditSection() {
 function renderCreditRow(d) {
   const meta  = DEBT_TYPE_META[d.type] || { label: d.type, icon: '💰', color: '#64748b' };
   const util  = d.principal > 0 ? (d.currentBalance / d.principal) * 100 : 0;
-  const utilCls = utilisationFillClass(util);
+  const utilCls = utilizationFillClass(util);
   const dueStr  = d.dueDate ? new Date(d.dueDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : '—';
   const totalLabel = d.isCard ? 'limit' : 'principal';
 
@@ -2174,7 +2174,7 @@ function renderCreditRow(d) {
       </div>
       <div class="credit-row-details">
         <div class="credit-detail">
-          <div class="credit-detail-label">Utilisation</div>
+          <div class="credit-detail-label">Utilization</div>
           <div class="credit-detail-value">${util.toFixed(1)}%</div>
         </div>
         <div class="credit-detail">
@@ -2211,11 +2211,11 @@ function updateDashboardCreditTile(t) {
     valEl.textContent = '−' + sym + Math.round(conv).toLocaleString('en-US');
   }
   const pctEl = document.getElementById('dashCreditUtilPct');
-  if (pctEl) pctEl.textContent = t.utilisationPct.toFixed(0) + '%';
+  if (pctEl) pctEl.textContent = t.utilizationPct.toFixed(0) + '%';
   const fill = document.getElementById('dashCreditUtilFill');
   if (fill) {
-    fill.style.width = Math.min(t.utilisationPct, 100) + '%';
-    fill.className = 'snapshot-credit-util-fill ' + utilisationFillClass(t.utilisationPct);
+    fill.style.width = Math.min(t.utilizationPct, 100) + '%';
+    fill.className = 'snapshot-credit-util-fill ' + utilizationFillClass(t.utilizationPct);
   }
 
   // Asset / debt split bar

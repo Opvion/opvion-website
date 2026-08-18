@@ -441,15 +441,15 @@ body {
 /* Hero node diagram */
 .hero-nodes {
   position: relative;
-  width: 340px;
-  height: 340px;
-  margin-top: 16px;
+  width: 600px;
+  height: 600px;
+  margin-top: 24px;
 }
 .center-node {
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  width: 80px; height: 80px;
+  width: 118px; height: 118px;
   background: var(--blue);
   border-radius: 50%;
   display: flex;
@@ -457,15 +457,15 @@ body {
   align-items: center;
   justify-content: center;
   z-index: 2;
-  box-shadow: 0 0 40px rgba(59,130,246,0.4);
+  box-shadow: 0 0 60px rgba(59,130,246,0.45);
 }
-.plus-icon { font-size: 1.6rem; }
-.center-node .node-label { font-size: 0.6rem; font-weight: 700; color: rgba(255,255,255,0.9); }
+.plus-icon { font-size: 2.2rem; }
+.center-node .node-label { font-size: 0.82rem; font-weight: 700; color: rgba(255,255,255,0.9); }
 
 .orbit-node {
   position: absolute;
   top: 50%; left: 50%;
-  --r: 130px;
+  --r: 235px;
   transform: translate(-50%, -50%)
     rotate(var(--angle))
     translateY(calc(-1 * var(--r)))
@@ -473,7 +473,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
+  text-decoration: none;
+  cursor: pointer;
   animation: float 4s ease-in-out infinite;
   animation-delay: calc(var(--angle) / 60deg * 0.3s);
 }
@@ -482,21 +484,30 @@ body {
   50% { filter: brightness(1.15); }
 }
 .orbit-dot {
-  width: 46px; height: 46px;
+  width: 68px; height: 68px;
   background: var(--bg-card);
   border: 1px solid var(--border-blue);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
+  font-size: 1.7rem;
+  transition: transform 0.2s, border-color 0.2s, background 0.2s;
 }
 .orbit-node span {
-  font-size: 0.62rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
   font-weight: 500;
   white-space: nowrap;
+  transition: color 0.2s;
 }
+.orbit-node:hover .orbit-dot {
+  transform: scale(1.1);
+  border-color: var(--blue);
+  background: var(--blue-dim);
+}
+.orbit-node:hover span { color: var(--text); }
+.orbit-node:focus-visible .orbit-dot { outline: 2px solid var(--blue); outline-offset: 3px; }
 
 /* ── SECTIONS ───────────────────────────────────── */
 section {
@@ -1589,10 +1600,22 @@ footer {
   .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
 }
 
+@media (max-width: 900px) {
+  .hero-nodes { width: 420px; height: 420px; margin-top: 48px; }
+  .orbit-node { --r: 165px; }
+  .center-node { width: 96px; height: 96px; }
+  .orbit-dot { width: 56px; height: 56px; font-size: 1.4rem; }
+}
+
 @media (max-width: 600px) {
   section { padding: 70px 0; }
-  .hero-nodes { width: 260px; height: 260px; }
-  .hero-nodes { --r: 100px; }
+  .hero-nodes { width: 290px; height: 290px; margin-top: 64px; }
+  .orbit-node { --r: 112px; }
+  .center-node { width: 76px; height: 76px; }
+  .plus-icon { font-size: 1.5rem; }
+  .center-node .node-label { font-size: 0.6rem; }
+  .orbit-dot { width: 46px; height: 46px; font-size: 1.15rem; }
+  .orbit-node span { font-size: 0.64rem; }
   .roadmap-steps { grid-template-columns: 1fr; }
   .contact-form { padding: 24px 20px; }
   .features-grid { grid-template-columns: 1fr; }
