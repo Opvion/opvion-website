@@ -8,72 +8,109 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="pricing.css" />
 </head>
 <body data-page="pricing" class="page-subpage">
 
   <div id="nav-mount"></div>
 
-  <section id="pricing">
-    <div class="container">
-      <div class="section-label">Pricing</div>
-      <h2>Simple, transparent pricing.</h2>
-      <p class="section-sub">All paid tiers include a 1-month free trial (3 months at launch) with monthly and annual billing options.</p>
-      <div class="pricing-grid">
-        <div class="pricing-card">
-          <div class="plan-name">Free</div>
-          <div class="plan-price">€0<span>/mo</span></div>
-          <div class="plan-desc">Manual entry only</div>
-          <ul class="plan-features">
-            <li class="yes">Spending tracker</li>
-            <li class="yes">Spending analytics</li>
-            <li class="no">Bank account connection</li>
-            <li class="no">Investment tracker</li>
-            <li class="no">AI spending analytics</li>
-            <li class="no">Credit tracker</li>
-          </ul>
-          <a href="index.html#contact" class="btn-plan-ghost">Get started free</a>
-        </div>
-        <div class="pricing-card">
-          <div class="plan-name">Basic</div>
-          <div class="plan-price">€5.99<span>/mo</span></div>
-          <div class="plan-desc">Everything you need to connect your finances</div>
-          <ul class="plan-features">
-            <li class="yes">Spending tracker</li>
-            <li class="yes">Spending analytics</li>
-            <li class="yes">Bank account connection</li>
-            <li class="no">Investment tracker</li>
-            <li class="no">AI spending analytics</li>
-            <li class="no">Credit tracker</li>
-          </ul>
-          <a href="index.html#contact" class="btn-plan-ghost">Join waitlist</a>
-        </div>
-        <div class="pricing-card featured">
-          <div class="plan-badge">Most Popular</div>
-          <div class="plan-name">Pro</div>
-          <div class="plan-price">€14.99<span>/mo</span></div>
-          <div class="plan-desc">Complete financial intelligence</div>
-          <ul class="plan-features">
-            <li class="yes">Spending tracker</li>
-            <li class="yes">Spending analytics</li>
-            <li class="yes">Bank account connection</li>
-            <li class="yes">Investment tracker</li>
-            <li class="soon">AI spending analytics <span class="badge-soon">Soon</span></li>
-            <li class="soon">Credit tracker <span class="badge-soon">Soon</span></li>
-          </ul>
-          <a href="index.html#contact" class="btn-plan">Join waitlist</a>
-        </div>
-      </div>
-      <p class="pricing-note">* AI Analytics is consent-based. Users must opt in. Your data stays in the EU, always.</p>
-      <div class="compare-toggle-wrap">
-        <a href="features.html" class="btn-compare">Compare Plans</a>
-      </div>
+  <main class="pp-page">
+    <div class="pp-wrap">
+      <header class="pp-header">
+        <div class="pp-eyebrow">Personal plans</div>
+        <h1>Simple pricing for a clearer financial life.</h1>
+        <p>Start with the essentials, then add deeper insights when you are ready. Every paid plan begins with a one-month free trial, extended to three months at launch.</p>
+      </header>
 
-      <div class="info-callout" style="margin-top:48px;max-width:640px;margin-left:auto;margin-right:auto;">
-        <div class="info-callout-badge">i</div>
-        <p><strong>Managing portfolios for other people?</strong> Opvion Business is a separate product for firms. Request a demo and we'll talk pricing on the call. <a href="business.html">Learn more →</a></p>
-      </div>
+      <section class="pp-plans" aria-label="Personal pricing plans">
+        <article class="pp-plan">
+          <div class="pp-plan-top">
+            <div>
+              <div class="pp-plan-name">Free</div>
+              <p class="pp-plan-desc">A clear view, built your way.</p>
+            </div>
+            <span class="pp-tier free">Free</span>
+          </div>
+          <div class="pp-price">€0<span>/ month</span></div>
+          <a href="index.html#contact" class="pp-button pp-button-secondary">Get started free</a>
+          <div class="pp-divider"></div>
+          <p class="pp-includes">Includes</p>
+          <ul class="pp-features">
+            <li>Spending tracker</li>
+            <li>Spending analytics</li>
+            <li>Multi-currency support</li>
+            <li class="is-muted">Bank account connection</li>
+            <li class="is-muted">Investment tracker</li>
+            <li class="is-muted">AI spending analytics</li>
+          </ul>
+        </article>
+
+        <article class="pp-plan">
+          <div class="pp-plan-top">
+            <div>
+              <div class="pp-plan-name">Basic</div>
+              <p class="pp-plan-desc">Your connected financial overview.</p>
+            </div>
+            <span class="pp-tier basic">Basic</span>
+          </div>
+          <div class="pp-price">€5.99<span>/ month</span></div>
+          <a href="index.html#contact" class="pp-button pp-button-secondary">Join waitlist</a>
+          <div class="pp-divider"></div>
+          <p class="pp-includes">Everything in Free, plus</p>
+          <ul class="pp-features">
+            <li>Bank account connection</li>
+            <li>Automatic transaction sync</li>
+            <li>300+ European banks supported</li>
+            <li>Net worth tracking</li>
+            <li class="is-muted">Investment tracker</li>
+            <li class="is-muted">AI spending analytics</li>
+          </ul>
+        </article>
+
+        <article class="pp-plan pp-plan-featured">
+          <div class="pp-popular">Most popular</div>
+          <div class="pp-plan-top">
+            <div>
+              <div class="pp-plan-name">Pro</div>
+              <p class="pp-plan-desc">Complete financial intelligence.</p>
+            </div>
+            <span class="pp-tier pro">Pro</span>
+          </div>
+          <div class="pp-price">€14.99<span>/ month</span></div>
+          <a href="index.html#contact" class="pp-button pp-button-primary">Join waitlist</a>
+          <div class="pp-divider"></div>
+          <p class="pp-includes">Everything in Basic, plus</p>
+          <ul class="pp-features">
+            <li>Investment portfolio tracker</li>
+            <li>Per-lot performance tracking</li>
+            <li>Live market prices</li>
+            <li>Historical FX rates</li>
+            <li>AI spending analytics <span class="pp-soon">Soon</span></li>
+            <li>Credit tracker <span class="pp-soon">Soon</span></li>
+          </ul>
+        </article>
+      </section>
+
+      <p class="pp-note">AI Analytics is consent-based. Users must opt in. Your data stays in the EU, always.</p>
+
+      <section class="pp-more" aria-label="More Opvion options">
+        <div class="pp-more-copy">
+          <div class="pp-eyebrow">Need more detail?</div>
+          <h2>Compare every feature, tier by tier.</h2>
+          <p>See which account unlocks the tools you need for spending, wealth, investments, and more.</p>
+          <a href="features.html" class="pp-text-link">Explore personal features <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="pp-business-callout">
+          <span class="pp-callout-mark">O</span>
+          <div>
+            <h3>Managing portfolios for other people?</h3>
+            <p>Opvion Business is built for firms. Request a demo and we will shape pricing around your structure.</p>
+            <a href="business.html" class="pp-text-link">Explore Opvion Business <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+      </section>
     </div>
-  </section>
+  </main>
 
   <div id="footer-mount"></div>
   <div id="modals-mount"></div>

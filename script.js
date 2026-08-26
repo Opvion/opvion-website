@@ -52,6 +52,43 @@ window.addEventListener('load', () => {
   });
 });
 
+// ── Testimonial ticker (seamless infinite marquee)
+(() => {
+  const wrap = document.querySelector('.reactions-ticker-wrap');
+  const track = document.getElementById('reactionsTicker');
+  const baseSet = track && track.querySelector('.reactions-set');
+  if (!wrap || !track || !baseSet) return;
+
+  const PIXELS_PER_SECOND = 35;
+
+  function layout() {
+    track.querySelectorAll('.reactions-set').forEach((set, i) => {
+      if (i > 0) set.remove();
+    });
+
+    const setWidth = baseSet.getBoundingClientRect().width;
+    if (!setWidth) return;
+
+    const minWidth = wrap.getBoundingClientRect().width * 2;
+    let currentWidth = setWidth;
+    while (currentWidth < minWidth) {
+      track.appendChild(baseSet.cloneNode(true));
+      currentWidth += setWidth;
+    }
+
+    track.style.setProperty('--marquee-distance', `${setWidth}px`);
+    track.style.setProperty('--marquee-duration', `${setWidth / PIXELS_PER_SECOND}s`);
+  }
+
+  layout();
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(layout, 200);
+  });
+})();
+
 // ── Disposable email blocklist
 const BLOCKED_DOMAINS = new Set([
   'mailinator.com', 'guerrillamail.com', 'guerrillamail.info', 'guerrillamail.net',

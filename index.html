@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="landing.css" />
 </head>
 <body data-page="hero">
 
@@ -53,27 +54,44 @@
   <!-- PROBLEM -->
   <section id="problem">
     <div class="container">
-      <div class="section-label">The Problem</div>
       <h2>Modern finances are broken,<br />and it's not your fault.</h2>
       <p class="section-sub">The problem isn't literacy. It's that no tool brings it all together.</p>
       <div class="cards-3">
         <div class="problem-card">
-          <div class="problem-num">01</div>
-          <h3>Fragmented Access</h3>
-          <p class="problem-subtitle">When was the last time you actually checked everything?</p>
-          <p>Multiple bank accounts, credit cards, investment accounts, and apps make it hard to see your finances as one complete picture.</p>
+          <div class="problem-visual">
+            <img src="assets/cards/fragmented-access.png" alt="Fragmented access: a shattered globe surrounded by disconnected bank, card and app icons." loading="lazy" />
+          </div>
+          <div class="problem-body">
+            <div class="problem-eyebrow">
+              <span class="problem-num">01</span><span class="problem-label">Fragmented Access</span>
+            </div>
+            <h3>When was the last time you actually checked everything?</h3>
+            <p>Multiple bank accounts, credit cards, investment accounts, and apps make it hard to see your finances as one complete picture.</p>
+          </div>
         </div>
         <div class="problem-card">
-          <div class="problem-num">02</div>
-          <h3>Financial Overwhelm</h3>
-          <p class="problem-subtitle">Do you know where your money goes?</p>
-          <p>How much did you spend on groceries this month? Your weekend getaway? What's your credit card bill? Are your investments going up or down? Keeping track across accounts is harder than it should be.</p>
+          <div class="problem-visual">
+            <img src="assets/cards/financial-overwhelm.png" alt="Financial overwhelm: spending categories connected by wavy lines to a receipt and stacked coins." loading="lazy" />
+          </div>
+          <div class="problem-body">
+            <div class="problem-eyebrow">
+              <span class="problem-num">02</span><span class="problem-label">Financial Overwhelm</span>
+            </div>
+            <h3>Do you know where your money goes?</h3>
+            <p>How much did you spend on groceries this month? Your weekend getaway? What's your credit card bill? Are your investments going up or down? Keeping track across accounts is harder than it should be.</p>
+          </div>
         </div>
         <div class="problem-card">
-          <div class="problem-num">03</div>
-          <h3>Avoidance</h3>
-          <p class="problem-subtitle">When was the last time you actually dealt with it?</p>
-          <p>When finances feel complicated or overwhelming, it's easy to put them off. <strong>And the longer you wait, the harder it becomes to get back on track.</strong></p>
+          <div class="problem-visual">
+            <img src="assets/cards/avoidance.png" alt="Avoidance: a stack of overdue payment notifications for a credit card, loan and insurance bill." loading="lazy" />
+          </div>
+          <div class="problem-body">
+            <div class="problem-eyebrow">
+              <span class="problem-num">03</span><span class="problem-label">Avoidance</span>
+            </div>
+            <h3>When was the last time you actually dealt with it?</h3>
+            <p>When finances feel complicated or overwhelming, it's easy to put them off. <strong>And the longer you wait, the harder it becomes to get back on track.</strong></p>
+          </div>
         </div>
       </div>
     </div>
@@ -82,7 +100,6 @@
   <!-- SOLUTION -->
   <section id="solution">
     <div class="container">
-      <div class="section-label">The Solution</div>
       <h2>One place for everything.<br />Your accounts, your wealth, your future.</h2>
       <div class="solution-grid">
         <div class="solution-text">
@@ -171,45 +188,28 @@
   <!-- EARLY REACTIONS -->
   <section id="early-reactions">
     <div class="container">
-      <div class="section-label">Early Reactions</div>
       <h2>What people are saying.</h2>
     </div>
     <div class="reactions-ticker-wrap">
-      <div class="reactions-ticker">
-        <!-- Card 1 -->
-        <div class="reaction-card">
-          <p class="reaction-quote">"I was trying to do my finances in a spreadsheet the other day. It was difficult and time-consuming. I would have really appreciated a tool like this."</p>
-          <p class="reaction-original"><em>„Ich hab neulich versucht, meine Finanzen in Excel zu machen, und das war echt schwierig und zeitaufwendig. So ein Tool hätte mir echt geholfen."</em></p>
-          <p class="reaction-author">Prospective user, UnternehmerTUM Startup Launchpad</p>
-        </div>
-        <!-- Card 2 -->
-        <div class="reaction-card">
-          <p class="reaction-quote">"The multi-currency support is really useful if you're an expat with accounts in different currencies. I love that. I also like being able to see my crypto wallets in one place, which I've struggled with before."</p>
-          <p class="reaction-author">Prospective user, UnternehmerTUM Startup Launchpad</p>
-        </div>
-        <!-- Card 3 -->
-        <div class="reaction-card">
-          <p class="reaction-quote">"To manage your money responsibly, you need to keep track of it. If I link my accounts, the app does that for me automatically, which saves me time. I like how transparent and clean it feels. Very user-friendly."</p>
-          <p class="reaction-original"><em>„Ahhoz, hogy felelősségteljesen bánj a pénzeddel, ahhoz kell valamennyire kell trackelned a pénzed, ha összekötöm a bankszámláimmal, akkor megcsinálja helyettem, amivel időt spórolok. Tetszik a program átláthatósága és letisztultsága, felhasználóbarátnak érződik."</em></p>
-          <p class="reaction-author">Prospective user</p>
-        </div>
-        <!-- Duplicate set for seamless loop -->
-        <!-- Card 1 -->
-        <div class="reaction-card">
-          <p class="reaction-quote">"I was trying to do my finances in a spreadsheet the other day. It was difficult and time-consuming. I would have really appreciated a tool like this."</p>
-          <p class="reaction-original"><em>„Ich hab neulich versucht, meine Finanzen in Excel zu machen, und das war echt schwierig und zeitaufwendig. So ein Tool hätte mir echt geholfen."</em></p>
-          <p class="reaction-author">Prospective user, UnternehmerTUM Startup Launchpad</p>
-        </div>
-        <!-- Card 2 -->
-        <div class="reaction-card">
-          <p class="reaction-quote">"The multi-currency support is really useful if you're an expat with accounts in different currencies. I love that. I also like being able to see my crypto wallets in one place, which I've struggled with before."</p>
-          <p class="reaction-author">Prospective user, UnternehmerTUM Startup Launchpad</p>
-        </div>
-        <!-- Card 3 -->
-        <div class="reaction-card">
-          <p class="reaction-quote">"To manage your money responsibly, you need to keep track of it. If I link my accounts, the app does that for me automatically, which saves me time. I like how transparent and clean it feels. Very user-friendly."</p>
-          <p class="reaction-original"><em>„Ahhoz, hogy felelősségteljesen bánj a pénzeddel, ahhoz kell valamennyire kell trackelned a pénzed, ha összekötöm a bankszámláimmal, akkor megcsinálja helyettem, amivel időt spórolok. Tetszik a program átláthatósága és letisztultsága, felhasználóbarátnak érződik."</em></p>
-          <p class="reaction-author">Prospective user</p>
+      <div class="reactions-ticker" id="reactionsTicker">
+        <div class="reactions-set">
+          <!-- Card 1 -->
+          <div class="reaction-card">
+            <p class="reaction-quote">"I was trying to do my finances in a spreadsheet the other day. It was difficult and time-consuming. I would have really appreciated a tool like this."</p>
+            <p class="reaction-original"><em>„Ich hab neulich versucht, meine Finanzen in Excel zu machen, und das war echt schwierig und zeitaufwendig. So ein Tool hätte mir echt geholfen."</em></p>
+            <p class="reaction-author">Prospective user, UnternehmerTUM Startup Launchpad</p>
+          </div>
+          <!-- Card 2 -->
+          <div class="reaction-card">
+            <p class="reaction-quote">"The multi-currency support is really useful if you're an expat with accounts in different currencies. I love that. I also like being able to see my crypto wallets in one place, which I've struggled with before."</p>
+            <p class="reaction-author">Prospective user, UnternehmerTUM Startup Launchpad</p>
+          </div>
+          <!-- Card 3 -->
+          <div class="reaction-card">
+            <p class="reaction-quote">"To manage your money responsibly, you need to keep track of it. If I link my accounts, the app does that for me automatically, which saves me time. I like how transparent and clean it feels. Very user-friendly."</p>
+            <p class="reaction-original"><em>„Ahhoz, hogy felelősségteljesen bánj a pénzeddel, ahhoz kell valamennyire kell trackelned a pénzed, ha összekötöm a bankszámláimmal, akkor megcsinálja helyettem, amivel időt spórolok. Tetszik a program átláthatósága és letisztultsága, felhasználóbarátnak érződik."</em></p>
+            <p class="reaction-author">Prospective user</p>
+          </div>
         </div>
       </div>
     </div>
@@ -220,7 +220,6 @@
     <div class="container">
       <div class="contact-grid">
         <div class="contact-left">
-          <div class="section-label">Get Early Access</div>
           <h2>Be first to experience Opvion.</h2>
           <p>Join the waitlist and get early access when we launch. Pro plan subscribers during beta get 3 months free at launch.</p>
           <div class="contact-perks">

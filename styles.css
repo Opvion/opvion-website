@@ -702,13 +702,56 @@ section h2 {
   line-height: 1.65;
 }
 
-.problem-subtitle {
-  color: var(--text) !important;
-  font-weight: 700 !important;
-  font-size: 0.98rem !important;
-  line-height: 1.4 !important;
-  margin-bottom: 8px;
+/* #problem-scoped: illustrated card layout (graphic panel +
+   numbered eyebrow). Scoped by ID so the plain .problem-card used
+   on business.html's "Who it's for" cards is untouched. */
+#problem .problem-card {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
+
+.problem-visual {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+.problem-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.problem-body { padding: 24px 28px 32px; }
+
+.problem-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.problem-eyebrow .problem-num {
+  font-size: 0.95rem;
+  font-weight: 800;
+  opacity: 1;
+  margin-bottom: 0;
+  line-height: 1;
+}
+.problem-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+#problem .problem-card h3 {
+  font-size: 1.2rem;
+  line-height: 1.35;
+  margin-bottom: 12px;
+}
+#problem .problem-card p { margin: 0; }
 
 /* ── SOLUTION ────────────────────────────────────── */
 #solution { background: var(--bg-card2); }
@@ -1349,12 +1392,20 @@ section h2 {
 .reactions-ticker {
   display: flex;
   width: max-content;
-  animation: ticker-scroll 70s linear infinite;
+  animation-name: ticker-scroll;
+  animation-duration: var(--marquee-duration, 70s);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.reactions-set {
+  display: flex;
+  flex-shrink: 0;
 }
 
 @keyframes ticker-scroll {
   0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  100% { transform: translateX(calc(-1 * var(--marquee-distance, 50%))); }
 }
 
 .reaction-card {
