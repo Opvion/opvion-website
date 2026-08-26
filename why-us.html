@@ -7,8 +7,8 @@
   <title>Why Opvion · Opvion</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="pf-match.css" />
+  <link rel="stylesheet" href="styles.css?v=6" />
+  <link rel="stylesheet" href="pf-match.css?v=3" />
 </head>
 <body data-page="why-us" class="page-subpage pf-match">
 
@@ -17,33 +17,68 @@
   <section id="competition">
     <div class="container">
       <div class="section-label">Why Opvion</div>
-      <h2>Built for the complete picture.<br />Nothing less.</h2>
-      <p class="section-sub">Most financial tools solve one problem. Opvion solves all of them in one place, with your data staying in Europe.</p>
-      <div class="strengths-grid">
-        <div class="strength-card">
-          <h3>Everything in one view</h3>
-          <p>Bank accounts, credit cards, investments, and brokerages, all connected through open banking and updated automatically. No more switching between apps to understand your finances.</p>
+      <div class="whyus-header">
+        <h2>Built for the complete picture.<br />Nothing less.</h2>
+        <p class="section-sub">Most financial tools solve one problem. Opvion solves all of them in one place, with your data staying in Europe.</p>
+      </div>
+
+      <div class="whyus-layout">
+        <div class="whyus-list" role="tablist" aria-label="Why Opvion">
+          <button class="whyus-item is-active" type="button" data-index="0" role="tab" aria-selected="true">
+            <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-layers"/></svg>
+            <span>Everything in one view</span>
+          </button>
+          <button class="whyus-item" type="button" data-index="1" role="tab" aria-selected="false">
+            <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-repeat"/></svg>
+            <span>Multi-currency done right</span>
+          </button>
+          <button class="whyus-item" type="button" data-index="2" role="tab" aria-selected="false">
+            <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-shield"/></svg>
+            <span>Privacy-first by design</span>
+          </button>
+          <button class="whyus-item" type="button" data-index="3" role="tab" aria-selected="false">
+            <svg class="icon-fill" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-ai-insights"/></svg>
+            <span>Intelligence that actually helps</span>
+          </button>
+          <button class="whyus-item" type="button" data-index="4" role="tab" aria-selected="false">
+            <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-message"/></svg>
+            <span>Spending meets investing</span>
+          </button>
+          <button class="whyus-item" type="button" data-index="5" role="tab" aria-selected="false">
+            <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-connectivity"/></svg>
+            <span>300+ banks supported</span>
+          </button>
         </div>
-        <div class="strength-card">
-          <h3>Multi-currency done right</h3>
-          <p>The only tracker that applies historical mid-market FX rates retroactively. Your portfolio performance stays accurate at any point in time, not just what it looks like today.</p>
+        <div class="whyus-panel">
+          <div class="whyus-content-item is-active" data-index="0">
+            <h3>Everything in one view</h3>
+            <p>Bank accounts, credit cards, investments, and brokerages, all connected through open banking and updated automatically. No more switching between apps to understand your finances.</p>
+          </div>
+          <div class="whyus-content-item" data-index="1">
+            <h3>Multi-currency done right</h3>
+            <p>The only tracker that applies historical mid-market FX rates retroactively. Your portfolio performance stays accurate at any point in time, not just what it looks like today.</p>
+          </div>
+          <div class="whyus-content-item" data-index="2">
+            <h3>Privacy-first by design</h3>
+            <p>Your data is stored in the European Union. No ads, no data selling, no compromises. GDPR-compliant from the very first line of code.</p>
+          </div>
+          <div class="whyus-content-item" data-index="3">
+            <h3>Intelligence that actually helps</h3>
+            <p>AI-powered spending insights, anomaly detection, and budget forecasting, all processed in the European Union. Opt in when you're ready, withdraw consent any time.</p>
+          </div>
+          <div class="whyus-content-item" data-index="4">
+            <h3>Spending meets investing</h3>
+            <p>Track your day-to-day spending and long-term investment portfolio in the same app. See how your habits today shape your net worth tomorrow.</p>
+          </div>
+          <div class="whyus-content-item" data-index="5">
+            <h3>300+ banks supported</h3>
+            <p>N26, Revolut, Wise, Sparkasse, Deutsche Bank, ING, Monzo, Barclays and hundreds more across the EU and UK, with more regions coming soon.</p>
+          </div>
         </div>
-        <div class="strength-card">
-          <h3>Privacy-first by design</h3>
-          <p>Your data is stored in the European Union. No ads, no data selling, no compromises. GDPR-compliant from the very first line of code.</p>
-        </div>
-        <div class="strength-card">
-          <h3>Intelligence that actually helps</h3>
-          <p>AI-powered spending insights, anomaly detection, and budget forecasting, all processed in the European Union. Opt in when you're ready, withdraw consent any time.</p>
-        </div>
-        <div class="strength-card">
-          <h3>Spending meets investing</h3>
-          <p>Track your day-to-day spending and long-term investment portfolio in the same app. See how your habits today shape your net worth tomorrow.</p>
-        </div>
-        <div class="strength-card">
-          <h3>300+ banks supported</h3>
-          <p>N26, Revolut, Wise, Sparkasse, Deutsche Bank, ING, Monzo, Barclays and hundreds more across the EU and UK, with more regions coming soon.</p>
-        </div>
+      </div>
+
+      <div class="whyus-banner">
+        <img src="assets/cards/personal-why-us-picture.png" alt="Two people comparing their Opvion net worth dashboards on their phones." loading="lazy" />
       </div>
     </div>
   </section>
@@ -52,6 +87,6 @@
   <div id="modals-mount"></div>
 
   <script src="layout.js"></script>
-  <script src="script.js"></script>
+  <script src="script.js?v=3"></script>
 </body>
 </html>

@@ -7,8 +7,8 @@
   <title>Opvion · Your Complete Financial Picture</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="landing.css" />
+  <link rel="stylesheet" href="styles.css?v=6" />
+  <link rel="stylesheet" href="landing.css?v=3" />
 </head>
 <body data-page="hero">
 
@@ -18,35 +18,35 @@
   <section id="hero">
     <div class="hero-bg"></div>
     <div class="container hero-content">
-      <div class="hero-badge">Now in development · Early access open</div>
-      <h1>One place for your<br /><span class="gradient-text">complete financial picture.</span></h1>
-      <p class="hero-sub">Every account, every currency, every investment, whether you're building your own wealth or managing it for others. All in one app, at last.</p>
-      <div class="hero-cta">
-        <a href="#contact" class="btn-primary">Get Early Access</a>
-        <a href="demo.html" class="btn-ghost">Try Interactive Demo</a>
-      </div>
-      <div class="hero-nodes">
-        <div class="center-node">
-          <span class="plus-icon">⊕</span>
-          <span class="node-label">Opvion</span>
+      <div class="hero-left">
+        <div class="hero-badge">Now in development · Early access open</div>
+        <h1>One place for your<br /><span class="gradient-text">complete financial picture.</span></h1>
+        <p class="hero-sub">Every account, every currency, every investment, whether you're building your own wealth or managing it for others. All in one app, at last.</p>
+        <div class="hero-cta">
+          <a href="#contact" class="btn-primary">Get Early Access</a>
+          <a href="demo.html" class="btn-ghost">Try Interactive Demo</a>
         </div>
-        <a class="orbit-node" style="--angle:0deg" href="features.html#connectivity"><div class="orbit-dot">🏦</div><span>Connectivity</span></a>
-        <a class="orbit-node" style="--angle:60deg" href="features.html#wealth"><div class="orbit-dot">💰</div><span>Wealth</span></a>
-        <a class="orbit-node" style="--angle:120deg" href="features.html#spending"><div class="orbit-dot">🥧</div><span>Spending Insights</span></a>
-        <a class="orbit-node" style="--angle:180deg" href="features.html#investments"><div class="orbit-dot">📈</div><span>Investments</span></a>
-        <a class="orbit-node" style="--angle:240deg" href="features.html#liabilities"><div class="orbit-dot">💳</div><span>Liabilities</span></a>
-        <a class="orbit-node" style="--angle:300deg" href="features.html#ai-insights"><div class="orbit-dot">🤖</div><span>AI Insights</span></a>
+        <div class="hero-believers">
+          <p class="believers-tagline">Join us early. Be one of our first believers.</p>
+          <div class="believers-logo">
+            <img src="unternehmertum-logo.svg" alt="UnternehmerTUM Startup Launchpad" width="140" height="80" />
+            <span class="believers-caption">Startup Launchpad</span>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
-
-  <!-- BELIEVERS -->
-  <section id="believers">
-    <div class="container believers-inner">
-      <p class="believers-tagline">Join us early. Be one of our first believers.</p>
-      <div class="believers-logo">
-        <img src="unternehmertum-logo.svg" alt="UnternehmerTUM Startup Launchpad" width="140" height="80" />
-        <span class="believers-caption">Startup Launchpad</span>
+      <div class="hero-right">
+        <div class="hero-nodes">
+          <div class="center-node">
+            <span class="plus-icon">⊕</span>
+            <span class="node-label">Opvion</span>
+          </div>
+          <a class="orbit-node" style="--angle:0deg" href="features.html#connectivity"><div class="orbit-dot orbit-glass orbit-white"><svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-connectivity"/></svg></div><span>Connectivity</span></a>
+          <a class="orbit-node" style="--angle:60deg" href="features.html#wealth"><div class="orbit-dot orbit-glass orbit-purple"><svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-wealth"/></svg></div><span>Wealth</span></a>
+          <a class="orbit-node" style="--angle:120deg" href="features.html#spending"><div class="orbit-dot orbit-glass orbit-green"><svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-spending"/></svg></div><span>Spending Insights</span></a>
+          <a class="orbit-node" style="--angle:180deg" href="features.html#investments"><div class="orbit-dot orbit-glass orbit-green"><svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-investments"/></svg></div><span>Investments</span></a>
+          <a class="orbit-node" style="--angle:240deg" href="features.html#liabilities"><div class="orbit-dot orbit-glass orbit-red"><svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-liabilities"/></svg></div><span>Liabilities</span></a>
+          <a class="orbit-node" style="--angle:300deg" href="features.html#ai-insights"><div class="orbit-dot orbit-glass orbit-purple"><svg class="icon-fill" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-ai-insights"/></svg></div><span>AI Insights</span></a>
+        </div>
       </div>
     </div>
   </section>
@@ -104,28 +104,28 @@
       <div class="solution-grid">
         <div class="solution-text">
           <div class="feature-item">
-            <div class="feature-icon">⚡</div>
+            <div class="feature-icon orbit-glass orbit-white"><svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-connectivity"/></svg></div>
             <div>
               <h4>Automated account aggregation</h4>
               <p>Automatically aggregates bank accounts, cards, and brokerages via open banking.</p>
             </div>
           </div>
           <div class="feature-item">
-            <div class="feature-icon">📊</div>
+            <div class="feature-icon orbit-glass orbit-purple"><svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-wealth"/></svg></div>
             <div>
               <h4>Live net worth tracking</h4>
               <p>See your net worth, spending habits, and investment performance side by side, all updated in real time.</p>
             </div>
           </div>
           <div class="feature-item">
-            <div class="feature-icon">🤖</div>
+            <div class="feature-icon orbit-glass orbit-purple"><svg class="icon-fill" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-ai-insights"/></svg></div>
             <div>
               <h4>AI-powered spending analysis</h4>
               <p>Personalized suggestions based on your spending habits to reach your goals, tackling both the knowledge gap and the anxiety around money.</p>
             </div>
           </div>
           <div class="feature-item">
-            <div class="feature-icon">🌍</div>
+            <div class="feature-icon feature-icon-img"><img src="assets/cards/multi-currency_logo.png" alt="Multi-currency support" loading="lazy" /></div>
             <div>
               <h4>The only tracker that gets multi-currency right</h4>
               <p>Full multi-currency support with historical FX rates applied retroactively, so your portfolio performance stays accurate at any point in time, not just today.</p>

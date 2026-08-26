@@ -356,12 +356,41 @@ body {
 
 .hero-content {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  text-align: center;
-  gap: 24px;
+  justify-content: space-between;
+  gap: 40px;
   position: relative;
 }
+
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 24px;
+  flex: 1 1 560px;
+  min-width: 0;
+}
+
+.hero-right {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.hero-believers {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  margin-top: 4px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+}
+.hero-believers .believers-tagline { margin-bottom: 0; }
+.hero-believers .believers-logo { flex-direction: row; align-items: center; gap: 10px; }
+.hero-believers .believers-logo img { height: 30px; }
 
 .hero-badge {
   display: inline-flex;
@@ -401,7 +430,7 @@ body {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .btn-primary {
@@ -443,7 +472,6 @@ body {
   position: relative;
   width: 600px;
   height: 600px;
-  margin-top: 24px;
 }
 .center-node {
   position: absolute;
@@ -491,9 +519,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.7rem;
-  transition: transform 0.2s, border-color 0.2s, background 0.2s;
+  color: var(--text-muted);
+  transition: transform 0.2s, border-color 0.2s, background 0.2s, color 0.2s;
 }
+.orbit-dot svg { width: 40%; height: 40%; }
+
+/* Shared icon rendering for <use>-referenced shapes (see the symbol
+   sprite at the top of the body): stroke-style icons vs. filled ones. */
+.icon-stroke { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.icon-fill { fill: currentColor; stroke: none; }
 .orbit-node span {
   font-size: 0.78rem;
   color: var(--text-muted);
@@ -505,6 +539,7 @@ body {
   transform: scale(1.1);
   border-color: var(--blue);
   background: var(--blue-dim);
+  color: var(--blue-light);
 }
 .orbit-node:hover span { color: var(--text); }
 .orbit-node:focus-visible .orbit-dot { outline: 2px solid var(--blue); outline-offset: 3px; }
@@ -615,16 +650,7 @@ section h2 {
   text-decoration: underline;
 }
 
-/* ── BELIEVERS ───────────────────────────────────── */
-#believers {
-  background: var(--bg);
-  padding: 48px 0 8px;
-}
-
-.believers-inner {
-  text-align: center;
-}
-
+/* ── BELIEVERS (nested in the hero's left column) ─── */
 .believers-tagline {
   font-size: 0.95rem;
   font-weight: 600;
@@ -781,6 +807,14 @@ section h2 {
   justify-content: center;
   font-size: 1.1rem;
   flex-shrink: 0;
+  overflow: hidden;
+}
+.feature-icon svg { width: 20px; height: 20px; }
+.feature-icon.feature-icon-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.35);
 }
 
 .feature-item h4 {
@@ -886,7 +920,26 @@ section h2 {
 .mock-income-box.green-box strong { color: var(--green); }
 
 /* ── COMPETITION ─────────────────────────────────── */
-#competition { background: var(--bg-card2); }
+#competition {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(1100px 520px at 12% -8%, rgba(79,141,255,0.10), transparent 60%),
+    radial-gradient(900px 500px at 100% 4%, rgba(139,124,246,0.08), transparent 55%),
+    #080b13;
+}
+#competition .section-label { color: #4f8dff; }
+#competition .section-label::before {
+  content: "";
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #4f8dff;
+  box-shadow: 0 0 0 4px rgba(79,141,255,0.15);
+  margin-right: 9px;
+}
+#competition h2 { color: #f7f9fc; }
+#competition .section-sub { color: #98a2b9; }
 
 .table-wrap {
   overflow-x: auto;
@@ -1642,6 +1695,12 @@ footer {
   .cards-3 { grid-template-columns: 1fr; }
   .solution-grid { grid-template-columns: 1fr; }
   .solution-screen { display: none; }
+  .whyus-header { align-items: flex-start; }
+  .whyus-header .section-sub { max-width: none; }
+  .whyus-layout { grid-template-columns: 1fr; }
+  .whyus-list { flex-direction: row; flex-wrap: wrap; gap: 8px; }
+  .whyus-item { width: auto; border-left: none; border: 1px solid rgba(255,255,255,0.09); border-radius: 999px; padding: 8px 16px; font-size: 0.85rem; }
+  .whyus-item.is-active { border-color: #4f8dff; }
   .pricing-grid { grid-template-columns: 1fr; }
   .pricing-card.featured { transform: none; }
   .pricing-card.featured:hover { transform: translateY(-4px); }
@@ -1652,6 +1711,11 @@ footer {
 }
 
 @media (max-width: 900px) {
+  .hero-content { flex-direction: column; text-align: center; }
+  .hero-left { align-items: center; text-align: center; }
+  .hero-cta { justify-content: center; }
+  .hero-believers { justify-content: center; text-align: left; }
+  .hero-right { justify-content: center; width: 100%; }
   .hero-nodes { width: 420px; height: 420px; margin-top: 48px; }
   .orbit-node { --r: 165px; }
   .center-node { width: 96px; height: 96px; }
@@ -1723,6 +1787,82 @@ footer {
   line-height: 1.65;
   text-align: center;
 }
+
+/* ── WHY-US: header + clickable icon list + panel + banner (why-us.html) ── */
+.whyus-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.whyus-header h2 { margin-bottom: 0; }
+.whyus-header .section-sub { max-width: 480px; margin-bottom: 0; }
+
+.whyus-layout {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 24px;
+  margin-top: 40px;
+  align-items: start;
+}
+
+.whyus-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.whyus-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  border-left: 3px solid transparent;
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #98a2b9;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.whyus-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+.whyus-item:hover { color: #f7f9fc; }
+.whyus-item.is-active {
+  color: #f7f9fc;
+  font-weight: 700;
+  border-left-color: #4f8dff;
+  background: rgba(79,141,255,0.15);
+}
+
+.whyus-panel {
+  background: linear-gradient(165deg, #1b2140, #0e1226);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 20px;
+  padding: 36px 40px;
+  min-height: 290px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.whyus-content-item { display: none; }
+.whyus-content-item.is-active { display: block; }
+.whyus-content-item h3 { font-size: 1.5rem; font-weight: 700; color: #f7f9fc; margin-bottom: 14px; }
+.whyus-content-item p { font-size: 0.95rem; color: #98a2b9; line-height: 1.7; max-width: 55ch; }
+
+.whyus-banner {
+  margin-top: 32px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.09);
+  overflow: hidden;
+  aspect-ratio: 1672 / 941;
+  background: #10141f;
+}
+.whyus-banner img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 /* ── COMPARE TOGGLE ──────────────────────────────── */
 .compare-toggle-wrap {

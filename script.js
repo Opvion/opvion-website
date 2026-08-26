@@ -22,7 +22,8 @@ if (hamburger && mobileMenu) {
 const revealEls = document.querySelectorAll(
   'section h2, .problem-card, .feature-item, ' +
   '.pricing-card, .roadmap-step, .hero-badge, ' +
-  '.section-sub, .strength-card, .contact-left, .contact-form'
+  '.section-sub, .strength-card, .contact-left, .contact-form, ' +
+  '.whyus-list, .whyus-panel'
 );
 revealEls.forEach(el => el.classList.add('reveal'));
 
@@ -86,6 +87,30 @@ window.addEventListener('load', () => {
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(layout, 200);
+  });
+})();
+
+// ── Why Opvion tabbed list (why-us.html)
+(() => {
+  const list = document.querySelector('.whyus-list');
+  if (!list) return;
+
+  const items = list.querySelectorAll('.whyus-item');
+  const contentItems = document.querySelectorAll('.whyus-content-item');
+
+  list.addEventListener('click', (e) => {
+    const btn = e.target.closest('.whyus-item');
+    if (!btn) return;
+    const index = btn.dataset.index;
+
+    items.forEach(item => {
+      const active = item === btn;
+      item.classList.toggle('is-active', active);
+      item.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    contentItems.forEach(content => {
+      content.classList.toggle('is-active', content.dataset.index === index);
+    });
   });
 })();
 
