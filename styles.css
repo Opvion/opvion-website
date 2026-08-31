@@ -819,9 +819,9 @@ section h2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
-  align-items: center;
-  margin-top: 48px;
+  align-items: stretch;
 }
+.solution-text h2 { margin-bottom: 48px; }
 
 .feature-item {
   display: flex;
@@ -863,94 +863,17 @@ section h2 {
 }
 
 /* Screen mockup */
-.solution-screen { display: flex; justify-content: center; }
+.solution-screen { display: flex; }
 
 .screen-mockup {
   background: #0d1526;
   border: 1px solid rgba(59,130,246,0.2);
   border-radius: 16px;
   width: 100%;
-  max-width: 420px;
   overflow: hidden;
   box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
 }
-
-.screen-bar {
-  background: #111e35;
-  padding: 10px 14px;
-  display: flex;
-  gap: 6px;
-  border-bottom: 1px solid var(--border);
-}
-.screen-bar span {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.12);
-}
-
-.screen-body { padding: 20px; }
-
-.mock-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-}
-.mock-title { font-size: 0.85rem; font-weight: 700; color: var(--text); }
-.mock-currency {
-  font-size: 0.75rem;
-  background: rgba(59,130,246,0.1);
-  border: 1px solid var(--border-blue);
-  border-radius: 6px;
-  padding: 3px 8px;
-  color: var(--blue-light);
-}
-
-.mock-networth {
-  text-align: center;
-  margin-bottom: 20px;
-}
-.mock-label { display: block; font-size: 0.72rem; color: var(--text-muted); margin-bottom: 4px; }
-.mock-value { font-size: 2rem; font-weight: 800; color: var(--text); }
-
-.mock-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-bottom: 16px;
-}
-.mock-stat {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 8px 10px;
-}
-.mock-stat span { display: block; font-size: 0.65rem; color: var(--text-muted); margin-bottom: 4px; }
-.mock-stat strong { font-size: 0.75rem; font-weight: 700; color: var(--text); }
-.mock-stat.green strong { color: var(--green); }
-.mock-stat.red strong { color: var(--red); }
-
-.mock-bar-wrap { margin-bottom: 16px; }
-.mock-bar-label { font-size: 0.68rem; color: var(--text-muted); margin-bottom: 6px; display: flex; align-items: center; gap: 5px; }
-.green-dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; display: inline-block; }
-.mock-bar { height: 6px; background: rgba(239,68,68,0.3); border-radius: 99px; }
-.mock-bar-fill { height: 100%; background: var(--green); border-radius: 99px; }
-
-.mock-income-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
-.mock-income-box {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 8px;
-}
-.mock-income-box span { display: block; font-size: 0.62rem; color: var(--text-muted); margin-bottom: 3px; }
-.mock-income-box strong { font-size: 0.72rem; font-weight: 700; }
-.mock-income-box.red-box strong { color: var(--red); }
-.mock-income-box.green-box strong { color: var(--green); }
+.screen-mockup img { width: 100%; height: 100%; display: block; object-fit: cover; }
 
 /* ── COMPETITION ─────────────────────────────────── */
 #competition {

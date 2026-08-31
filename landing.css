@@ -83,8 +83,6 @@ body[data-page="hero"] .problem-num { color: var(--landing-blue); opacity: 1; }
 body[data-page="hero"] .problem-subtitle { color: var(--landing-text) !important; }
 body[data-page="hero"] .feature-icon, body[data-page="hero"] .perk-icon { border-color: rgba(79,141,255,.30); border-radius: 10px; color: var(--landing-blue); background: var(--landing-blue-soft); }
 body[data-page="hero"] .screen-mockup { border-color: var(--landing-border); background: var(--landing-panel-2); border-radius: 20px; box-shadow: 0 30px 60px -28px rgba(0,0,0,.85); }
-body[data-page="hero"] .screen-bar { background: rgba(255,255,255,.04); }
-body[data-page="hero"] .mock-currency { border-color: rgba(79,141,255,.30); color: var(--landing-blue); background: var(--landing-blue-soft); }
 body[data-page="hero"] .contact-form { background: var(--landing-panel-2); }
 body[data-page="hero"] .form-group input, body[data-page="hero"] .form-group select, body[data-page="hero"] .form-group textarea { border-color: var(--landing-border); background: rgba(255,255,255,.04); }
 body[data-page="hero"] .form-group input:focus, body[data-page="hero"] .form-group select:focus, body[data-page="hero"] .form-group textarea:focus { border-color: var(--landing-blue); box-shadow: 0 0 0 3px var(--landing-blue-soft); }
