@@ -553,9 +553,9 @@ body {
   inset: 0;
   border-radius: 50%;
   box-sizing: border-box;
-  border: 1.5px solid rgba(214,172,92,.85);
+  border: 1.5px solid rgba(160,168,184,.85);
 }
-.coin-edge-ring--dark { border-color: rgba(126,92,40,.85); }
+.coin-edge-ring--dark { border-color: rgba(70,76,92,.85); }
 
 /* Shared icon rendering for <use>-referenced shapes (see the symbol
    sprite at the top of the body): stroke-style icons vs. filled ones. */
