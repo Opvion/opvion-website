@@ -37,24 +37,26 @@ body[data-page="hero"] .center-node { width: 210px; height: 210px; background: v
 body[data-page="hero"] .plus-icon { font-size: 3.1rem; }
 body[data-page="hero"] .center-node .node-label { font-size: 1.15rem; }
 body[data-page="hero"] .orbit-node { --r: 290px; }
-body[data-page="hero"] .orbit-dot { width: 112px; height: 112px; animation: landing-orbit-spin 4s linear infinite; }
+body[data-page="hero"] .orbit-dot { width: 112px; height: 112px; --coin-t: 15px; animation: landing-orbit-spin 4s linear infinite; }
 body[data-page="hero"] .orbit-node span { color: var(--landing-text-2); font-size: 1.02rem; }
 
 /* Liquid-glass orbit icons: translucent tinted surface + blur + inner
-   light edge, matching the frosted-glass cards used elsewhere on the site */
-body[data-page="hero"] .orbit-glass {
+   light edge, matching the frosted-glass cards used elsewhere on the site.
+   Applied to .coin-face (the coin's front/back) rather than .orbit-dot,
+   which is now just the 3D positioning shell around front/back/edge. */
+body[data-page="hero"] .orbit-glass .coin-face {
   backdrop-filter: blur(20px) saturate(160%);
   -webkit-backdrop-filter: blur(20px) saturate(160%);
   box-shadow: 0 10px 28px -10px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.14);
 }
-body[data-page="hero"] .orbit-white { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.24); color: var(--landing-text); }
-body[data-page="hero"] .orbit-purple { background: var(--landing-purple-soft); border-color: rgba(167,139,250,.4); color: var(--landing-purple); }
-body[data-page="hero"] .orbit-green { background: var(--landing-green-soft); border-color: rgba(52,211,153,.4); color: var(--landing-green); }
-body[data-page="hero"] .orbit-red { background: var(--landing-red-soft); border-color: rgba(243,102,95,.4); color: var(--landing-red); }
-body[data-page="hero"] .orbit-node:hover .orbit-white { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.36); color: var(--landing-text); }
-body[data-page="hero"] .orbit-node:hover .orbit-purple { background: rgba(167,139,250,.26); border-color: rgba(167,139,250,.6); color: var(--landing-purple); }
-body[data-page="hero"] .orbit-node:hover .orbit-green { background: rgba(52,211,153,.26); border-color: rgba(52,211,153,.6); color: var(--landing-green); }
-body[data-page="hero"] .orbit-node:hover .orbit-red { background: rgba(243,102,95,.26); border-color: rgba(243,102,95,.6); color: var(--landing-red); }
+body[data-page="hero"] .orbit-white .coin-face { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.24); color: var(--landing-text); }
+body[data-page="hero"] .orbit-purple .coin-face { background: var(--landing-purple-soft); border-color: rgba(167,139,250,.4); color: var(--landing-purple); }
+body[data-page="hero"] .orbit-green .coin-face { background: var(--landing-green-soft); border-color: rgba(52,211,153,.4); color: var(--landing-green); }
+body[data-page="hero"] .orbit-red .coin-face { background: var(--landing-red-soft); border-color: rgba(243,102,95,.4); color: var(--landing-red); }
+body[data-page="hero"] .orbit-node:hover .orbit-white .coin-face { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.36); color: var(--landing-text); }
+body[data-page="hero"] .orbit-node:hover .orbit-purple .coin-face { background: rgba(167,139,250,.26); border-color: rgba(167,139,250,.6); color: var(--landing-purple); }
+body[data-page="hero"] .orbit-node:hover .orbit-green .coin-face { background: rgba(52,211,153,.26); border-color: rgba(52,211,153,.6); color: var(--landing-green); }
+body[data-page="hero"] .orbit-node:hover .orbit-red .coin-face { background: rgba(243,102,95,.26); border-color: rgba(243,102,95,.6); color: var(--landing-red); }
 
 @keyframes landing-orbit-spin { to { transform: rotateY(360deg); } }
 @media (prefers-reduced-motion: reduce) { body[data-page="hero"] .orbit-dot { animation: none; } }
@@ -79,5 +81,5 @@ body[data-page="hero"] .form-group input:focus, body[data-page="hero"] .form-gro
 body[data-page="hero"] .btn-submit { border-radius: 999px; background: var(--landing-blue); box-shadow: none; }
 body[data-page="hero"] .btn-submit:hover { background: var(--landing-blue); filter: brightness(1.08); box-shadow: none; }
 
-@media (max-width: 900px) { body[data-page="hero"] #hero { min-height: auto; } body[data-page="hero"] .hero-nodes { width: 480px; height: 480px; margin-top: 32px; } body[data-page="hero"] .center-node { width: 148px; height: 148px; } body[data-page="hero"] .orbit-node { --r: 190px; } body[data-page="hero"] .orbit-dot { width: 82px; height: 82px; } }
-@media (max-width: 600px) { body[data-page="hero"] #hero { padding: 112px 0 76px; } body[data-page="hero"] .hero-content { gap: 20px; } body[data-page="hero"] .hero-nodes { width: 320px; height: 320px; } body[data-page="hero"] .center-node { width: 100px; height: 100px; } body[data-page="hero"] .orbit-node { --r: 118px; } body[data-page="hero"] .orbit-dot { width: 64px; height: 64px; } body[data-page="hero"] .hero-cta { width: 100%; } body[data-page="hero"] .btn-primary, body[data-page="hero"] .btn-ghost { flex: 1 1 100%; text-align: center; } }
+@media (max-width: 900px) { body[data-page="hero"] #hero { min-height: auto; } body[data-page="hero"] .hero-nodes { width: 480px; height: 480px; margin-top: 32px; } body[data-page="hero"] .center-node { width: 148px; height: 148px; } body[data-page="hero"] .orbit-node { --r: 190px; } body[data-page="hero"] .orbit-dot { width: 82px; height: 82px; --coin-t: 11px; } }
+@media (max-width: 600px) { body[data-page="hero"] #hero { padding: 112px 0 76px; } body[data-page="hero"] .hero-content { gap: 20px; } body[data-page="hero"] .hero-nodes { width: 320px; height: 320px; } body[data-page="hero"] .center-node { width: 100px; height: 100px; } body[data-page="hero"] .orbit-node { --r: 118px; } body[data-page="hero"] .orbit-dot { width: 64px; height: 64px; --coin-t: 9px; } body[data-page="hero"] .hero-cta { width: 100%; } body[data-page="hero"] .btn-primary, body[data-page="hero"] .btn-ghost { flex: 1 1 100%; text-align: center; } }

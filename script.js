@@ -90,6 +90,41 @@ window.addEventListener('load', () => {
   });
 })();
 
+// ── Hero orbit coins: build the stacked-ring edge that gives each
+// spinning circle real coin thickness instead of vanishing to a line
+(() => {
+  const dots = document.querySelectorAll('.orbit-dot');
+  if (!dots.length) return;
+
+  const RING_COUNT = 14;
+
+  function buildEdge(dot) {
+    const edge = dot.querySelector('.coin-edge');
+    const size = dot.offsetWidth;
+    if (!edge || !size) return;
+
+    const t = parseFloat(getComputedStyle(dot).getPropertyValue('--coin-t')) || size * 0.13;
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < RING_COUNT; i++) {
+      const z = -t / 2 + (t * i) / (RING_COUNT - 1);
+      const ring = document.createElement('span');
+      ring.className = 'coin-edge-ring' + (i % 2 ? ' coin-edge-ring--dark' : '');
+      ring.style.transform = `translateZ(${z.toFixed(2)}px)`;
+      frag.appendChild(ring);
+    }
+    edge.replaceChildren(frag);
+  }
+
+  function buildAll() { dots.forEach(buildEdge); }
+  buildAll();
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(buildAll, 200);
+  });
+})();
+
 // ── Why Opvion tabbed list (why-us.html)
 (() => {
   const list = document.querySelector('.whyus-list');

@@ -494,6 +494,7 @@ body {
   position: absolute;
   top: 50%; left: 50%;
   --r: 235px;
+  perspective: 700px;
   transform: translate(-50%, -50%)
     rotate(var(--angle))
     translateY(calc(-1 * var(--r)))
@@ -511,18 +512,50 @@ body {
   0%, 100% { filter: brightness(1); }
   50% { filter: brightness(1.15); }
 }
+
+/* Coin body: a real 3D object (front face, back face, and a stacked-ring
+   edge) rather than a flat circle, so the rim reads as coin thickness
+   when it spins edge-on instead of vanishing to a line. */
 .orbit-dot {
+  position: relative;
   width: 68px; height: 68px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-blue);
+  --coin-t: 9px;
+  transform-style: preserve-3d;
+}
+.coin-face {
+  position: absolute;
+  inset: 0;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border-blue);
   color: var(--text-muted);
-  transition: transform 0.2s, border-color 0.2s, background 0.2s, color 0.2s;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
 }
-.orbit-dot svg { width: 40%; height: 40%; }
+.coin-face-front { transform: translateZ(calc(var(--coin-t) / 2)); }
+.coin-face-back { transform: rotateY(180deg) translateZ(calc(var(--coin-t) / 2)); }
+.coin-face svg {
+  width: 40%; height: 40%;
+  filter: drop-shadow(0 -1px 0 rgba(255,255,255,.4)) drop-shadow(0 1.5px 1px rgba(0,0,0,.45));
+}
+.coin-edge {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+.coin-edge-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 1.5px solid rgba(214,172,92,.85);
+}
+.coin-edge-ring--dark { border-color: rgba(126,92,40,.85); }
 
 /* Shared icon rendering for <use>-referenced shapes (see the symbol
    sprite at the top of the body): stroke-style icons vs. filled ones. */
@@ -535,8 +568,8 @@ body {
   white-space: nowrap;
   transition: color 0.2s;
 }
-.orbit-node:hover .orbit-dot {
-  transform: scale(1.1);
+.orbit-node:hover .orbit-dot { transform: scale(1.1); }
+.orbit-node:hover .coin-face {
   border-color: var(--blue);
   background: var(--blue-dim);
   color: var(--blue-light);
@@ -1719,7 +1752,7 @@ footer {
   .hero-nodes { width: 420px; height: 420px; margin-top: 48px; }
   .orbit-node { --r: 165px; }
   .center-node { width: 96px; height: 96px; }
-  .orbit-dot { width: 56px; height: 56px; font-size: 1.4rem; }
+  .orbit-dot { width: 56px; height: 56px; font-size: 1.4rem; --coin-t: 8px; }
 }
 
 @media (max-width: 600px) {
@@ -1729,7 +1762,7 @@ footer {
   .center-node { width: 76px; height: 76px; }
   .plus-icon { font-size: 1.5rem; }
   .center-node .node-label { font-size: 0.6rem; }
-  .orbit-dot { width: 46px; height: 46px; font-size: 1.15rem; }
+  .orbit-dot { width: 46px; height: 46px; font-size: 1.15rem; --coin-t: 6px; }
   .orbit-node span { font-size: 0.64rem; }
   .roadmap-steps { grid-template-columns: 1fr; }
   .contact-form { padding: 24px 20px; }
