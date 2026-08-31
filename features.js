@@ -2,6 +2,35 @@
 // Card carousel: dot pagination synced to scroll position, prev/next buttons,
 // and a slow endless auto-scroll (paused on hover / manual interaction).
 
+// ─── Scroll reveal for the sticky-scroll feature blocks (business page) ──
+// .feature-visual and .feature-bullets li start at opacity:0 in styles.css
+// and need .fv-visible / .fb-visible added once their block scrolls into
+// view. No-op on the personal features.html carousel, which doesn't use
+// these classes.
+(() => {
+  const visualObs = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('fv-visible');
+        visualObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.25 });
+  document.querySelectorAll('.feature-visual').forEach((el) => visualObs.observe(el));
+
+  const bulletObs = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const items = entry.target.querySelectorAll('.feature-bullets li');
+      items.forEach((li, i) => {
+        setTimeout(() => li.classList.add('fb-visible'), i * 110);
+      });
+      bulletObs.unobserve(entry.target);
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.feature-sticky').forEach((el) => bulletObs.observe(el));
+})();
+
 (() => {
   const rail = document.getElementById('rail');
   if (!rail) return;
