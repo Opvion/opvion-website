@@ -6,14 +6,12 @@ if upstream renames or restructures one of these, the build stops with a clear
 message instead of silently shipping a demo that still offers a control which
 cannot work.
 
-Three surfaces need it:
+Two surfaces need it:
 
   Sidebar          There is no session to end, and the visitor came from the
                    marketing site — so "Sign out" becomes a way back to it.
   Accounts         Provider connection needs a live backend. The tile is
                    replaced by an invitation rather than left there dead.
-  CurrencySelector Only the captured currencies are switchable; the list says
-                   so instead of looking arbitrarily short.
 
 Everything else the demo can't do is a write, and those are already covered by
 the refusal message in tools/demo/api.ts, which the app surfaces itself.
@@ -109,24 +107,5 @@ def accounts(s):
     return s.replace(anchor, anchor + "\nimport { DemoUpsell } from '../components/DemoUpsell'")
 
 
-def currency_selector(s):
-    old = """          })}
-        </div>
-      )}"""
-    new = """          })}
-          <DemoNote>
-            The demo carries three of the 16 supported currencies, converted at the ECB rate
-            captured on each transaction's own date.
-          </DemoNote>
-        </div>
-      )}"""
-    need(old in s, "currency dropdown tail not found in CurrencySelector.tsx")
-    s = s.replace(old, new, 1)
-    anchor = "import { useCurrency } from '../contexts/CurrencyContext'"
-    need(anchor in s, "CurrencySelector currency import not found")
-    return s.replace(anchor, anchor + "\nimport { DemoNote } from './DemoUpsell'", 1)
-
-
 edit("src/components/Sidebar.tsx", sidebar)
 edit("src/pages/Accounts.tsx", accounts)
-edit("src/components/CurrencySelector.tsx", currency_selector)

@@ -138,7 +138,7 @@ api.defaults.adapter = async (config) => {
       if (!currencies.includes(next)) {
         return refuse(
           config,
-          `The demo carries ${currencies.join(', ')}. All 16 supported currencies are in the full app.`,
+          `${next} isn't one of the currencies captured for this demo.`,
         )
       }
       localStorage.setItem(CURRENCY_KEY, next)

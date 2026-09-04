@@ -1,7 +1,10 @@
 import hashlib, json, os, shutil, subprocess, sys, urllib.request, urllib.error
 
 API = 'http://127.0.0.1:8000'
-CURRENCIES = ['EUR', 'USD', 'GBP']
+# Every currency the backend can convert between, so the demo's switcher is
+# the real one rather than a sample of it.
+CURRENCIES = ['EUR', 'USD', 'GBP', 'CHF', 'SEK', 'NOK', 'DKK', 'PLN',
+              'CZK', 'HUF', 'RON', 'ISK', 'TRY', 'JPY', 'CAD', 'AUD']
 OUT = 'demo-fixtures'
 
 RANGES = ['1M', '3M', '6M', '1Y', '2Y', '5Y', 'ALL']
@@ -79,8 +82,11 @@ def scrub(node):
     return node
 
 
-def key(cur, path):
-    return hashlib.sha1(f'{cur}|{path}'.encode()).hexdigest()[:16]
+def key(payload: bytes) -> str:
+    """Name each file after its content, so responses that don't vary by
+    currency — the account list, the currency list, provisioning state — are
+    stored once and shared by every route that returns them."""
+    return hashlib.sha1(payload).hexdigest()[:16]
 
 shutil.rmtree(OUT, ignore_errors=True); os.makedirs(OUT)
 token = login()
@@ -92,9 +98,12 @@ for cur in CURRENCIES:
     for p in PATHS:
         code, body = req(p, token)
         if code == 200:
-            k = key(cur, p)
-            with open(f'{OUT}/{k}.json', 'w') as f:
-                json.dump(scrub(json.loads(body)), f, separators=(',', ':'))
+            payload = json.dumps(scrub(json.loads(body)), separators=(',', ':')).encode()
+            k = key(payload)
+            path_out = f'{OUT}/{k}.json'
+            if not os.path.exists(path_out):
+                with open(path_out, 'wb') as f:
+                    f.write(payload)
             manifest[f'{cur}|{p}'] = k
         else:
             failures.append((cur, p, code))
