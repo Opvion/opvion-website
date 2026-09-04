@@ -23,6 +23,13 @@ http.createServer((req, res) => {
   let urlPath = req.url.split('?')[0];
   if (urlPath === '/') urlPath = '/index.html';
 
+  // Mirrors _redirects: the demo moved from /demo.html to /demo/.
+  if (urlPath === '/demo.html') {
+    res.writeHead(301, { Location: '/demo/' });
+    res.end();
+    return;
+  }
+
   let filePath = path.join(ROOT, urlPath);
   // SPA fallback for the interactive demo, mirroring _redirects in production:
   // any /demo/ path that isn't a real file is served the app's index.html.

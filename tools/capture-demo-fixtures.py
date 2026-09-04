@@ -46,6 +46,39 @@ def login():
     with urllib.request.urlopen(r, json.dumps({'email': 'admin@admin.com', 'password': 'admin'}).encode()) as f:
         return json.load(f)['access_token']
 
+# The provider behind the sandbox portfolio is an implementation detail the
+# marketing demo shouldn't advertise, and it names a third party on every
+# account row. Renamed to plain financial labels on the way in, so recapturing
+# can't quietly put it back.
+RENAMES = {
+    'Plaid Checking': 'Everyday Checking',
+    'Plaid Saving': 'Savings',
+    'Plaid Money Market': 'Money Market',
+    'Plaid Cash Management': 'Cash Management',
+    'Plaid CD': 'Certificate of Deposit',
+    'Plaid Business Credit Card': 'Business Credit Card',
+    'Plaid Credit Card': 'Credit Card',
+    'Plaid Student Loan': 'Student Loan',
+    'Plaid Mortgage': 'Mortgage',
+    'Plaid 401k': '401(k)',
+    'Plaid IRA': 'IRA',
+    'Plaid HSA': 'HSA',
+    'plaid': 'open banking',
+    'Plaid': 'Open banking',
+}
+
+
+def scrub(node):
+    """Rewrite provider-branded display strings anywhere in a response."""
+    if isinstance(node, dict):
+        return {k: scrub(v) for k, v in node.items()}
+    if isinstance(node, list):
+        return [scrub(v) for v in node]
+    if isinstance(node, str):
+        return RENAMES.get(node, node)
+    return node
+
+
 def key(cur, path):
     return hashlib.sha1(f'{cur}|{path}'.encode()).hexdigest()[:16]
 
@@ -60,7 +93,8 @@ for cur in CURRENCIES:
         code, body = req(p, token)
         if code == 200:
             k = key(cur, p)
-            with open(f'{OUT}/{k}.json', 'wb') as f: f.write(body)
+            with open(f'{OUT}/{k}.json', 'w') as f:
+                json.dump(scrub(json.loads(body)), f, separators=(',', ':'))
             manifest[f'{cur}|{p}'] = k
         else:
             failures.append((cur, p, code))

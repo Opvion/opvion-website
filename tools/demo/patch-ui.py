@@ -57,13 +57,53 @@ def accounts(s):
     i, j = s.index(start), s.index(end)
     need(i < j, "provider tile bounds out of order in Accounts.tsx")
     card = """        <DemoUpsell title="Connect your own accounts">
-          This demo runs on a fixed sample portfolio, so provider connections are switched off.
-          The full app links banks, brokers and crypto wallets through Plaid and keeps them in
-          sync automatically.
+          This demo runs on a fixed sample portfolio, so account connections are switched off.
+          The full app links banks, brokers and crypto wallets through open banking and keeps
+          them in sync automatically.
         </DemoUpsell>
 
 """
     s = s[:i] + card + s[j + len("        </div>\n\n"):]
+
+    # usePlaidLink injects https://cdn.plaid.com/.../link-initialize.js on
+    # mount, so the demo would call a third party on every page load for a flow
+    # nothing can start any more — and name the provider in devtools however
+    # carefully the copy avoids it. Dropping the hook is also what removes
+    # react-plaid-link from the bundle, since this is its only import.
+    hook = """  const { open, ready } = usePlaidLink({
+    token: linkToken,
+    onSuccess: (publicToken) => onPlaidSuccess(publicToken),
+    onExit: () => setLinkToken(null),
+  })
+
+  useEffect(() => {
+    if (linkToken && ready) open()
+  }, [linkToken, ready, open])
+
+"""
+    need(hook in s, "usePlaidLink block not found in Accounts.tsx")
+    s = s.replace(hook, "")
+    imp = "import { usePlaidLink } from 'react-plaid-link'\n"
+    need(imp in s, "react-plaid-link import not found in Accounts.tsx")
+    s = s.replace(imp, "")
+
+    # The two handlers the hook and the tile used to call. Unreachable now, but
+    # they carry the provider's name as a string literal into the bundle.
+    starter = """  const startPlaid = async () => {
+    setMessage('')
+    linkMode.current = 'new'
+    const { data } = await api.post('/link/token?provider=plaid')
+    setLinkToken(data.link_token)
+  }
+
+"""
+    need(starter in s, "startPlaid not found in Accounts.tsx")
+    s = s.replace(starter, "")
+    a = s.index("  const onPlaidSuccess = useCallback(")
+    b = s.index("  }, [])\n\n", a) + len("  }, [])\n\n")
+    need(a < b, "onPlaidSuccess bounds not found in Accounts.tsx")
+    s = s[:a] + s[b:]
+
     anchor = "import { Account, Connection, ProviderInfo } from '../types'"
     need(anchor in s, "Accounts.tsx type import not found")
     return s.replace(anchor, anchor + "\nimport { DemoUpsell } from '../components/DemoUpsell'")

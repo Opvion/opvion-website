@@ -1,3 +1,7 @@
+# The demo used to be a single demo.html at the root. Old links and bookmarks
+# would otherwise fall through to the homepage with no sign they were moved.
+/demo.html  /demo/  301
+
 # The interactive demo is a single-page app: every path under /demo/ must be
 # served its index.html so client-side routing can take over on a deep link.
 /demo/*  /demo/index.html  200
