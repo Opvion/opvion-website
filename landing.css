@@ -20,25 +20,28 @@ body[data-page="hero"] {
   color: var(--landing-text);
 }
 
-body[data-page="hero"] #hero { min-height: 860px; padding: 140px 0 110px; background: radial-gradient(1100px 520px at 12% -8%, rgba(79,141,255,.10), transparent 60%), radial-gradient(900px 500px at 100% 4%, rgba(139,124,246,.08), transparent 55%), var(--landing-bg); }
+body[data-page="hero"] #hero { padding: 128px 0 96px; background: radial-gradient(1100px 520px at 12% -8%, rgba(79,141,255,.10), transparent 60%), radial-gradient(900px 500px at 100% 4%, rgba(139,124,246,.08), transparent 55%), var(--landing-bg); }
 body[data-page="hero"] .hero-bg { display: none; }
-body[data-page="hero"] .hero-content { width: 100%; }
-body[data-page="hero"] .hero-badge { border-color: rgba(79,141,255,.32); border-radius: 999px; background: var(--landing-blue-soft); color: var(--landing-blue); font-size: 1.08rem; padding: 10px 22px; }
-body[data-page="hero"] #hero h1 { max-width: 860px; font-size: clamp(52px,5.8vw,76px); font-weight: 700; line-height: 1.05; letter-spacing: -.022em; }
+/* Two even columns: the copy fills the left half, the orbit sits centred in
+   the right half, so the two sides stay balanced at any window width. */
+body[data-page="hero"] .hero-content { width: 100%; gap: 48px; }
+body[data-page="hero"] .hero-left { flex: 1 1 50%; }
+body[data-page="hero"] .hero-right { flex: 1 1 50%; justify-content: center; }
+body[data-page="hero"] .hero-badge { border-color: rgba(79,141,255,.32); border-radius: 999px; background: var(--landing-blue-soft); color: var(--landing-blue); font-size: .85rem; padding: 8px 18px; }
+body[data-page="hero"] #hero h1 { max-width: 620px; font-size: clamp(2.25rem, 4.2vw, 3.5rem); font-weight: 700; line-height: 1.06; letter-spacing: -.022em; }
 body[data-page="hero"] .gradient-text { background: none; -webkit-text-fill-color: currentColor; color: var(--landing-text); }
-body[data-page="hero"] .hero-sub { max-width: 620px; color: var(--landing-text-2); font-size: 22px; line-height: 1.6; }
-body[data-page="hero"] .btn-primary, body[data-page="hero"] .btn-ghost { border-radius: 999px; padding: 19px 36px; font-size: 1.1rem; }
+body[data-page="hero"] .hero-sub { max-width: 54ch; color: var(--landing-text-2); font-size: 1.0625rem; line-height: 1.65; }
+body[data-page="hero"] .btn-primary, body[data-page="hero"] .btn-ghost { border-radius: 999px; padding: 15px 30px; font-size: .95rem; }
 body[data-page="hero"] .btn-primary { background: var(--landing-blue); box-shadow: none; }
 body[data-page="hero"] .btn-primary:hover { background: var(--landing-blue); filter: brightness(1.08); box-shadow: none; }
 body[data-page="hero"] .btn-ghost { border-color: var(--landing-border-strong); color: var(--landing-text); background: var(--landing-panel-2); }
 body[data-page="hero"] .hero-believers { border-color: var(--landing-border); }
-body[data-page="hero"] .hero-nodes { position: relative; width: 760px; height: 760px; }
-body[data-page="hero"] .center-node { width: 210px; height: 210px; background: var(--landing-blue); box-shadow: 0 0 70px rgba(79,141,255,.38); }
-body[data-page="hero"] .plus-icon { font-size: 3.1rem; }
-body[data-page="hero"] .center-node .node-label { font-size: 1.15rem; }
-body[data-page="hero"] .orbit-node { --r: 290px; }
-body[data-page="hero"] .orbit-dot { width: 112px; height: 112px; --coin-t: 15px; animation: landing-orbit-spin 4s linear infinite; }
-body[data-page="hero"] .orbit-node span { color: var(--landing-text-2); font-size: 1.02rem; }
+body[data-page="hero"] .hero-nodes { position: relative; width: 520px; height: 520px; }
+body[data-page="hero"] .center-node { width: 132px; height: 132px; background: var(--landing-blue); box-shadow: 0 0 60px rgba(79,141,255,.38); gap: 2px; }
+body[data-page="hero"] .center-node .node-label { font-size: .8rem; }
+body[data-page="hero"] .orbit-node { --r: 200px; }
+body[data-page="hero"] .orbit-dot { width: 74px; height: 74px; --coin-t: 10px; animation: landing-orbit-spin 4s linear infinite; }
+body[data-page="hero"] .orbit-node span { color: var(--landing-text-2); font-size: .8rem; }
 
 /* Coin faces: a solid metal fill per accent color (not a see-through
    glass panel) with a small glossy highlight near the top-left, like
@@ -89,5 +92,6 @@ body[data-page="hero"] .form-group input:focus, body[data-page="hero"] .form-gro
 body[data-page="hero"] .btn-submit { border-radius: 999px; background: var(--landing-blue); box-shadow: none; }
 body[data-page="hero"] .btn-submit:hover { background: var(--landing-blue); filter: brightness(1.08); box-shadow: none; }
 
-@media (max-width: 900px) { body[data-page="hero"] #hero { min-height: auto; } body[data-page="hero"] .hero-nodes { width: 480px; height: 480px; margin-top: 32px; } body[data-page="hero"] .center-node { width: 148px; height: 148px; } body[data-page="hero"] .orbit-node { --r: 190px; } body[data-page="hero"] .orbit-dot { width: 82px; height: 82px; --coin-t: 11px; } }
-@media (max-width: 600px) { body[data-page="hero"] #hero { padding: 112px 0 76px; } body[data-page="hero"] .hero-content { gap: 20px; } body[data-page="hero"] .hero-nodes { width: 320px; height: 320px; } body[data-page="hero"] .center-node { width: 100px; height: 100px; } body[data-page="hero"] .orbit-node { --r: 118px; } body[data-page="hero"] .orbit-dot { width: 64px; height: 64px; --coin-t: 9px; } body[data-page="hero"] .hero-cta { width: 100%; } body[data-page="hero"] .btn-primary, body[data-page="hero"] .btn-ghost { flex: 1 1 100%; text-align: center; } }
+@media (max-width: 1100px) { body[data-page="hero"] .hero-content { gap: 32px; } body[data-page="hero"] .hero-nodes { width: 440px; height: 440px; } body[data-page="hero"] .center-node { width: 116px; height: 116px; } body[data-page="hero"] .orbit-node { --r: 168px; } body[data-page="hero"] .orbit-dot { width: 64px; height: 64px; --coin-t: 9px; } }
+@media (max-width: 900px) { body[data-page="hero"] .hero-nodes { width: 460px; height: 460px; margin-top: 40px; } body[data-page="hero"] .orbit-node { --r: 176px; } }
+@media (max-width: 600px) { body[data-page="hero"] #hero { padding: 104px 0 72px; } body[data-page="hero"] .hero-content { gap: 20px; } body[data-page="hero"] .hero-nodes { width: 300px; height: 300px; } body[data-page="hero"] .center-node { width: 92px; height: 92px; } body[data-page="hero"] .orbit-node { --r: 112px; } body[data-page="hero"] .orbit-dot { width: 52px; height: 52px; --coin-t: 7px; } body[data-page="hero"] .orbit-node span { font-size: .68rem; } body[data-page="hero"] .hero-cta { width: 100%; } body[data-page="hero"] .btn-primary, body[data-page="hero"] .btn-ghost { flex: 1 1 100%; text-align: center; } }

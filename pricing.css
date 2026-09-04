@@ -55,6 +55,17 @@
 .pp-soon { color: var(--pp-amber); background: var(--pp-amber-soft); text-transform: uppercase; }
 .pp-popular { position: absolute; top: -13px; left: 28px; border-radius: 999px; padding: 5px 12px; background: var(--pp-blue); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
 .pp-note { max-width: 640px; margin: 28px auto 0; color: var(--pp-text-3); text-align: center; font-size: 13px; line-height: 1.6; }
+.pp-note-link { color: var(--pp-blue); font-weight: 600; text-decoration: none; }
+.pp-note-link:hover { text-decoration: underline; }
+
+/* Business pricing: one plan card paired with the copy explaining how the
+   quote is scoped, so a single card doesn't float alone in an empty row. */
+.pp-plans-single { grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.pp-scope h2 { font-size: clamp(24px,2.6vw,34px); line-height: 1.2; letter-spacing: -.02em; margin-bottom: 14px; }
+.pp-scope p { max-width: 44ch; color: var(--pp-text-2); font-size: 16px; line-height: 1.65; }
+.pp-scope ul { display: flex; flex-direction: column; gap: 13px; margin-top: 24px; list-style: none; }
+.pp-scope li { position: relative; padding-left: 22px; color: var(--pp-text); font-size: 15px; line-height: 1.45; }
+.pp-scope li::before { content: ""; position: absolute; top: 7px; left: 3px; width: 7px; height: 7px; border-radius: 50%; background: var(--pp-blue); }
 
 .pp-more { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; margin-top: 120px; padding: 0; }
 .pp-more-copy { padding: 10px 0; }
@@ -64,12 +75,14 @@
 .pp-text-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 24px; padding-bottom: 3px; border-bottom: 1px solid var(--pp-border-strong); color: var(--pp-text); font-size: 15px; font-weight: 600; text-decoration: none; transition: gap .2s, color .2s; }
 .pp-text-link:hover { gap: 12px; color: var(--pp-blue); }
 .pp-text-link svg { width: 15px; height: 15px; }
-.pp-business-callout { display: flex; gap: 18px; padding: 32px; border: 1px solid var(--pp-border); border-radius: 20px; background: linear-gradient(165deg, rgba(255,255,255,.04), rgba(255,255,255,0)); }
+.pp-business-callout { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 40px 32px; text-align: center; border: 1px solid var(--pp-border); border-radius: 20px; background: linear-gradient(165deg, rgba(255,255,255,.04), rgba(255,255,255,0)); }
+.pp-business-callout p { margin-left: auto; margin-right: auto; }
 .pp-callout-mark { flex: none; display: flex; width: 34px; height: 34px; align-items: center; justify-content: center; border: 1px solid rgba(79,141,255,.38); border-radius: 50%; color: var(--pp-blue); background: var(--pp-blue-soft); font-size: 13px; font-weight: 800; }
 
 @media (max-width: 900px) {
   .pp-page { padding-top: 96px; }
   .pp-plans { grid-template-columns: 1fr; max-width: 560px; }
+  .pp-plans-single { grid-template-columns: 1fr; gap: 36px; }
   .pp-plan { min-height: auto; }
   .pp-more { grid-template-columns: 1fr; margin-top: 90px; }
 }
@@ -79,7 +92,3 @@
   .pp-plan { padding: 26px; border-radius: 16px; }
   .pp-business-callout { padding: 26px; border-radius: 16px; }
 }
-@media (min-width: 1600px) { .pp-wrap { max-width: 1440px; } }
-@media (min-width: 2000px) { .pp-wrap { max-width: 1640px; } }
-@media (min-width: 2400px) { .pp-wrap { max-width: 1840px; } }
-@media (min-width: 3000px) { .pp-wrap { max-width: 2080px; } }

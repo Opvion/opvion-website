@@ -1883,16 +1883,3 @@ body.dark .payoff-strategies { border-color: rgba(255,255,255,0.08); }
 }
 
 
-/* ── LARGE SCREENS: scale type for high-DPI / 4K monitors ── */
-@media (min-width: 1600px) {
-  html { font-size: 17.5px; }
-}
-@media (min-width: 2000px) {
-  html { font-size: 19px; }
-}
-@media (min-width: 2400px) {
-  html { font-size: 20.5px; }
-}
-@media (min-width: 3000px) {
-  html { font-size: 22.5px; }
-}

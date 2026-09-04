@@ -62,7 +62,7 @@ body {
 }
 
 .logo {
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   font-weight: 800;
   color: var(--text);
   text-decoration: none;
@@ -85,15 +85,15 @@ body {
   display: inline-block;
 }
 .logo-icon {
-  width: 48px;
-  height: 48px;
+  width: 34px;
+  height: 34px;
   display: block;
   flex-shrink: 0;
   border-radius: 8px;
 }
 .footer-brand .logo-icon {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 6px;
 }
 
@@ -487,7 +487,9 @@ body {
   z-index: 2;
   box-shadow: 0 0 60px rgba(59,130,246,0.45);
 }
-.plus-icon { font-size: 2.2rem; }
+/* Opvion mark at the centre of the orbit. The source SVG is green, so it's
+   flattened to white to read on the blue disc. */
+.center-logo { width: 46%; height: auto; display: block; filter: brightness(0) invert(1); }
 .center-node .node-label { font-size: 0.82rem; font-weight: 700; color: rgba(255,255,255,0.9); }
 
 .orbit-node {
@@ -1651,12 +1653,6 @@ footer {
   .cards-3 { grid-template-columns: 1fr; }
   .solution-grid { grid-template-columns: 1fr; }
   .solution-screen { display: none; }
-  .whyus-header { align-items: flex-start; }
-  .whyus-header .section-sub { max-width: none; }
-  .whyus-layout { grid-template-columns: 1fr; }
-  .whyus-list { flex-direction: row; flex-wrap: wrap; gap: 8px; }
-  .whyus-item { width: auto; border-left: none; border: 1px solid rgba(255,255,255,0.09); border-radius: 999px; padding: 8px 16px; font-size: 0.85rem; }
-  .whyus-item.is-active { border-color: #4f8dff; }
   .pricing-grid { grid-template-columns: 1fr; }
   .pricing-card.featured { transform: none; }
   .pricing-card.featured:hover { transform: translateY(-4px); }
@@ -1683,7 +1679,6 @@ footer {
   .hero-nodes { width: 290px; height: 290px; margin-top: 64px; }
   .orbit-node { --r: 112px; }
   .center-node { width: 76px; height: 76px; }
-  .plus-icon { font-size: 1.5rem; }
   .center-node .node-label { font-size: 0.6rem; }
   .orbit-dot { width: 46px; height: 46px; font-size: 1.15rem; --coin-t: 6px; }
   .orbit-node span { font-size: 0.64rem; }
@@ -1744,22 +1739,46 @@ footer {
   text-align: center;
 }
 
-/* ── WHY-US: header + clickable icon list + panel + banner (why-us.html) ── */
+/* ── WHY-US: header + clickable icon list + panel over photo (why-us.html) ── */
+/* Headline left, supporting copy right, both sitting on the same bottom
+   edge so the two sides read as one line of text rather than two blocks. */
 .whyus-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: 40px;
+  align-items: flex-end;
+  gap: 48px;
   flex-wrap: wrap;
 }
-.whyus-header h2 { margin-bottom: 0; }
-.whyus-header .section-sub { max-width: 480px; margin-bottom: 0; }
+.whyus-header h2 { margin-bottom: 0; flex: 1 1 520px; }
+.whyus-header .section-sub { flex: 0 1 440px; max-width: 440px; margin-bottom: 0; }
+
+/* The photo is the backdrop for the selector: fully faded out at the top so
+   the menu and panel stay legible, fully visible at the bottom. */
+.whyus-stage {
+  position: relative;
+  margin-top: 40px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.09);
+  overflow: hidden;
+  background: #0b0f1a;
+}
+.whyus-stage-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 38%;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, transparent 42%, rgba(0,0,0,0.55) 60%, #000 82%);
+  mask-image: linear-gradient(180deg, transparent 0%, transparent 42%, rgba(0,0,0,0.55) 60%, #000 82%);
+}
 
 .whyus-layout {
+  position: relative;
   display: grid;
-  grid-template-columns: 400px 1fr;
+  grid-template-columns: 380px 1fr;
   gap: 24px;
-  margin-top: 40px;
+  padding: 36px 36px 420px;
   align-items: start;
 }
 
@@ -1806,19 +1825,21 @@ footer {
   justify-content: center;
 }
 .whyus-content-item { display: none; }
-.whyus-content-item.is-active { display: block; }
+.whyus-content-item.is-active { display: block; text-align: center; }
 .whyus-content-item h3 { font-size: 1.5rem; font-weight: 700; color: #f7f9fc; margin-bottom: 14px; }
-.whyus-content-item p { font-size: 0.95rem; color: #98a2b9; line-height: 1.7; max-width: 55ch; }
+.whyus-content-item p { font-size: 0.95rem; color: #98a2b9; line-height: 1.7; max-width: 55ch; margin: 0 auto; }
 
-.whyus-banner {
-  margin-top: 32px;
-  border-radius: 20px;
-  border: 1px solid rgba(255,255,255,0.09);
-  overflow: hidden;
-  aspect-ratio: 1672 / 941;
-  background: #10141f;
+/* Kept next to the rules it overrides — the shared responsive block near the
+   top of this file sits before these definitions and would lose to them. */
+@media (max-width: 900px) {
+  .whyus-header { align-items: flex-start; }
+  .whyus-header .section-sub { flex-basis: auto; max-width: none; }
+  .whyus-layout { grid-template-columns: 1fr; padding: 24px 24px 240px; }
+  .whyus-list { flex-direction: row; flex-wrap: wrap; gap: 8px; }
+  .whyus-item { width: auto; border-left: none; border: 1px solid rgba(255,255,255,0.09); border-radius: 999px; padding: 8px 16px; font-size: 0.85rem; }
+  .whyus-item.is-active { border-color: #4f8dff; }
+  .whyus-panel { padding: 26px 22px; min-height: 0; }
 }
-.whyus-banner img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 /* ── COMPARE TOGGLE ──────────────────────────────── */
 .compare-toggle-wrap {
@@ -1948,15 +1969,16 @@ footer {
 .modal-body--features .features-grid {
   margin-top: 0;
 }
+/* Narrow query last: both match below 600px, so source order decides. */
+@media (max-width: 900px) {
+  .strengths-grid { grid-template-columns: 1fr 1fr; }
+  .modal-card--wide { max-width: 100%; }
+}
 @media (max-width: 600px) {
   .modal-card { max-height: 92vh; }
   .modal-card h2 { font-size: 1.15rem; padding: 20px 20px 16px; }
   .modal-body { padding: 16px 20px 24px; }
   .strengths-grid { grid-template-columns: 1fr; }
-}
-@media (max-width: 900px) {
-  .strengths-grid { grid-template-columns: 1fr 1fr; }
-  .modal-card--wide { max-width: 100%; }
 }
 
 /* ============================================================
@@ -2515,25 +2537,6 @@ footer {
 }
 .feature-popup.fp-visible { opacity: 1; transform: none; }
 
-/* ── CTA ─────────────────────────────────────────── */
-#features-cta {
-  background: var(--bg-card2);
-  text-align: center;
-  padding: 80px 0;
-}
-#features-cta h3 {
-  font-size: clamp(1.4rem, 3vw, 2rem);
-  margin-bottom: 12px;
-  color: var(--text);
-}
-#features-cta p { color: var(--text-muted); margin-bottom: 28px; }
-.features-cta-actions {
-  display: inline-flex;
-  gap: 14px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
 /* ── RESPONSIVE: collapse to stacked on mobile ────── */
 @media (max-width: 900px) {
   #features-hero { padding: 110px 0 30px; }
@@ -2567,34 +2570,10 @@ footer {
   .wealth-bar { grid-template-columns: 70px 1fr 80px; font-size: 0.76rem; }
 }
 
-/* ── LARGE SCREENS: scale type & widen container ───── */
-/* Most font-sizes are in rem, so bumping the root size scales the whole UI
-   proportionally. Container widths grow in steps so content fills the
-   viewport on wide displays without becoming unreadably long. */
-@media (min-width: 1600px) {
-  html { font-size: 17.5px; }
-  .container,
-  .nav-inner,
-  .footer-bottom { max-width: 1440px; }
-}
-@media (min-width: 2000px) {
-  html { font-size: 19px; }
-  .container,
-  .nav-inner,
-  .footer-bottom { max-width: 1640px; }
-}
-@media (min-width: 2400px) {
-  html { font-size: 20.5px; }
-  .container,
-  .nav-inner,
-  .footer-bottom { max-width: 1840px; }
-}
-@media (min-width: 3000px) {
-  html { font-size: 22.5px; }
-  .container,
-  .nav-inner,
-  .footer-bottom { max-width: 2080px; }
-}
+/* Large screens: nothing to do. The root font-size stays at the browser
+   default and the container stops at its max-width, so the layout looks
+   identical on a 1440p and a 4K monitor instead of being zoomed by a
+   resolution-dependent root font-size. */
 
 /* ============================================================
    BUSINESS FEATURES PAGE
@@ -3242,9 +3221,3 @@ footer {
    BUSINESS OVERVIEW & PRICING PAGES
    ============================================================ */
 #business-who { background: var(--bg-card2); }
-
-/* Single centered pricing card (business-pricing.html) */
-.pricing-single-wrap {
-  max-width: 440px;
-  margin: 48px auto 0;
-}

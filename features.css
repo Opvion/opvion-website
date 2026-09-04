@@ -111,7 +111,7 @@
 .pf-page .card .go svg { width: 16px; height: 16px; }
 
 /* Cards 1–5: exact source screenshots, filling the card edge-to-edge */
-.pf-page .card.card-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.pf-page .card.card-photo img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
 
 .pf-page .dots { display: flex; justify-content: center; gap: 8px; margin-top: 22px; }
 .pf-page .dots button { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.18); border: none; padding: 0; cursor: pointer; transition: .2s; }
@@ -133,7 +133,9 @@
   display: flex; align-items: center; justify-content: center; padding: 22px;
 }
 .pf-page .figure.figure-photo { padding: 0; }
-.pf-page .figure.figure-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* The figure is a centring flexbox, so a percentage height on the image has
+   nothing to resolve against — absolute positioning makes it fill the tile. */
+.pf-page .figure.figure-photo img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
 
 .pf-page .content h2 { font-size: clamp(30px,3.9vw,46px); line-height: 1.15; letter-spacing: -.02em; font-weight: 700; margin-bottom: 28px; }
 .pf-page .content .intro { color: var(--text-2); font-size: 18px; line-height: 1.75; margin-bottom: 34px; max-width: 480px; }
@@ -309,17 +311,3 @@
   .pf-page .card .spend-scene.card-scene { top: 130px; transform: scale(.4); }
 }
 
-/* Tracks the same progressive widening as .container / .nav-inner in styles.css
-   (large-screen block, styles.css line ~2427) so edges keep matching the nav. */
-@media (min-width: 1600px) {
-  .pf-page .wrap { max-width: 1440px; }
-}
-@media (min-width: 2000px) {
-  .pf-page .wrap { max-width: 1640px; }
-}
-@media (min-width: 2400px) {
-  .pf-page .wrap { max-width: 1840px; }
-}
-@media (min-width: 3000px) {
-  .pf-page .wrap { max-width: 2080px; }
-}

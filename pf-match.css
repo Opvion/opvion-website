@@ -82,6 +82,46 @@
   z-index: 1;
 }
 
+/* ---------- business page heroes read left-aligned, like every other
+   section on these pages, instead of the shared centred treatment ---------- */
+.pf-match #features-hero { text-align: left; }
+.pf-match #features-hero h2 { max-width: 900px; }
+.pf-match #features-hero .section-sub { max-width: 620px; margin: 0 0 28px; }
+.pf-match #features-hero .hero-cta { justify-content: flex-start; }
+
+/* Why Opvion Business: the product shot is the hero backdrop, running the
+   full height of the section and fading out to the left so the copy stays
+   readable over it. */
+body[data-page="business"] #features-hero {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  padding: 120px 0 80px;
+}
+/* Photo plus a left-to-right scrim in one layer, so the copy column sits on
+   solid background and the shot only emerges on the right. */
+body[data-page="business"] #features-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(90deg, #080b13 0%, rgba(8,11,19,.95) 34%, rgba(8,11,19,.58) 64%, rgba(8,11,19,.2) 100%),
+    url("assets/cards/Overview_Laptop_v2.png") right center / cover no-repeat;
+  pointer-events: none;
+}
+body[data-page="business"] #features-hero .container { width: 100%; }
+body[data-page="business"] #features-hero h2 { max-width: 700px; }
+body[data-page="business"] #features-hero .section-sub { max-width: 560px; }
+
+@media (max-width: 900px) {
+  body[data-page="business"] #features-hero { min-height: 0; padding: 110px 0 60px; }
+  body[data-page="business"] #features-hero::after {
+    background: linear-gradient(180deg, rgba(8,11,19,.94) 0%, rgba(8,11,19,.88) 100%),
+      url("assets/cards/Overview_Laptop_v2.png") center / cover no-repeat;
+  }
+}
+
 /* ---------- pill buttons (matches .pf-page .pf-cta) ---------- */
 .pf-match .btn-primary,
 .pf-match .btn-plan,

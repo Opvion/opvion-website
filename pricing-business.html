@@ -3,57 +3,80 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Opvion Business pricing: request a demo or contact us for a quote scoped to your firm's structure and AUM." />
+  <meta name="description" content="Opvion Business pricing: contact us for a quote scoped to your firm's structure and AUM." />
   <title>Business Pricing · Opvion</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="pf-match.css" />
+  <link rel="stylesheet" href="pricing.css" />
 </head>
-<body data-page="pricing-business" class="page-subpage pf-match">
+<body data-page="pricing-business" class="page-subpage">
 
   <div id="nav-mount"></div>
 
-  <section id="pricing">
-    <div class="container">
-      <div class="section-label">Business Pricing</div>
-      <h2>Priced around your structure, not a seat count.</h2>
-      <p class="section-sub">Opvion Business is early access. Pricing is scoped per firm rather than a fixed price list. Request a demo and we'll walk through what it would look like for you.</p>
+  <main class="pp-page">
+    <div class="pp-wrap">
+      <header class="pp-header">
+        <div class="pp-eyebrow">Business pricing</div>
+        <h1>Priced around your structure, not a seat count.</h1>
+        <p>Opvion Business is early access. Pricing is scoped per firm rather than a fixed price list. Contact us and we'll walk through what it would look like for you.</p>
+      </header>
 
-      <div class="pricing-single-wrap">
-        <div class="pricing-card featured">
-          <div class="plan-badge">Early Access</div>
-          <div class="plan-name">Business</div>
-          <div class="plan-price">Custom<span> pricing</span></div>
-          <div class="plan-desc">Scoped to your firm's structure, entity count, and AUM.</div>
-          <ul class="plan-features">
-            <li class="yes">Multi-entity portfolio structure</li>
-            <li class="yes">Performance &amp; reporting</li>
-            <li class="yes">Custodian reconciliation</li>
-            <li class="yes">Direct input on the roadmap</li>
-            <li class="soon">White-label &amp; SSO <span class="badge-soon">Enterprise</span></li>
+      <section class="pp-plans pp-plans-single" aria-label="Business pricing">
+        <div class="pp-scope">
+          <h2>How a quote comes together.</h2>
+          <p>No seat tiers to squeeze your firm into. We look at what you actually run and scope from there.</p>
+          <ul>
+            <li>How many entities and accounts you consolidate</li>
+            <li>Which custodians and data sources we connect</li>
+            <li>The reporting cadence your clients expect</li>
+            <li>Assets under management</li>
           </ul>
-          <div class="hero-cta" style="margin-top:4px;">
-            <a href="business.html#contact" class="btn-plan">Request a Demo</a>
-            <a href="business.html#contact" class="btn-plan-ghost">Contact Us</a>
+        </div>
+
+        <article class="pp-plan pp-plan-featured">
+          <div class="pp-popular">Early access</div>
+          <div class="pp-plan-top">
+            <div>
+              <div class="pp-plan-name">Business</div>
+              <p class="pp-plan-desc">Scoped to your firm's structure, entity count, and AUM.</p>
+            </div>
+            <span class="pp-tier pro">Business</span>
+          </div>
+          <div class="pp-price">Custom<span>/ per firm</span></div>
+          <a href="business.html#contact" class="pp-button pp-button-primary">Contact us</a>
+          <div class="pp-divider"></div>
+          <p class="pp-includes">Includes</p>
+          <ul class="pp-features">
+            <li>Multi-entity portfolio structure</li>
+            <li>Performance &amp; reporting</li>
+            <li>Custodian reconciliation</li>
+            <li>Direct input on the roadmap</li>
+            <li>White-label &amp; SSO <span class="pp-soon">Enterprise</span></li>
+          </ul>
+        </article>
+      </section>
+
+      <p class="pp-note">Looking for larger deployments &mdash; white-label, SSO, dedicated support? <a href="business.html#contact" class="pp-note-link">Contact us about Enterprise →</a></p>
+
+      <section class="pp-more" aria-label="More Opvion Business options">
+        <div class="pp-more-copy">
+          <div class="pp-eyebrow">Want the full picture first?</div>
+          <h2>See every block we're building.</h2>
+          <p>Each capability is tagged by tier and by how far along it is, so you know what ships today and what's still being scoped.</p>
+          <a href="features-business.html" class="pp-text-link">Explore business features <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="pp-business-callout">
+          <span class="pp-callout-mark">O</span>
+          <div>
+            <h3>Still on spreadsheets?</h3>
+            <p>See how Opvion would model your entities, accounts, and reporting before you talk numbers.</p>
+            <a href="business.html" class="pp-text-link">Why Opvion Business <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </div>
         </div>
-      </div>
-
-      <p class="pricing-note">Looking for larger deployments &mdash; white-label, SSO, dedicated support? <a href="business.html#contact" class="tier-legend-link">Contact us about Enterprise →</a></p>
+      </section>
     </div>
-  </section>
-
-  <section id="features-cta">
-    <div class="container">
-      <h3>Want the full picture first?</h3>
-      <p>See every block we're building, tagged by how far along it is.</p>
-      <div class="features-cta-actions">
-        <a href="features-business.html" class="btn-primary">See Full Features</a>
-        <a href="business.html" class="btn-ghost">Why Opvion Business</a>
-      </div>
-    </div>
-  </section>
+  </main>
 
   <div id="footer-mount"></div>
   <div id="modals-mount"></div>
