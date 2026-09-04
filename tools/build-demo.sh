@@ -24,9 +24,16 @@ git clone --quiet --depth 1 --branch "$REF" "$REPO" "$WORK/app"
 
 cd "$WORK/app/frontend"
 
-# Overlay the fixture-backed API client and its manifest.
+# Overlay the fixture-backed API client, its manifest, and the demo notices.
 cp "$ROOT/tools/demo/api.ts" src/services/api.ts
 cp "$ROOT/demo/fixtures/manifest.json" src/services/demo-manifest.json
+cp "$ROOT/tools/demo/DemoUpsell.tsx" src/components/DemoUpsell.tsx
+
+# Surfaces that can't work without a backend: sign-out becomes a way back to
+# the marketing site, provider connection becomes an invitation to sign up,
+# and the currency list says why it's short. Each asserts, so an upstream
+# rename fails the build instead of quietly dropping the change.
+python3 "$ROOT/tools/demo/patch-ui.py"
 
 # The app mounts at /demo/, not the domain root, so the router needs a basename.
 perl -0pi -e 's{<BrowserRouter>}{<BrowserRouter basename={import.meta.env.BASE_URL}>}' src/main.tsx

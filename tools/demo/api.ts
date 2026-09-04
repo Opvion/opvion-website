@@ -24,6 +24,16 @@ const TOKEN_KEY = 'opvion.token'
 const routes: Record<string, string> = manifest.routes
 const currencies: string[] = manifest.currencies
 
+/**
+ * Shown wherever the demo can't do something. The app already surfaces
+ * `detail` from a failed call in its own message UI, so putting the invitation
+ * here covers every write path — sync, connect, remove, import, MFA, export —
+ * without touching any of those components.
+ */
+const READ_ONLY =
+  'The demo runs on a fixed sample portfolio, so it is read-only — connecting, syncing and ' +
+  'editing are part of the full app.'
+
 export const api = axios.create({ baseURL: '/api' })
 
 /** The demo is always signed in — there is no server to hold a session. */
@@ -45,7 +55,40 @@ function respond(data: unknown, config: AxiosRequestConfig, status = 200): Axios
   return { data, status, statusText: '', headers: {}, config: config as never, request: {} } as AxiosResponse
 }
 
+/**
+ * Announce a refusal in the corner of the screen.
+ *
+ * Not every write handler in the app catches — `syncAll`, for one, has a
+ * `finally` but no `catch`, so a rejected call there would leave the button
+ * spinning down with nothing said. Showing it from here covers every write
+ * path whether or not its component handles the error, and needs no React,
+ * so it can live entirely in this overlay.
+ */
+function announce(message: string) {
+  const ID = 'demo-refusal'
+  document.getElementById(ID)?.remove()
+  const el = document.createElement('div')
+  el.id = ID
+  el.setAttribute('role', 'status')
+  el.style.cssText = [
+    'position:fixed', 'z-index:9999', 'right:16px', 'bottom:16px', 'max-width:340px',
+    'padding:14px 16px', 'border-radius:14px', 'font:500 13px/1.55 Inter,system-ui,sans-serif',
+    'color:#f7f9fc', 'background:#171c2b', 'border:1px solid rgba(127,150,255,.4)',
+    'box-shadow:0 20px 45px -18px rgba(0,0,0,.8)',
+  ].join(';')
+  const text = document.createElement('span')
+  text.textContent = message
+  const link = document.createElement('a')
+  link.href = '/#contact'
+  link.textContent = 'Get early access'
+  link.style.cssText = 'display:inline-block;margin-top:8px;color:#7f96ff;font-weight:700;text-decoration:none'
+  el.append(text, document.createElement('br'), link)
+  document.body.appendChild(el)
+  setTimeout(() => el.remove(), 7000)
+}
+
 function refuse(config: AxiosRequestConfig, message: string): Promise<never> {
+  announce(message)
   const err: Record<string, unknown> = new Error(message)
   err.response = respond({ detail: message }, config, 403)
   err.config = config
@@ -93,17 +136,20 @@ api.defaults.adapter = async (config) => {
     if (url === '/auth/currency') {
       const next = (config.data ? JSON.parse(config.data as string) : {}).display_currency
       if (!currencies.includes(next)) {
-        return refuse(config, `The demo carries ${currencies.join(', ')}. Other currencies need the live app.`)
+        return refuse(
+          config,
+          `The demo carries ${currencies.join(', ')}. All 16 supported currencies are in the full app.`,
+        )
       }
       localStorage.setItem(CURRENCY_KEY, next)
       const me = (await loadFixture(resolve('/auth/me', next)!)) as Record<string, unknown>
       return respond({ ...me, display_currency: next }, config)
     }
-    return refuse(config, 'This is a read-only demo — it cannot change data.')
+    return refuse(config, READ_ONLY)
   }
 
   if (method !== 'get') {
-    return refuse(config, 'This is a read-only demo — it cannot change data.')
+    return refuse(config, READ_ONLY)
   }
 
   const key = resolve(url, currency)

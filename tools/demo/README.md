@@ -15,8 +15,18 @@ figure a visitor sees came off the actual service, but nothing is running.
 | Login | `admin@admin.com` / `admin` | none — opens straight on Overview |
 | Data | live Plaid sync (~20s on first load) | captured fixtures, instant |
 | Currency | all 16 | EUR, USD, GBP (the three captured) |
-| Writes | sync, import, manual entry | refused with an explanatory error |
+| Writes | sync, import, manual entry | refused, with an invitation to sign up |
+| Connecting | Plaid / SaltEdge tiles | replaced by a sign-up card |
+| Sign out | ends the session | "Return to website" |
 | Theme | light by default | dark, to match the site it's entered from |
+
+Where the demo can't do something it says so and links to `/#contact`, rather
+than leaving a dead control. Three surfaces get that inline (see
+`tools/demo/patch-ui.py`); every write path is covered from the API layer
+instead, by `announce()` in `tools/demo/api.ts` — a corner notice that fires on
+any refused call. That's deliberate: several write handlers upstream (`syncAll`
+among them) have a `finally` but no `catch`, so relying on each component to
+surface the error would leave some of them silently doing nothing.
 
 Everything else — pages, charts, filters, per-lot drilldowns, the benchmark, the
 Ask AI panel — is the real app's own code.
@@ -29,13 +39,16 @@ DEMO_REF=some-other-branch ./tools/build-demo.sh
 ```
 
 This rebuilds the frontend around the fixtures already in `demo/fixtures/`. It
-applies four overlays, each of which **fails the build if it no longer matches
+applies these overlays, each of which **fails the build if it no longer matches
 upstream** rather than silently producing a broken demo:
 
 1. `tools/demo/api.ts` replaces `src/services/api.ts` — the fixture adapter.
-2. `BrowserRouter` gets a `basename`, since the app mounts at `/demo/`.
-3. The theme default flips to dark.
-4. Five cache keys gain the display currency — see the bug note below.
+2. `tools/demo/DemoUpsell.tsx` is added — the sign-up card and note.
+3. `tools/demo/patch-ui.py` rewrites three surfaces: sign-out, the provider
+   tile on Accounts, and the currency list footnote.
+4. `BrowserRouter` gets a `basename`, since the app mounts at `/demo/`.
+5. The theme default flips to dark.
+6. Five cache keys gain the display currency — see the bug note below.
 
 ## Recapturing the data
 
