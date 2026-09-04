@@ -1740,20 +1740,26 @@ footer {
 }
 
 /* ── WHY-US: header + clickable icon list + panel over photo (why-us.html) ── */
-/* Headline left, supporting copy right, both sitting on the same bottom
-   edge so the two sides read as one line of text rather than two blocks. */
+/* Headline left, supporting copy right, first lines starting on the same
+   edge so the two sides read as one block rather than a floating note. */
 .whyus-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: 48px;
   flex-wrap: wrap;
 }
 .whyus-header h2 { margin-bottom: 0; flex: 1 1 520px; }
-.whyus-header .section-sub { flex: 0 1 440px; max-width: 440px; margin-bottom: 0; }
+.whyus-header .section-sub {
+  flex: 0 1 400px;
+  max-width: 400px;
+  margin-bottom: 0;
+  padding-top: 6px;
+}
 
-/* The photo is the backdrop for the selector: fully faded out at the top so
-   the menu and panel stay legible, fully visible at the bottom. */
+/* The photo backs the whole selector rather than only its lower half: it stays
+   visible top to bottom, dimmed at the top where the menu sits, and the tiles
+   on top of it are glass so it reads through them. */
 .whyus-stage {
   position: relative;
   margin-top: 40px;
@@ -1769,12 +1775,20 @@ footer {
   height: 100%;
   object-fit: cover;
   object-position: center 38%;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, transparent 42%, rgba(0,0,0,0.55) 60%, #000 82%);
-  mask-image: linear-gradient(180deg, transparent 0%, transparent 42%, rgba(0,0,0,0.55) 60%, #000 82%);
+}
+/* Scrim between photo and content: heaviest at the top so the menu keeps its
+   contrast, clearing towards the bottom where the photo stands on its own. */
+.whyus-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(9,13,24,0.9) 0%, rgba(9,13,24,0.72) 34%, rgba(9,13,24,0.34) 62%, rgba(9,13,24,0.12) 100%);
+  pointer-events: none;
 }
 
 .whyus-layout {
   position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 380px 1fr;
   gap: 24px;
@@ -1785,7 +1799,7 @@ footer {
 .whyus-list {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 8px;
 }
 .whyus-item {
   display: flex;
@@ -1793,30 +1807,35 @@ footer {
   gap: 14px;
   width: 100%;
   text-align: left;
-  background: transparent;
-  border: none;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.10);
   border-left: 3px solid transparent;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 14px 16px;
   font-family: inherit;
   font-size: 0.95rem;
   font-weight: 500;
-  color: #98a2b9;
+  color: #cbd3e3;
   cursor: pointer;
   transition: color 0.2s, border-color 0.2s, background 0.2s;
 }
 .whyus-item svg { width: 18px; height: 18px; flex-shrink: 0; }
-.whyus-item:hover { color: #f7f9fc; }
+.whyus-item:hover { color: #f7f9fc; background: rgba(255,255,255,0.09); }
 .whyus-item.is-active {
   color: #f7f9fc;
   font-weight: 700;
+  border-color: rgba(79,141,255,0.45);
   border-left-color: #4f8dff;
-  background: rgba(79,141,255,0.15);
+  background: rgba(79,141,255,0.22);
 }
 
 .whyus-panel {
-  background: linear-gradient(165deg, #1b2140, #0e1226);
-  border: 1px solid rgba(255,255,255,0.09);
+  background: rgba(20,26,44,0.42);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.12);
   border-radius: 20px;
   padding: 36px 40px;
   min-height: 290px;
@@ -1827,13 +1846,13 @@ footer {
 .whyus-content-item { display: none; }
 .whyus-content-item.is-active { display: block; text-align: center; }
 .whyus-content-item h3 { font-size: 1.5rem; font-weight: 700; color: #f7f9fc; margin-bottom: 14px; }
-.whyus-content-item p { font-size: 0.95rem; color: #98a2b9; line-height: 1.7; max-width: 55ch; margin: 0 auto; }
+.whyus-content-item p { font-size: 0.95rem; color: #d3dae8; line-height: 1.7; max-width: 55ch; margin: 0 auto; }
 
 /* Kept next to the rules it overrides — the shared responsive block near the
    top of this file sits before these definitions and would lose to them. */
 @media (max-width: 900px) {
-  .whyus-header { align-items: flex-start; }
-  .whyus-header .section-sub { flex-basis: auto; max-width: none; }
+  .whyus-header { align-items: flex-start; gap: 16px; }
+  .whyus-header .section-sub { flex-basis: auto; max-width: none; padding-top: 0; }
   .whyus-layout { grid-template-columns: 1fr; padding: 24px 24px 240px; }
   .whyus-list { flex-direction: row; flex-wrap: wrap; gap: 8px; }
   .whyus-item { width: auto; border-left: none; border: 1px solid rgba(255,255,255,0.09); border-radius: 999px; padding: 8px 16px; font-size: 0.85rem; }
