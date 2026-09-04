@@ -7,7 +7,8 @@
   <title>Opvion · Your Complete Financial Picture</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=8" />
+  <link rel="stylesheet" href="landing.css?v=3" />
 </head>
 <body data-page="hero">
 
@@ -16,36 +17,49 @@
   <!-- HERO -->
   <section id="hero">
     <div class="hero-bg"></div>
-    <div class="container hero-content">
-      <div class="hero-badge">Now in development · Early access open</div>
-      <h1>One place for your<br /><span class="gradient-text">complete financial picture.</span></h1>
-      <p class="hero-sub">Every account, every currency, every investment, whether you're building your own wealth or managing it for others. All in one app, at last.</p>
-      <div class="hero-cta">
-        <a href="#contact" class="btn-primary">Get Early Access</a>
-        <a href="demo.html" class="btn-ghost">Try Interactive Demo</a>
-      </div>
-      <div class="hero-nodes">
-        <div class="center-node">
-          <span class="plus-icon">⊕</span>
-          <span class="node-label">Opvion</span>
+    <!-- Ambient background: the app being navigated, on a laptop screen. -->
+    <div class="hero-screen" aria-hidden="true">
+      <div class="hero-laptop">
+        <div class="hero-laptop-screen">
+          <img src="assets/dashboard/overview.jpg" alt="" style="--i:0" />
+          <img src="assets/dashboard/spending.jpg" alt="" style="--i:1" />
+          <img src="assets/dashboard/holdings.jpg" alt="" style="--i:2" />
+          <img src="assets/dashboard/credit.jpg"   alt="" style="--i:3" />
+          <img src="assets/dashboard/ask-ai.jpg"   alt="" style="--i:4" />
+          <span class="hero-laptop-cursor"></span>
         </div>
-        <a href="features.html#spending" class="orbit-node" style="--angle:0deg"><div class="orbit-dot">🏦</div><span>Bank Accounts</span></a>
-        <div class="orbit-node" style="--angle:60deg"><div class="orbit-dot">💳</div><span>Credit Cards</span></div>
-        <a href="features.html#investments" class="orbit-node" style="--angle:120deg"><div class="orbit-dot">📈</div><span>Investments</span></a>
-        <div class="orbit-node" style="--angle:180deg"><div class="orbit-dot">🏛️</div><span>Brokerages</span></div>
-        <a href="features.html#connectivity" class="orbit-node" style="--angle:240deg"><div class="orbit-dot">💱</div><span>Multi-Currency</span></a>
-        <a href="features.html#wealth" class="orbit-node" style="--angle:300deg"><div class="orbit-dot">📊</div><span>Net Worth</span></a>
       </div>
     </div>
-  </section>
-
-  <!-- BELIEVERS -->
-  <section id="believers">
-    <div class="container believers-inner">
-      <p class="believers-tagline">Join us early. Be one of our first believers.</p>
-      <div class="believers-logo">
-        <img src="unternehmertum-logo.svg" alt="UnternehmerTUM Startup Launchpad" width="140" height="80" />
-        <span class="believers-caption">Startup Launchpad</span>
+    <div class="container hero-content">
+      <div class="hero-left">
+        <div class="hero-badge">Now in development · Early access open</div>
+        <h1>One place for your<br /><span class="gradient-text">complete financial picture.</span></h1>
+        <p class="hero-sub">Every account, every currency, every investment, whether you're building your own wealth or managing it for others. All in one app, at last.</p>
+        <div class="hero-cta">
+          <a href="#contact" class="btn-primary">Get Early Access</a>
+          <a href="demo/" class="btn-ghost">Try Interactive Demo</a>
+        </div>
+        <div class="hero-believers">
+          <p class="believers-tagline">Join us early. Be one of our first believers.</p>
+          <div class="believers-logo">
+            <img src="unternehmertum-logo.svg" alt="UnternehmerTUM Startup Launchpad" width="140" height="80" />
+            <span class="believers-caption">Startup Launchpad</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-nodes">
+          <div class="center-node">
+            <img class="center-logo" src="opvion-logo.svg" alt="" aria-hidden="true" />
+            <span class="node-label">Opvion</span>
+          </div>
+          <a class="orbit-node" style="--angle:0deg" href="features.html#connectivity"><div class="orbit-dot orbit-glass orbit-white"><div class="coin-face coin-face-front"><svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-connectivity"/></svg></div><div class="coin-face coin-face-back"><svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-connectivity"/></svg></div><div class="coin-edge" aria-hidden="true"></div></div><span>Connectivity</span></a>
+          <a class="orbit-node" style="--angle:60deg" href="features.html#wealth"><div class="orbit-dot orbit-glass orbit-purple"><div class="coin-face coin-face-front"><svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-wealth"/></svg></div><div class="coin-face coin-face-back"><svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-wealth"/></svg></div><div class="coin-edge" aria-hidden="true"></div></div><span>Wealth</span></a>
+          <a class="orbit-node" style="--angle:120deg" href="features.html#spending"><div class="orbit-dot orbit-glass orbit-green"><div class="coin-face coin-face-front"><svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-spending"/></svg></div><div class="coin-face coin-face-back"><svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-spending"/></svg></div><div class="coin-edge" aria-hidden="true"></div></div><span>Spending Insights</span></a>
+          <a class="orbit-node" style="--angle:180deg" href="features.html#investments"><div class="orbit-dot orbit-glass orbit-green"><div class="coin-face coin-face-front"><svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-investments"/></svg></div><div class="coin-face coin-face-back"><svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-investments"/></svg></div><div class="coin-edge" aria-hidden="true"></div></div><span>Investments</span></a>
+          <a class="orbit-node" style="--angle:240deg" href="features.html#liabilities"><div class="orbit-dot orbit-glass orbit-red"><div class="coin-face coin-face-front"><svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-liabilities"/></svg></div><div class="coin-face coin-face-back"><svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-liabilities"/></svg></div><div class="coin-edge" aria-hidden="true"></div></div><span>Liabilities</span></a>
+          <a class="orbit-node" style="--angle:300deg" href="features.html#ai-insights"><div class="orbit-dot orbit-glass orbit-purple"><div class="coin-face coin-face-front"><svg class="icon-fill" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-ai-insights"/></svg></div><div class="coin-face coin-face-back"><svg class="icon-fill" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-ai-insights"/></svg></div><div class="coin-edge" aria-hidden="true"></div></div><span>AI Insights</span></a>
+        </div>
       </div>
     </div>
   </section>
@@ -53,27 +67,44 @@
   <!-- PROBLEM -->
   <section id="problem">
     <div class="container">
-      <div class="section-label">The Problem</div>
       <h2>Modern finances are broken,<br />and it's not your fault.</h2>
       <p class="section-sub">The problem isn't literacy. It's that no tool brings it all together.</p>
       <div class="cards-3">
         <div class="problem-card">
-          <div class="problem-num">01</div>
-          <h3>Fragmented Access</h3>
-          <p class="problem-subtitle">When was the last time you actually checked everything?</p>
-          <p>Multiple bank accounts, credit cards, investment accounts, and apps make it hard to see your finances as one complete picture.</p>
+          <div class="problem-visual">
+            <img src="assets/cards/fragmented-access.png" alt="Fragmented access: a shattered globe surrounded by disconnected bank, card and app icons." loading="lazy" />
+          </div>
+          <div class="problem-body">
+            <div class="problem-eyebrow">
+              <span class="problem-num">01</span><span class="problem-label">Fragmented Access</span>
+            </div>
+            <h3>When was the last time you actually checked everything?</h3>
+            <p>Multiple bank accounts, credit cards, investment accounts, and apps make it hard to see your finances as one complete picture.</p>
+          </div>
         </div>
         <div class="problem-card">
-          <div class="problem-num">02</div>
-          <h3>Financial Overwhelm</h3>
-          <p class="problem-subtitle">Do you know where your money goes?</p>
-          <p>How much did you spend on groceries this month? Your weekend getaway? What's your credit card bill? Are your investments going up or down? Keeping track across accounts is harder than it should be.</p>
+          <div class="problem-visual">
+            <img src="assets/cards/financial-overwhelm.png" alt="Financial overwhelm: spending categories connected by wavy lines to a receipt and stacked coins." loading="lazy" />
+          </div>
+          <div class="problem-body">
+            <div class="problem-eyebrow">
+              <span class="problem-num">02</span><span class="problem-label">Financial Overwhelm</span>
+            </div>
+            <h3>Do you know where your money goes?</h3>
+            <p>How much did you spend on groceries this month? Your weekend getaway? What's your credit card bill? Are your investments going up or down? Keeping track across accounts is harder than it should be.</p>
+          </div>
         </div>
         <div class="problem-card">
-          <div class="problem-num">03</div>
-          <h3>Avoidance</h3>
-          <p class="problem-subtitle">When was the last time you actually dealt with it?</p>
-          <p>When finances feel complicated or overwhelming, it's easy to put them off. <strong>And the longer you wait, the harder it becomes to get back on track.</strong></p>
+          <div class="problem-visual">
+            <img src="assets/cards/avoidance.png" alt="Avoidance: a stack of overdue payment notifications for a credit card, loan and insurance bill." loading="lazy" />
+          </div>
+          <div class="problem-body">
+            <div class="problem-eyebrow">
+              <span class="problem-num">03</span><span class="problem-label">Avoidance</span>
+            </div>
+            <h3>When was the last time you actually dealt with it?</h3>
+            <p>When finances feel complicated or overwhelming, it's easy to put them off. <strong>And the longer you wait, the harder it becomes to get back on track.</strong></p>
+          </div>
         </div>
       </div>
     </div>
@@ -82,33 +113,32 @@
   <!-- SOLUTION -->
   <section id="solution">
     <div class="container">
-      <div class="section-label">The Solution</div>
-      <h2>One place for everything.<br />Your accounts, your wealth, your future.</h2>
       <div class="solution-grid">
         <div class="solution-text">
+          <h2>One place for everything.<br />Your accounts, your wealth, your future.</h2>
           <div class="feature-item">
-            <div class="feature-icon">⚡</div>
+            <div class="feature-icon orbit-glass orbit-white"><svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-connectivity"/></svg></div>
             <div>
               <h4>Automated account aggregation</h4>
               <p>Automatically aggregates bank accounts, cards, and brokerages via open banking.</p>
             </div>
           </div>
           <div class="feature-item">
-            <div class="feature-icon">📊</div>
+            <div class="feature-icon orbit-glass orbit-purple"><svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-wealth"/></svg></div>
             <div>
               <h4>Live net worth tracking</h4>
               <p>See your net worth, spending habits, and investment performance side by side, all updated in real time.</p>
             </div>
           </div>
           <div class="feature-item">
-            <div class="feature-icon">🤖</div>
+            <div class="feature-icon orbit-glass orbit-purple"><svg class="icon-fill" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-ai-insights"/></svg></div>
             <div>
               <h4>AI-powered spending analysis</h4>
               <p>Personalized suggestions based on your spending habits to reach your goals, tackling both the knowledge gap and the anxiety around money.</p>
             </div>
           </div>
           <div class="feature-item">
-            <div class="feature-icon">🌍</div>
+            <div class="feature-icon feature-icon-img"><img src="assets/cards/multi-currency_logo.png" alt="Multi-currency support" loading="lazy" /></div>
             <div>
               <h4>The only tracker that gets multi-currency right</h4>
               <p>Full multi-currency support with historical FX rates applied retroactively, so your portfolio performance stays accurate at any point in time, not just today.</p>
@@ -117,51 +147,7 @@
         </div>
         <div class="solution-screen">
           <div class="screen-mockup">
-            <div class="screen-bar">
-              <span></span><span></span><span></span>
-            </div>
-            <div class="screen-body">
-              <div class="mock-header">
-                <span class="mock-title">Financial Dashboard</span>
-                <span class="mock-currency">€ Euro ▾</span>
-              </div>
-              <div class="mock-networth">
-                <span class="mock-label">Net Worth</span>
-                <span class="mock-value">€11,765,570</span>
-              </div>
-              <div class="mock-row">
-                <div class="mock-stat">
-                  <span>Total Assets</span>
-                  <strong>€17,851,070</strong>
-                </div>
-                <div class="mock-stat red">
-                  <span>Total Liabilities</span>
-                  <strong>€6,085,500</strong>
-                </div>
-                <div class="mock-stat green">
-                  <span>Net Worth</span>
-                  <strong>€11,765,570</strong>
-                </div>
-              </div>
-              <div class="mock-bar-wrap">
-                <div class="mock-bar-label"><span class="green-dot"></span>Assets 74.9%</div>
-                <div class="mock-bar"><div class="mock-bar-fill" style="width:75%"></div></div>
-              </div>
-              <div class="mock-income-row">
-                <div class="mock-income-box">
-                  <span>Monthly Income</span>
-                  <strong>€295,000</strong>
-                </div>
-                <div class="mock-income-box red-box">
-                  <span>Monthly Expenses</span>
-                  <strong>€73,000</strong>
-                </div>
-                <div class="mock-income-box green-box">
-                  <span>Monthly Savings</span>
-                  <strong>€222,000</strong>
-                </div>
-              </div>
-            </div>
+            <img src="assets/cards/LandingPage_Dashboard.png" alt="Opvion net worth dashboard shown on a phone" loading="lazy" />
           </div>
         </div>
       </div>
@@ -171,45 +157,28 @@
   <!-- EARLY REACTIONS -->
   <section id="early-reactions">
     <div class="container">
-      <div class="section-label">Early Reactions</div>
       <h2>What people are saying.</h2>
     </div>
     <div class="reactions-ticker-wrap">
-      <div class="reactions-ticker">
-        <!-- Card 1 -->
-        <div class="reaction-card">
-          <p class="reaction-quote">"I was trying to do my finances in a spreadsheet the other day. It was difficult and time-consuming. I would have really appreciated a tool like this."</p>
-          <p class="reaction-original"><em>„Ich hab neulich versucht, meine Finanzen in Excel zu machen, und das war echt schwierig und zeitaufwendig. So ein Tool hätte mir echt geholfen."</em></p>
-          <p class="reaction-author">Prospective user, UnternehmerTUM Startup Launchpad</p>
-        </div>
-        <!-- Card 2 -->
-        <div class="reaction-card">
-          <p class="reaction-quote">"The multi-currency support is really useful if you're an expat with accounts in different currencies. I love that. I also like being able to see my crypto wallets in one place, which I've struggled with before."</p>
-          <p class="reaction-author">Prospective user, UnternehmerTUM Startup Launchpad</p>
-        </div>
-        <!-- Card 3 -->
-        <div class="reaction-card">
-          <p class="reaction-quote">"To manage your money responsibly, you need to keep track of it. If I link my accounts, the app does that for me automatically, which saves me time. I like how transparent and clean it feels. Very user-friendly."</p>
-          <p class="reaction-original"><em>„Ahhoz, hogy felelősségteljesen bánj a pénzeddel, ahhoz kell valamennyire kell trackelned a pénzed, ha összekötöm a bankszámláimmal, akkor megcsinálja helyettem, amivel időt spórolok. Tetszik a program átláthatósága és letisztultsága, felhasználóbarátnak érződik."</em></p>
-          <p class="reaction-author">Prospective user</p>
-        </div>
-        <!-- Duplicate set for seamless loop -->
-        <!-- Card 1 -->
-        <div class="reaction-card">
-          <p class="reaction-quote">"I was trying to do my finances in a spreadsheet the other day. It was difficult and time-consuming. I would have really appreciated a tool like this."</p>
-          <p class="reaction-original"><em>„Ich hab neulich versucht, meine Finanzen in Excel zu machen, und das war echt schwierig und zeitaufwendig. So ein Tool hätte mir echt geholfen."</em></p>
-          <p class="reaction-author">Prospective user, UnternehmerTUM Startup Launchpad</p>
-        </div>
-        <!-- Card 2 -->
-        <div class="reaction-card">
-          <p class="reaction-quote">"The multi-currency support is really useful if you're an expat with accounts in different currencies. I love that. I also like being able to see my crypto wallets in one place, which I've struggled with before."</p>
-          <p class="reaction-author">Prospective user, UnternehmerTUM Startup Launchpad</p>
-        </div>
-        <!-- Card 3 -->
-        <div class="reaction-card">
-          <p class="reaction-quote">"To manage your money responsibly, you need to keep track of it. If I link my accounts, the app does that for me automatically, which saves me time. I like how transparent and clean it feels. Very user-friendly."</p>
-          <p class="reaction-original"><em>„Ahhoz, hogy felelősségteljesen bánj a pénzeddel, ahhoz kell valamennyire kell trackelned a pénzed, ha összekötöm a bankszámláimmal, akkor megcsinálja helyettem, amivel időt spórolok. Tetszik a program átláthatósága és letisztultsága, felhasználóbarátnak érződik."</em></p>
-          <p class="reaction-author">Prospective user</p>
+      <div class="reactions-ticker" id="reactionsTicker">
+        <div class="reactions-set">
+          <!-- Card 1 -->
+          <div class="reaction-card">
+            <p class="reaction-quote">"I was trying to do my finances in a spreadsheet the other day. It was difficult and time-consuming. I would have really appreciated a tool like this."</p>
+            <p class="reaction-original"><em>„Ich hab neulich versucht, meine Finanzen in Excel zu machen, und das war echt schwierig und zeitaufwendig. So ein Tool hätte mir echt geholfen."</em></p>
+            <p class="reaction-author">Prospective user, UnternehmerTUM Startup Launchpad</p>
+          </div>
+          <!-- Card 2 -->
+          <div class="reaction-card">
+            <p class="reaction-quote">"The multi-currency support is really useful if you're an expat with accounts in different currencies. I love that. I also like being able to see my crypto wallets in one place, which I've struggled with before."</p>
+            <p class="reaction-author">Prospective user, UnternehmerTUM Startup Launchpad</p>
+          </div>
+          <!-- Card 3 -->
+          <div class="reaction-card">
+            <p class="reaction-quote">"To manage your money responsibly, you need to keep track of it. If I link my accounts, the app does that for me automatically, which saves me time. I like how transparent and clean it feels. Very user-friendly."</p>
+            <p class="reaction-original"><em>„Ahhoz, hogy felelősségteljesen bánj a pénzeddel, ahhoz kell valamennyire kell trackelned a pénzed, ha összekötöm a bankszámláimmal, akkor megcsinálja helyettem, amivel időt spórolok. Tetszik a program átláthatósága és letisztultsága, felhasználóbarátnak érződik."</em></p>
+            <p class="reaction-author">Prospective user</p>
+          </div>
         </div>
       </div>
     </div>
@@ -220,7 +189,6 @@
     <div class="container">
       <div class="contact-grid">
         <div class="contact-left">
-          <div class="section-label">Get Early Access</div>
           <h2>Be first to experience Opvion.</h2>
           <p>Join the waitlist and get early access when we launch. Pro plan subscribers during beta get 3 months free at launch.</p>
           <div class="contact-perks">

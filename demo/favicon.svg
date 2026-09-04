@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <!-- Standalone mark: a favicon has no colour to inherit, so it picks its own
+       brand tone per scheme (--brand in index.css, light then dark). -->
+  <style>
+    :root { color: #635bff }
+    @media (prefers-color-scheme: dark) { :root { color: #817cff } }
+  </style>
+  <g fill="none" stroke="currentColor" stroke-linecap="round">
+    <circle cx="12" cy="12" r="10" stroke-width="1.3"/>
+    <circle cx="9.05" cy="12" r="3.1" stroke-width="1"/>
+    <circle cx="14.95" cy="12" r="3.1" stroke-width="1"/>
+    <circle cx="12" cy="12" r=".72" fill="currentColor" stroke="none"/>
+  </g>
+</svg>

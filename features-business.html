@@ -8,8 +8,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="pf-match.css" />
 </head>
-<body data-page="features-business" class="page-subpage">
+<body data-page="features-business" class="page-subpage pf-match">
 
   <div id="nav-mount"></div>
 
@@ -17,22 +18,72 @@
     <div class="container">
       <div class="section-label">Business</div>
       <h2>Institutional analytics. Without the institutional price tag.</h2>
-      <p class="section-sub">Built for family offices and emerging managers stuck between spreadsheets and a €30K/year platform. We're onboarding early access partners now. Request a demo to see it on your structure.</p>
-      <div class="hero-cta" style="margin-bottom:28px;">
-        <a href="business.html#contact" class="btn-primary">Request a Demo</a>
-        <a href="pricing-business.html" class="btn-ghost">See Pricing</a>
-      </div>
+      <p class="section-sub">Built for family offices and emerging managers stuck between spreadsheets and a €30K/year platform. We're onboarding early access partners now.</p>
       <div class="features-tier-legend">
         <span class="tier-chip tier-biz">Business</span>
         <span class="tier-chip tier-enterprise">Enterprise</span>
         <span class="tier-chip tier-roadmap">Roadmap</span>
-        <a class="tier-legend-link" href="pricing-business.html">See pricing →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FEATURE OVERVIEW ─────────────────────────────────────────
+       Placeholder carousel matching the personal features page's
+       card rail. Each card is a text/icon placeholder (no product
+       screenshots exist yet for these features) — swap the
+       .card-placeholder-icon + caption for a real <img class="card-photo">
+       once artwork is available, same pattern as features.html. ── -->
+  <section id="features-overview">
+    <div class="container">
+      <div class="shell">
+        <div class="shell-nav">
+          <button id="prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <button id="next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+        <div class="rail" id="rail">
+          <a class="card card-placeholder" href="#biz-structure">
+            <div class="card-placeholder-icon">🏗️</div>
+            <div class="copy"><div class="kicker">01 · Structure</div><h3>Your entities aren't one portfolio. Stop treating them like one.</h3></div>
+            <span class="go">Artwork coming soon</span>
+          </a>
+          <a class="card card-placeholder" href="#biz-reporting">
+            <div class="card-placeholder-icon">📋</div>
+            <div class="copy"><div class="kicker">02 · Reporting</div><h3>The quarterly pack, without the weekend.</h3></div>
+            <span class="go">Artwork coming soon</span>
+          </a>
+          <a class="card card-placeholder" href="#biz-attribution">
+            <div class="card-placeholder-icon">📊</div>
+            <div class="copy"><div class="kicker">03 · Attribution</div><h3>Why the portfolio did what it did.</h3></div>
+            <span class="go">Artwork coming soon</span>
+          </a>
+          <a class="card card-placeholder" href="#biz-scenarios">
+            <div class="card-placeholder-icon">📅</div>
+            <div class="copy"><div class="kicker">04 · Scenarios</div><h3>What happens if you're wrong.</h3></div>
+            <span class="go">Artwork coming soon</span>
+          </a>
+          <a class="card card-placeholder" href="#biz-operations">
+            <div class="card-placeholder-icon">⚖️</div>
+            <div class="copy"><div class="kicker">05 · Operations</div><h3>The unglamorous work, automated.</h3></div>
+            <span class="go">Artwork coming soon</span>
+          </a>
+          <a class="card card-placeholder" href="#biz-control">
+            <div class="card-placeholder-icon">👥</div>
+            <div class="copy"><div class="kicker">06 · Control</div><h3>Who saw what, and when.</h3></div>
+            <span class="go">Artwork coming soon</span>
+          </a>
+          <a class="card card-placeholder" href="#biz-extend">
+            <div class="card-placeholder-icon">🔌</div>
+            <div class="copy"><div class="kicker">07 · Extend</div><h3>Opvion as a data layer, not just a dashboard.</h3></div>
+            <span class="go">Artwork coming soon</span>
+          </a>
+        </div>
+        <div class="dots" id="dots"></div>
       </div>
     </div>
   </section>
 
   <!-- ── SECTION 1: STRUCTURE ─────────────────────────────────────── -->
-  <section class="feature-block" data-block="biz-structure" data-side="right">
+  <section class="feature-block" id="biz-structure" data-block="biz-structure" data-side="right">
     <div class="container feature-block-inner">
       <div class="feature-sticky">
         <div class="feature-eyebrow">01 · Structure</div>
@@ -120,7 +171,7 @@
   </section>
 
   <!-- ── SECTION 2: REPORTING ─────────────────────────────────────── -->
-  <section class="feature-block" data-block="biz-reporting" data-side="left">
+  <section class="feature-block" id="biz-reporting" data-block="biz-reporting" data-side="left">
     <div class="container feature-block-inner">
       <div class="feature-sticky">
         <div class="feature-eyebrow">02 · Reporting</div>
@@ -132,7 +183,7 @@
             <span class="fb-label">Report Templates</span>
             <span class="tier-chip tier-biz">Business</span>
           </li>
-          <li data-tier="biz" data-popup="Upload your logo and brand colours once. Every generated PDF carries your identity, not Opvion's.">
+          <li data-tier="biz" data-popup="Upload your logo and brand colors once. Every generated PDF carries your identity, not Opvion's.">
             <span class="fb-icon">🎨</span>
             <span class="fb-label">Branded PDF with Logo &amp; Cover</span>
             <span class="tier-chip tier-biz">Business</span>
@@ -147,7 +198,7 @@
             <span class="fb-label">Scheduled Delivery</span>
             <span class="tier-chip tier-biz">Business</span>
           </li>
-          <li data-tier="enterprise" data-popup="Send each LP a version that shows only their allocation. One run, multiple personalised outputs.">
+          <li data-tier="enterprise" data-popup="Send each LP a version that shows only their allocation. One run, multiple personalized outputs.">
             <span class="fb-icon">📬</span>
             <span class="fb-label">Per-Recipient Variants</span>
             <span class="tier-chip tier-enterprise">Enterprise</span>
@@ -182,7 +233,7 @@
   </section>
 
   <!-- ── SECTION 3: ATTRIBUTION ───────────────────────────────────── -->
-  <section class="feature-block" data-block="biz-attribution" data-side="right">
+  <section class="feature-block" id="biz-attribution" data-block="biz-attribution" data-side="right">
     <div class="container feature-block-inner">
       <div class="feature-sticky">
         <div class="feature-eyebrow">03 · Attribution</div>
@@ -248,7 +299,7 @@
   </section>
 
   <!-- ── SECTION 4: SCENARIOS ─────────────────────────────────────── -->
-  <section class="feature-block" data-block="biz-scenarios" data-side="left">
+  <section class="feature-block" id="biz-scenarios" data-block="biz-scenarios" data-side="left">
     <div class="container feature-block-inner">
       <div class="feature-sticky">
         <div class="feature-eyebrow">04 · Scenarios</div>
@@ -298,7 +349,7 @@
   </section>
 
   <!-- ── SECTION 5: OPERATIONS ────────────────────────────────────── -->
-  <section class="feature-block" data-block="biz-operations" data-side="right">
+  <section class="feature-block" id="biz-operations" data-block="biz-operations" data-side="right">
     <div class="container feature-block-inner">
       <div class="feature-sticky">
         <div class="feature-eyebrow">05 · Operations</div>
@@ -365,7 +416,7 @@
   </section>
 
   <!-- ── SECTION 6: CONTROL ───────────────────────────────────────── -->
-  <section class="feature-block" data-block="biz-control" data-side="left">
+  <section class="feature-block" id="biz-control" data-block="biz-control" data-side="left">
     <div class="container feature-block-inner">
       <div class="feature-sticky">
         <div class="feature-eyebrow">06 · Control</div>
@@ -435,7 +486,7 @@
   </section>
 
   <!-- ── SECTION 7: EXTEND ────────────────────────────────────────── -->
-  <section class="feature-block" data-block="biz-extend" data-side="right">
+  <section class="feature-block" id="biz-extend" data-block="biz-extend" data-side="right">
     <div class="container feature-block-inner">
       <div class="feature-sticky">
         <div class="feature-eyebrow">07 · Extend</div>
@@ -457,7 +508,7 @@
             <span class="fb-label">Wealthbox / Redtail CRM</span>
             <span class="tier-chip tier-biz">Business</span>
           </li>
-          <li data-tier="enterprise" data-popup="Your domain, your logo, your colour scheme. Clients see your brand at every touchpoint: login, dashboard, reports, and emails.">
+          <li data-tier="enterprise" data-popup="Your domain, your logo, your color scheme. Clients see your brand at every touchpoint: login, dashboard, reports, and emails.">
             <span class="fb-icon">🏷️</span>
             <span class="fb-label">White-Label</span>
             <span class="tier-chip tier-enterprise">Enterprise</span>
@@ -539,18 +590,6 @@
           <p>If any item above is a hard requirement, contact us and we'll scope it against your specific setup: timeline, data sources, and output format included.</p>
         </div>
         <a href="business.html#contact" class="btn-roadmap">Start the conversation →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── CTA ────────────────────────────────────────────────────────── -->
-  <section id="features-cta">
-    <div class="container">
-      <h3>Ready to move beyond spreadsheets?</h3>
-      <p>Request a demo and we'll show you exactly what Opvion looks like on your structure.</p>
-      <div class="features-cta-actions">
-        <a href="business.html#contact" class="btn-primary">Request a Demo</a>
-        <a href="pricing-business.html" class="btn-ghost">See Pricing</a>
       </div>
     </div>
   </section>

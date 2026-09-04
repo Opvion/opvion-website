@@ -1,0 +1,272 @@
+/* ============================================================
+   Opvion — visual restyle pass so Business Features, Business
+   Pricing, Why Opvion (personal) and Why Opvion Business line up
+   with the Personal Features page (features.html / features.css),
+   which is the design baseline: same color tokens, card surface
+   treatment, pill buttons, and eyebrow accents.
+
+   Everything here is scoped under body.pf-match so it never
+   touches index.html, pricing.html, security.html or the legal
+   pages, which reuse the same shared classnames from styles.css
+   and must keep their current look untouched.
+   ============================================================ */
+
+.pf-match {
+  --bg: #080b13;
+  --bg-card: #10141f;
+  --bg-card2: #0e1226;
+  --card-bg-1: #1b2140;
+  --card-bg-2: #0e1226;
+  --border: rgba(255,255,255,0.09);
+  --border-blue: rgba(79,141,255,0.35);
+  --border-strong: rgba(255,255,255,0.18);
+  --blue: #4f8dff;
+  --blue-light: #7db0ff;
+  --blue-dim: rgba(79,141,255,0.15);
+  --green: #34d399;
+  --red: #f3665f;
+  --text: #f7f9fc;
+  --text-muted: #98a2b9;
+  --text-dim: #5f6982;
+  --radius: 20px;
+  --radius-sm: 12px;
+}
+
+/* ---------- eyebrow-style section labels (matches .pf-page .eyebrow) ---------- */
+.pf-match .section-label,
+.pf-match .feature-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+.pf-match .section-label::before,
+.pf-match .feature-eyebrow::before {
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 0 4px var(--blue-dim);
+  flex-shrink: 0;
+}
+
+.pf-match section h2,
+.pf-match .feature-headline,
+.pf-match .roadmap-headline {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* ---------- ambient background glow on each page's top section ---------- */
+.pf-match #features-hero,
+.pf-match #competition,
+.pf-match #pricing {
+  position: relative;
+  overflow: hidden;
+}
+.pf-match #features-hero::before,
+.pf-match #competition::before,
+.pf-match #pricing::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(1100px 520px at 12% -8%, rgba(79,141,255,0.10), transparent 60%),
+    radial-gradient(900px 500px at 100% 4%, rgba(139,124,246,0.08), transparent 55%);
+  pointer-events: none;
+}
+.pf-match #features-hero .container,
+.pf-match #competition .container,
+.pf-match #pricing .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- business page heroes read left-aligned, like every other
+   section on these pages, instead of the shared centred treatment ---------- */
+.pf-match #features-hero { text-align: left; }
+.pf-match #features-hero h2 { max-width: 900px; }
+.pf-match #features-hero .section-sub { max-width: 620px; margin: 0 0 28px; }
+.pf-match #features-hero .hero-cta { justify-content: flex-start; }
+
+/* Why Opvion Business: the product shot is the hero backdrop, running the
+   full height of the section and fading out to the left so the copy stays
+   readable over it. */
+body[data-page="business"] #features-hero {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  padding: 120px 0 80px;
+}
+/* Photo plus a left-to-right scrim in one layer, so the copy column sits on
+   solid background and the shot only emerges on the right. */
+body[data-page="business"] #features-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(90deg, #080b13 0%, rgba(8,11,19,.95) 34%, rgba(8,11,19,.58) 64%, rgba(8,11,19,.2) 100%),
+    url("assets/cards/Overview_Laptop_v2.png") right center / cover no-repeat;
+  pointer-events: none;
+}
+body[data-page="business"] #features-hero .container { width: 100%; }
+body[data-page="business"] #features-hero h2 { max-width: 700px; }
+body[data-page="business"] #features-hero .section-sub { max-width: 560px; }
+
+@media (max-width: 900px) {
+  body[data-page="business"] #features-hero { min-height: 0; padding: 110px 0 60px; }
+  body[data-page="business"] #features-hero::after {
+    background: linear-gradient(180deg, rgba(8,11,19,.94) 0%, rgba(8,11,19,.88) 100%),
+      url("assets/cards/Overview_Laptop_v2.png") center / cover no-repeat;
+  }
+}
+
+/* ---------- pill buttons (matches .pf-page .pf-cta) ---------- */
+.pf-match .btn-primary,
+.pf-match .btn-plan,
+.pf-match .btn-submit,
+.pf-match .btn-ghost,
+.pf-match .btn-plan-ghost,
+.pf-match .btn-roadmap {
+  border-radius: 999px;
+}
+.pf-match .btn-primary,
+.pf-match .btn-plan,
+.pf-match .btn-submit {
+  box-shadow: 0 4px 20px rgba(79,141,255,0.35);
+}
+.pf-match .btn-primary:hover,
+.pf-match .btn-plan:hover,
+.pf-match .btn-submit:hover {
+  box-shadow: 0 8px 30px rgba(79,141,255,0.45);
+}
+
+/* ---------- card surfaces: gradient fill instead of flat panel ---------- */
+.pf-match .problem-card,
+.pf-match .strength-card,
+.pf-match .pricing-card,
+.pf-match .info-callout,
+.pf-match .contact-form,
+.pf-match .feature-bullets li,
+.pf-match .entity-tree-mock,
+.pf-match .report-cover-mock,
+.pf-match .waterfall-mock,
+.pf-match .fan-chart-mock,
+.pf-match .recon-mock,
+.pf-match .roles-mock,
+.pf-match .integrations-mock {
+  background: linear-gradient(165deg, var(--card-bg-1), var(--card-bg-2));
+}
+
+.pf-match .pricing-card.featured {
+  background: linear-gradient(165deg, #223059, var(--card-bg-2));
+}
+
+.pf-match .entity-tree-mock,
+.pf-match .report-cover-mock,
+.pf-match .waterfall-mock,
+.pf-match .fan-chart-mock,
+.pf-match .recon-mock,
+.pf-match .roles-mock,
+.pf-match .integrations-mock {
+  border-radius: 22px;
+  box-shadow: 0 30px 60px -28px rgba(0,0,0,0.85);
+}
+
+/* ---------- business/enterprise tier chips retinted to the pf-page palette ---------- */
+.pf-match .tier-chip.tier-biz {
+  background: rgba(79,141,255,0.15);
+  color: var(--blue-light);
+  border-color: rgba(79,141,255,0.4);
+}
+.pf-match .tier-chip.tier-enterprise {
+  background: rgba(139,124,246,0.15);
+  color: #a99bff;
+  border-color: rgba(139,124,246,0.4);
+}
+
+/* ---------- form focus ring retinted ---------- */
+.pf-match .form-group input:focus,
+.pf-match .form-group select:focus,
+.pf-match .form-group textarea:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(79,141,255,0.15);
+}
+
+/* ============================================================
+   Business Features page: match the personal features page's
+   detail-section layout more closely.
+   ============================================================ */
+
+/* ---------- static side-by-side layout instead of sticky-scroll pin,
+   matching .pf-page .section ---------- */
+.pf-match .feature-sticky { position: static; top: auto; padding: 20px 0; }
+.pf-match .feature-block-inner { align-items: center; min-height: 0; }
+
+/* ---------- detail-section typography scaled up to match .pf-page .content ---------- */
+.pf-match .feature-eyebrow { font-size: 14px; letter-spacing: .14em; margin-bottom: 22px; }
+.pf-match .feature-headline { font-size: clamp(30px,3.9vw,46px); letter-spacing: -.02em; margin-bottom: 28px; }
+.pf-match .feature-lede { font-size: 18px; line-height: 1.75; margin-bottom: 34px; max-width: 480px; }
+.pf-match .roadmap-headline { font-size: clamp(30px,3.9vw,46px); letter-spacing: -.02em; }
+.pf-match .roadmap-lede { font-size: 18px; line-height: 1.75; }
+
+/* ---------- visual frame sized like .pf-page .figure ---------- */
+.pf-match .feature-visual { min-height: 580px; }
+
+/* ---------- feature overview carousel: matches .pf-page .shell/.rail/.card.
+   Cards are text/icon placeholders until real screenshots exist — see the
+   comment above #features-overview in features-business.html. ---------- */
+#features-overview { padding: 90px 0 20px; background: var(--bg); }
+.pf-match .shell { position: relative; }
+.pf-match .shell-nav { position: absolute; top: -60px; right: 0; display: flex; gap: 10px; }
+.pf-match .shell-nav button {
+  width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border-strong);
+  background: var(--bg-card2); color: var(--text); display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background .15s, transform .15s;
+}
+.pf-match .shell-nav button:hover { background: #1d2536; }
+.pf-match .shell-nav button:active { transform: scale(.94); }
+.pf-match .shell-nav svg { width: 16px; height: 16px; }
+
+.pf-match .rail {
+  display: flex; gap: 20px; overflow-x: auto;
+  padding: 4px 4px 26px; margin: 0 -4px; scrollbar-width: none;
+  cursor: grab;
+}
+.pf-match .rail:active { cursor: grabbing; }
+.pf-match .rail::-webkit-scrollbar { display: none; }
+
+.pf-match .card {
+  flex: 0 0 400px; height: 280px;
+  position: relative; border-radius: 24px; overflow: hidden;
+  border: 1px solid var(--border);
+  background: linear-gradient(165deg,var(--card-bg-1),var(--card-bg-2));
+  display: block; text-decoration: none; color: inherit; cursor: pointer;
+  padding: 30px;
+  transition: transform .28s ease, border-color .28s ease, box-shadow .28s ease;
+}
+.pf-match .card:hover, .pf-match .card:focus-visible {
+  transform: translateY(-6px); border-color: var(--border-strong);
+  box-shadow: 0 30px 60px -24px rgba(0,0,0,.7);
+}
+.pf-match .card:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+.pf-match .card .kicker {
+  font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--blue-light); margin-bottom: 14px; position: relative;
+}
+.pf-match .card h3 { font-size: 22px; line-height: 1.3; letter-spacing: -.01em; font-weight: 700; margin: 0; position: relative; }
+.pf-match .card .go {
+  position: absolute; left: 30px; bottom: 26px;
+  font-size: 13px; font-weight: 600; color: var(--text-dim);
+}
+.pf-match .card-placeholder { border-style: dashed; }
+.pf-match .card-placeholder-icon {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 110px; opacity: .07; pointer-events: none;
+}
+
+.pf-match .dots { display: flex; justify-content: center; gap: 8px; margin-top: 22px; }
+.pf-match .dots button { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.18); border: none; padding: 0; cursor: pointer; transition: .2s; }
+.pf-match .dots button.on { background: var(--blue); transform: scale(1.35); }

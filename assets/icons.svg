@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <defs>
+    <symbol id="icon-connectivity" viewBox="0 0 24 24">
+      <line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 21 8 3 8"/>
+    </symbol>
+    <symbol id="icon-wealth" viewBox="0 0 24 24">
+      <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+    </symbol>
+    <symbol id="icon-spending" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 16 14"/>
+    </symbol>
+    <symbol id="icon-investments" viewBox="0 0 24 24">
+      <polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/>
+    </symbol>
+    <symbol id="icon-liabilities" viewBox="0 0 24 24">
+      <rect x="2" y="5" width="20" height="14" rx="2.5"/><line x1="2" y1="10" x2="22" y2="10"/>
+    </symbol>
+    <symbol id="icon-ai-insights" viewBox="0 0 24 24">
+      <path d="M11 2.5c.3 3 2.1 4.8 5.1 5.1-3 .3-4.8 2.1-5.1 5.1-.3-3-2.1-4.8-5.1-5.1 3-.3 4.8-2.1 5.1-5.1z"/><path d="M18.5 13.5c.18 1.7 1.2 2.72 2.9 2.9-1.7.18-2.72 1.2-2.9 2.9-.18-1.7-1.2-2.72-2.9-2.9 1.7-.18 2.72-1.2 2.9-2.9z"/>
+    </symbol>
+    <symbol id="icon-layers" viewBox="0 0 24 24">
+      <polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>
+    </symbol>
+    <symbol id="icon-repeat" viewBox="0 0 24 24">
+      <polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+    </symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24">
+      <path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3z"/>
+    </symbol>
+    <symbol id="icon-message" viewBox="0 0 24 24">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </symbol>
+  </defs>
+</svg>

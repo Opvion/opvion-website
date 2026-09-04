@@ -1,0 +1,47 @@
+/* Security page: personal features visual language, scoped to security only. */
+body[data-page="security"] {
+  --security-bg: #080b13;
+  --security-panel: #10141f;
+  --security-panel-2: #151b2b;
+  --security-border: rgba(255,255,255,.09);
+  --security-border-strong: rgba(255,255,255,.18);
+  --security-text: #f7f9fc;
+  --security-text-2: #98a2b9;
+  --security-text-3: #5f6982;
+  --security-blue: #4f8dff;
+  --security-blue-soft: rgba(79,141,255,.15);
+  --security-green: #34d399;
+  --security-green-soft: rgba(52,211,153,.15);
+  background: radial-gradient(1100px 520px at 12% -8%, rgba(79,141,255,.10), transparent 60%), radial-gradient(900px 500px at 100% 4%, rgba(139,124,246,.08), transparent 55%), var(--security-bg);
+  color: var(--security-text);
+}
+
+body[data-page="security"] section { background: transparent; }
+body[data-page="security"] #security-flow { padding-top: 132px; }
+body[data-page="security"] #security-store, body[data-page="security"] #security-commitments { background: var(--security-panel); }
+body[data-page="security"] .section-label { display: flex; align-items: center; gap: 9px; color: var(--security-blue); font-size: 14px; letter-spacing: .14em; margin-bottom: 22px; }
+body[data-page="security"] .section-label::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--security-blue); box-shadow: 0 0 0 4px var(--security-blue-soft); }
+body[data-page="security"] section h2 { color: var(--security-text); font-size: clamp(30px,3.9vw,46px); font-weight: 700; line-height: 1.15; letter-spacing: -.02em; }
+body[data-page="security"] .section-sub { color: var(--security-text-2); font-size: 17px; line-height: 1.6; }
+body[data-page="security"] .flow-node, body[data-page="security"] .features-plan-block, body[data-page="security"] .commit-card, body[data-page="security"] .faq-item { border-color: var(--security-border); border-radius: 20px; background: linear-gradient(165deg, rgba(255,255,255,.04), rgba(255,255,255,0)); }
+body[data-page="security"] .flow-node:hover, body[data-page="security"] .features-plan-block:hover, body[data-page="security"] .commit-card:hover { border-color: var(--security-border-strong); box-shadow: 0 30px 60px -28px rgba(0,0,0,.8); }
+body[data-page="security"] .flow-node-icon, body[data-page="security"] .fr-icon { border-color: rgba(79,141,255,.30); border-radius: 12px; background: var(--security-blue-soft); }
+body[data-page="security"] .flow-node h3, body[data-page="security"] .fr-body h5, body[data-page="security"] .commit-card h3 { color: var(--security-text); }
+body[data-page="security"] .flow-node p, body[data-page="security"] .fr-body p, body[data-page="security"] .commit-card p, body[data-page="security"] .faq-answer { color: var(--security-text-2); }
+body[data-page="security"] .flow-arrow { color: var(--security-blue); }
+body[data-page="security"] .info-callout { border-color: rgba(79,141,255,.30); border-radius: 16px; background: var(--security-blue-soft); }
+body[data-page="security"] .info-callout-badge { border-color: rgba(79,141,255,.30); background: rgba(79,141,255,.18); color: var(--security-blue); }
+body[data-page="security"] .info-callout p { color: var(--security-text-2); }
+body[data-page="security"] .info-callout p strong { color: var(--security-text); }
+body[data-page="security"] .store-wrap { border-color: var(--security-border); border-radius: 20px; background: var(--security-panel-2); }
+body[data-page="security"] .store-table th { color: var(--security-text-2); background: rgba(255,255,255,.03); }
+body[data-page="security"] .store-table td { color: var(--security-text); border-color: var(--security-border); }
+body[data-page="security"] .store-table .col-detail { color: var(--security-text-2); }
+body[data-page="security"] .store-table tbody tr:hover td { background: rgba(79,141,255,.05); }
+body[data-page="security"] #security .features-plan-name { color: var(--security-text); }
+body[data-page="security"] .features-plan-header, body[data-page="security"] .feature-row { border-color: var(--security-border); }
+body[data-page="security"] .faq-item[open] { border-color: rgba(79,141,255,.55); }
+body[data-page="security"] .faq-question { color: var(--security-text); }
+body[data-page="security"] .faq-question::after, body[data-page="security"] .faq-link { color: var(--security-blue); }
+
+@media (max-width: 600px) { body[data-page="security"] #security-flow { padding-top: 112px; } body[data-page="security"] .flow-node, body[data-page="security"] .features-plan-block, body[data-page="security"] .commit-card, body[data-page="security"] .faq-item, body[data-page="security"] .store-wrap { border-radius: 16px; } }

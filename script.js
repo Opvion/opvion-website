@@ -22,7 +22,8 @@ if (hamburger && mobileMenu) {
 const revealEls = document.querySelectorAll(
   'section h2, .problem-card, .feature-item, ' +
   '.pricing-card, .roadmap-step, .hero-badge, ' +
-  '.section-sub, .strength-card, .contact-left, .contact-form'
+  '.section-sub, .strength-card, .contact-left, .contact-form, ' +
+  '.whyus-list, .whyus-panel'
 );
 revealEls.forEach(el => el.classList.add('reveal'));
 
@@ -51,6 +52,102 @@ window.addEventListener('load', () => {
     }
   });
 });
+
+// ── Testimonial ticker (seamless infinite marquee)
+(() => {
+  const wrap = document.querySelector('.reactions-ticker-wrap');
+  const track = document.getElementById('reactionsTicker');
+  const baseSet = track && track.querySelector('.reactions-set');
+  if (!wrap || !track || !baseSet) return;
+
+  const PIXELS_PER_SECOND = 35;
+
+  function layout() {
+    track.querySelectorAll('.reactions-set').forEach((set, i) => {
+      if (i > 0) set.remove();
+    });
+
+    const setWidth = baseSet.getBoundingClientRect().width;
+    if (!setWidth) return;
+
+    const minWidth = wrap.getBoundingClientRect().width * 2;
+    let currentWidth = setWidth;
+    while (currentWidth < minWidth) {
+      track.appendChild(baseSet.cloneNode(true));
+      currentWidth += setWidth;
+    }
+
+    track.style.setProperty('--marquee-distance', `${setWidth}px`);
+    track.style.setProperty('--marquee-duration', `${setWidth / PIXELS_PER_SECOND}s`);
+  }
+
+  layout();
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(layout, 200);
+  });
+})();
+
+// ── Hero orbit coins: build the stacked-ring edge that gives each
+// spinning circle real coin thickness instead of vanishing to a line
+(() => {
+  const dots = document.querySelectorAll('.orbit-dot');
+  if (!dots.length) return;
+
+  const RING_COUNT = 14;
+
+  function buildEdge(dot) {
+    const edge = dot.querySelector('.coin-edge');
+    const size = dot.offsetWidth;
+    if (!edge || !size) return;
+
+    const t = parseFloat(getComputedStyle(dot).getPropertyValue('--coin-t')) || size * 0.13;
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < RING_COUNT; i++) {
+      const z = -t / 2 + (t * i) / (RING_COUNT - 1);
+      const ring = document.createElement('span');
+      ring.className = 'coin-edge-ring' + (i % 2 ? ' coin-edge-ring--dark' : '');
+      ring.style.transform = `translateZ(${z.toFixed(2)}px)`;
+      frag.appendChild(ring);
+    }
+    edge.replaceChildren(frag);
+  }
+
+  function buildAll() { dots.forEach(buildEdge); }
+  buildAll();
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(buildAll, 200);
+  });
+})();
+
+// ── Why Opvion tabbed list (why-us.html)
+(() => {
+  const list = document.querySelector('.whyus-list');
+  if (!list) return;
+
+  const items = list.querySelectorAll('.whyus-item');
+  const contentItems = document.querySelectorAll('.whyus-content-item');
+
+  list.addEventListener('click', (e) => {
+    const btn = e.target.closest('.whyus-item');
+    if (!btn) return;
+    const index = btn.dataset.index;
+
+    items.forEach(item => {
+      const active = item === btn;
+      item.classList.toggle('is-active', active);
+      item.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    contentItems.forEach(content => {
+      content.classList.toggle('is-active', content.dataset.index === index);
+    });
+  });
+})();
 
 // ── Disposable email blocklist
 const BLOCKED_DOMAINS = new Set([

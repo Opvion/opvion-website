@@ -62,7 +62,7 @@ body {
 }
 
 .logo {
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   font-weight: 800;
   color: var(--text);
   text-decoration: none;
@@ -85,15 +85,15 @@ body {
   display: inline-block;
 }
 .logo-icon {
-  width: 48px;
-  height: 48px;
+  width: 34px;
+  height: 34px;
   display: block;
   flex-shrink: 0;
   border-radius: 8px;
 }
 .footer-brand .logo-icon {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 6px;
 }
 
@@ -356,12 +356,41 @@ body {
 
 .hero-content {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  text-align: center;
-  gap: 24px;
+  justify-content: space-between;
+  gap: 40px;
   position: relative;
 }
+
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 24px;
+  flex: 1 1 560px;
+  min-width: 0;
+}
+
+.hero-right {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.hero-believers {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  margin-top: 4px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+}
+.hero-believers .believers-tagline { margin-bottom: 0; }
+.hero-believers .believers-logo { flex-direction: row; align-items: center; gap: 10px; }
+.hero-believers .believers-logo img { height: 30px; }
 
 .hero-badge {
   display: inline-flex;
@@ -401,7 +430,7 @@ body {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .btn-primary {
@@ -441,15 +470,14 @@ body {
 /* Hero node diagram */
 .hero-nodes {
   position: relative;
-  width: 400px;
-  height: 400px;
-  margin-top: 16px;
+  width: 600px;
+  height: 600px;
 }
 .center-node {
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  width: 92px; height: 92px;
+  width: 118px; height: 118px;
   background: var(--blue);
   border-radius: 50%;
   display: flex;
@@ -457,15 +485,18 @@ body {
   align-items: center;
   justify-content: center;
   z-index: 2;
-  box-shadow: 0 0 40px rgba(59,130,246,0.4);
+  box-shadow: 0 0 60px rgba(59,130,246,0.45);
 }
-.plus-icon { font-size: 1.8rem; }
-.center-node .node-label { font-size: 0.68rem; font-weight: 700; color: rgba(255,255,255,0.9); }
+/* Opvion mark at the centre of the orbit. The source SVG is green, so it's
+   flattened to white to read on the blue disc. */
+.center-logo { width: 46%; height: auto; display: block; filter: brightness(0) invert(1); }
+.center-node .node-label { font-size: 0.82rem; font-weight: 700; color: rgba(255,255,255,0.9); }
 
 .orbit-node {
   position: absolute;
   top: 50%; left: 50%;
-  --r: 155px;
+  --r: 235px;
+  perspective: 700px;
   transform: translate(-50%, -50%)
     rotate(var(--angle))
     translateY(calc(-1 * var(--r)))
@@ -473,7 +504,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
+  text-decoration: none;
+  cursor: pointer;
   animation: float 4s ease-in-out infinite;
   animation-delay: calc(var(--angle) / 60deg * 0.3s);
 }
@@ -481,41 +514,70 @@ body {
   0%, 100% { filter: brightness(1); }
   50% { filter: brightness(1.15); }
 }
+
+/* Coin body: a real 3D object (front face, back face, and a stacked-ring
+   edge) rather than a flat circle, so the rim reads as coin thickness
+   when it spins edge-on instead of vanishing to a line. */
 .orbit-dot {
-  width: 58px; height: 58px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-blue);
+  position: relative;
+  width: 68px; height: 68px;
+  --coin-t: 9px;
+  transform-style: preserve-3d;
+}
+.coin-face {
+  position: absolute;
+  inset: 0;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-blue);
+  color: var(--text-muted);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
 }
+.coin-face-front { transform: translateZ(calc(var(--coin-t) / 2)); }
+.coin-face-back { transform: rotateY(180deg) translateZ(calc(var(--coin-t) / 2)); }
+.coin-face svg {
+  width: 40%; height: 40%;
+  filter: drop-shadow(0 -1px 0 rgba(255,255,255,.4)) drop-shadow(0 1.5px 1px rgba(0,0,0,.45));
+}
+.coin-edge {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+.coin-edge-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 1.5px solid rgba(160,168,184,.85);
+}
+.coin-edge-ring--dark { border-color: rgba(70,76,92,.85); }
+
+/* Shared icon rendering for <use>-referenced shapes (see the symbol
+   sprite at the top of the body): stroke-style icons vs. filled ones. */
+.icon-stroke { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.icon-fill { fill: currentColor; stroke: none; }
 .orbit-node span {
-  font-size: 0.7rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
   font-weight: 500;
   white-space: nowrap;
+  transition: color 0.2s;
 }
-
-a.orbit-node {
-  text-decoration: none;
-  cursor: pointer;
+.orbit-node:hover .orbit-dot { transform: scale(1.1); }
+.orbit-node:hover .coin-face {
+  border-color: var(--blue);
+  background: var(--blue-dim);
+  color: var(--blue-light);
 }
-a.orbit-node .orbit-dot {
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-}
-a.orbit-node:hover .orbit-dot,
-a.orbit-node:focus-visible .orbit-dot {
-  transform: scale(1.08);
-  border-color: var(--blue-light);
-  box-shadow: 0 0 24px rgba(59,130,246,0.35);
-}
-a.orbit-node:hover span,
-a.orbit-node:focus-visible span {
-  color: var(--text);
-}
-
+.orbit-node:hover span { color: var(--text); }
+.orbit-node:focus-visible .orbit-dot { outline: 2px solid var(--blue); outline-offset: 3px; }
 
 /* ── SECTIONS ───────────────────────────────────── */
 section {
@@ -623,16 +685,7 @@ section h2 {
   text-decoration: underline;
 }
 
-/* ── BELIEVERS ───────────────────────────────────── */
-#believers {
-  background: var(--bg);
-  padding: 48px 0 8px;
-}
-
-.believers-inner {
-  text-align: center;
-}
-
+/* ── BELIEVERS (nested in the hero's left column) ─── */
 .believers-tagline {
   font-size: 0.95rem;
   font-weight: 600;
@@ -710,13 +763,56 @@ section h2 {
   line-height: 1.65;
 }
 
-.problem-subtitle {
-  color: var(--text) !important;
-  font-weight: 700 !important;
-  font-size: 0.98rem !important;
-  line-height: 1.4 !important;
-  margin-bottom: 8px;
+/* #problem-scoped: illustrated card layout (graphic panel +
+   numbered eyebrow). Scoped by ID so the plain .problem-card used
+   on business.html's "Who it's for" cards is untouched. */
+#problem .problem-card {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
+
+.problem-visual {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+.problem-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.problem-body { padding: 24px 28px 32px; }
+
+.problem-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.problem-eyebrow .problem-num {
+  font-size: 0.95rem;
+  font-weight: 800;
+  opacity: 1;
+  margin-bottom: 0;
+  line-height: 1;
+}
+.problem-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+#problem .problem-card h3 {
+  font-size: 1.2rem;
+  line-height: 1.35;
+  margin-bottom: 12px;
+}
+#problem .problem-card p { margin: 0; }
 
 /* ── SOLUTION ────────────────────────────────────── */
 #solution { background: var(--bg-card2); }
@@ -725,9 +821,9 @@ section h2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
-  align-items: center;
-  margin-top: 48px;
+  align-items: stretch;
 }
+.solution-text h2 { margin-bottom: 48px; }
 
 .feature-item {
   display: flex;
@@ -746,6 +842,14 @@ section h2 {
   justify-content: center;
   font-size: 1.1rem;
   flex-shrink: 0;
+  overflow: hidden;
+}
+.feature-icon svg { width: 20px; height: 20px; }
+.feature-icon.feature-icon-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.35);
 }
 
 .feature-item h4 {
@@ -761,97 +865,39 @@ section h2 {
 }
 
 /* Screen mockup */
-.solution-screen { display: flex; justify-content: center; }
+.solution-screen { display: flex; }
 
 .screen-mockup {
   background: #0d1526;
   border: 1px solid rgba(59,130,246,0.2);
   border-radius: 16px;
   width: 100%;
-  max-width: 420px;
   overflow: hidden;
   box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
 }
-
-.screen-bar {
-  background: #111e35;
-  padding: 10px 14px;
-  display: flex;
-  gap: 6px;
-  border-bottom: 1px solid var(--border);
-}
-.screen-bar span {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.12);
-}
-
-.screen-body { padding: 20px; }
-
-.mock-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-}
-.mock-title { font-size: 0.85rem; font-weight: 700; color: var(--text); }
-.mock-currency {
-  font-size: 0.75rem;
-  background: rgba(59,130,246,0.1);
-  border: 1px solid var(--border-blue);
-  border-radius: 6px;
-  padding: 3px 8px;
-  color: var(--blue-light);
-}
-
-.mock-networth {
-  text-align: center;
-  margin-bottom: 20px;
-}
-.mock-label { display: block; font-size: 0.72rem; color: var(--text-muted); margin-bottom: 4px; }
-.mock-value { font-size: 2rem; font-weight: 800; color: var(--text); }
-
-.mock-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-bottom: 16px;
-}
-.mock-stat {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 8px 10px;
-}
-.mock-stat span { display: block; font-size: 0.65rem; color: var(--text-muted); margin-bottom: 4px; }
-.mock-stat strong { font-size: 0.75rem; font-weight: 700; color: var(--text); }
-.mock-stat.green strong { color: var(--green); }
-.mock-stat.red strong { color: var(--red); }
-
-.mock-bar-wrap { margin-bottom: 16px; }
-.mock-bar-label { font-size: 0.68rem; color: var(--text-muted); margin-bottom: 6px; display: flex; align-items: center; gap: 5px; }
-.green-dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; display: inline-block; }
-.mock-bar { height: 6px; background: rgba(239,68,68,0.3); border-radius: 99px; }
-.mock-bar-fill { height: 100%; background: var(--green); border-radius: 99px; }
-
-.mock-income-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
-.mock-income-box {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 8px;
-}
-.mock-income-box span { display: block; font-size: 0.62rem; color: var(--text-muted); margin-bottom: 3px; }
-.mock-income-box strong { font-size: 0.72rem; font-weight: 700; }
-.mock-income-box.red-box strong { color: var(--red); }
-.mock-income-box.green-box strong { color: var(--green); }
+.screen-mockup img { width: 100%; height: 100%; display: block; object-fit: cover; }
 
 /* ── COMPETITION ─────────────────────────────────── */
-#competition { background: var(--bg-card2); }
+#competition {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(1100px 520px at 12% -8%, rgba(79,141,255,0.10), transparent 60%),
+    radial-gradient(900px 500px at 100% 4%, rgba(139,124,246,0.08), transparent 55%),
+    #080b13;
+}
+#competition .section-label { color: #4f8dff; }
+#competition .section-label::before {
+  content: "";
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #4f8dff;
+  box-shadow: 0 0 0 4px rgba(79,141,255,0.15);
+  margin-right: 9px;
+}
+#competition h2 { color: #f7f9fc; }
+#competition .section-sub { color: #98a2b9; }
 
 .table-wrap {
   overflow-x: auto;
@@ -1357,12 +1403,20 @@ section h2 {
 .reactions-ticker {
   display: flex;
   width: max-content;
-  animation: ticker-scroll 70s linear infinite;
+  animation-name: ticker-scroll;
+  animation-duration: var(--marquee-duration, 70s);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.reactions-set {
+  display: flex;
+  flex-shrink: 0;
 }
 
 @keyframes ticker-scroll {
   0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  100% { transform: translateX(calc(-1 * var(--marquee-distance, 50%))); }
 }
 
 .reaction-card {
@@ -1608,10 +1662,26 @@ footer {
   .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
 }
 
+@media (max-width: 900px) {
+  .hero-content { flex-direction: column; text-align: center; }
+  .hero-left { align-items: center; text-align: center; }
+  .hero-cta { justify-content: center; }
+  .hero-believers { justify-content: center; text-align: left; }
+  .hero-right { justify-content: center; width: 100%; }
+  .hero-nodes { width: 420px; height: 420px; margin-top: 48px; }
+  .orbit-node { --r: 165px; }
+  .center-node { width: 96px; height: 96px; }
+  .orbit-dot { width: 56px; height: 56px; font-size: 1.4rem; --coin-t: 8px; }
+}
+
 @media (max-width: 600px) {
   section { padding: 70px 0; }
-  .hero-nodes { width: 300px; height: 300px; }
-  .hero-nodes { --r: 115px; }
+  .hero-nodes { width: 290px; height: 290px; margin-top: 64px; }
+  .orbit-node { --r: 112px; }
+  .center-node { width: 76px; height: 76px; }
+  .center-node .node-label { font-size: 0.6rem; }
+  .orbit-dot { width: 46px; height: 46px; font-size: 1.15rem; --coin-t: 6px; }
+  .orbit-node span { font-size: 0.64rem; }
   .roadmap-steps { grid-template-columns: 1fr; }
   .contact-form { padding: 24px 20px; }
   .features-grid { grid-template-columns: 1fr; }
@@ -1667,6 +1737,168 @@ footer {
   color: var(--text-muted);
   line-height: 1.65;
   text-align: center;
+}
+
+/* ── WHY-US: header + clickable icon list + panel over photo (why-us.html) ── */
+/* Headline left, supporting copy right, first lines starting on the same
+   edge so the two sides read as one block rather than a floating note. */
+.whyus-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+.whyus-header h2 { margin-bottom: 0; flex: 1 1 520px; }
+.whyus-header .section-sub {
+  flex: 0 1 400px;
+  max-width: 400px;
+  margin-bottom: 0;
+  padding-top: 6px;
+}
+
+/* The photo backs the whole selector rather than only its lower half: it stays
+   visible top to bottom, dimmed at the top where the menu sits, and the tiles
+   on top of it are glass so it reads through them. */
+.whyus-stage {
+  position: relative;
+  margin-top: 40px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.09);
+  overflow: hidden;
+  background: #0b0f1a;
+}
+.whyus-stage-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 38%;
+}
+/* Scrim between photo and content: heaviest at the top so the menu keeps its
+   contrast, clearing towards the bottom where the photo stands on its own. */
+.whyus-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(9,13,24,0.9) 0%, rgba(9,13,24,0.72) 34%, rgba(9,13,24,0.34) 62%, rgba(9,13,24,0.12) 100%);
+  pointer-events: none;
+}
+
+.whyus-layout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 24px;
+  padding: 36px 36px 420px;
+  align-items: start;
+}
+
+.whyus-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+/* Each tile's surface lives on a pseudo-element so it can be masked to fade
+   out towards its bottom edge — the label stays fully opaque while the glass
+   under it thins away, letting more of the photo through. The border rides
+   along as an inset shadow so it fades with the fill instead of boxing it. */
+.whyus-item {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #cbd3e3;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.whyus-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: rgba(255,255,255,0.06);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, rgba(0,0,0,0.55) 52%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, rgba(0,0,0,0.55) 52%, transparent 100%);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.whyus-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+.whyus-item:hover { color: #f7f9fc; }
+.whyus-item:hover::before { background: rgba(255,255,255,0.10); }
+.whyus-item.is-active {
+  color: #f7f9fc;
+  font-weight: 700;
+}
+.whyus-item.is-active::before {
+  background: rgba(79,141,255,0.26);
+  box-shadow: inset 0 0 0 1px rgba(79,141,255,0.5), inset 3px 0 0 0 #4f8dff;
+}
+
+/* Same treatment as the menu tiles: the panel's glass sits on a pseudo so it
+   can fade out towards the bottom. The ramp starts lower than on the tiles
+   because this box is much taller and its copy is vertically centred. */
+.whyus-panel {
+  position: relative;
+  isolation: isolate;
+  background: none;
+  border: none;
+  border-radius: 20px;
+  padding: 36px 40px;
+  min-height: 290px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.whyus-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: rgba(20,26,44,0.42);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 46%, rgba(0,0,0,0.5) 74%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 46%, rgba(0,0,0,0.5) 74%, transparent 100%);
+}
+.whyus-content-item { display: none; }
+.whyus-content-item.is-active { display: block; text-align: center; }
+.whyus-content-item h3 { font-size: 1.5rem; font-weight: 700; color: #f7f9fc; margin-bottom: 14px; }
+.whyus-content-item p { font-size: 0.95rem; color: #d3dae8; line-height: 1.7; max-width: 55ch; margin: 0 auto; }
+
+/* Kept next to the rules it overrides — the shared responsive block near the
+   top of this file sits before these definitions and would lose to them. */
+@media (max-width: 900px) {
+  .whyus-header { align-items: flex-start; gap: 16px; }
+  .whyus-header .section-sub { flex-basis: auto; max-width: none; padding-top: 0; }
+  .whyus-layout { grid-template-columns: 1fr; padding: 24px 24px 240px; }
+  .whyus-list { flex-direction: row; flex-wrap: wrap; gap: 8px; }
+  .whyus-item { width: auto; border-radius: 999px; padding: 8px 16px; font-size: 0.85rem; }
+  .whyus-item.is-active::before { box-shadow: inset 0 0 0 1px rgba(79,141,255,0.6); }
+  .whyus-panel { padding: 26px 22px; min-height: 0; }
+  /* Copy wraps to more lines here and fills the box, so hold the glass
+     solid further down before letting it go. */
+  .whyus-panel::before {
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 70%, rgba(0,0,0,0.5) 87%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 0%, #000 70%, rgba(0,0,0,0.5) 87%, transparent 100%);
+  }
 }
 
 /* ── COMPARE TOGGLE ──────────────────────────────── */
@@ -1797,15 +2029,16 @@ footer {
 .modal-body--features .features-grid {
   margin-top: 0;
 }
+/* Narrow query last: both match below 600px, so source order decides. */
+@media (max-width: 900px) {
+  .strengths-grid { grid-template-columns: 1fr 1fr; }
+  .modal-card--wide { max-width: 100%; }
+}
 @media (max-width: 600px) {
   .modal-card { max-height: 92vh; }
   .modal-card h2 { font-size: 1.15rem; padding: 20px 20px 16px; }
   .modal-body { padding: 16px 20px 24px; }
   .strengths-grid { grid-template-columns: 1fr; }
-}
-@media (max-width: 900px) {
-  .strengths-grid { grid-template-columns: 1fr 1fr; }
-  .modal-card--wide { max-width: 100%; }
 }
 
 /* ============================================================
@@ -2364,25 +2597,6 @@ footer {
 }
 .feature-popup.fp-visible { opacity: 1; transform: none; }
 
-/* ── CTA ─────────────────────────────────────────── */
-#features-cta {
-  background: var(--bg-card2);
-  text-align: center;
-  padding: 80px 0;
-}
-#features-cta h3 {
-  font-size: clamp(1.4rem, 3vw, 2rem);
-  margin-bottom: 12px;
-  color: var(--text);
-}
-#features-cta p { color: var(--text-muted); margin-bottom: 28px; }
-.features-cta-actions {
-  display: inline-flex;
-  gap: 14px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
 /* ── RESPONSIVE: collapse to stacked on mobile ────── */
 @media (max-width: 900px) {
   #features-hero { padding: 110px 0 30px; }
@@ -2416,34 +2630,10 @@ footer {
   .wealth-bar { grid-template-columns: 70px 1fr 80px; font-size: 0.76rem; }
 }
 
-/* ── LARGE SCREENS: scale type & widen container ───── */
-/* Most font-sizes are in rem, so bumping the root size scales the whole UI
-   proportionally. Container widths grow in steps so content fills the
-   viewport on wide displays without becoming unreadably long. */
-@media (min-width: 1600px) {
-  html { font-size: 17.5px; }
-  .container,
-  .nav-inner,
-  .footer-bottom { max-width: 1440px; }
-}
-@media (min-width: 2000px) {
-  html { font-size: 19px; }
-  .container,
-  .nav-inner,
-  .footer-bottom { max-width: 1640px; }
-}
-@media (min-width: 2400px) {
-  html { font-size: 20.5px; }
-  .container,
-  .nav-inner,
-  .footer-bottom { max-width: 1840px; }
-}
-@media (min-width: 3000px) {
-  html { font-size: 22.5px; }
-  .container,
-  .nav-inner,
-  .footer-bottom { max-width: 2080px; }
-}
+/* Large screens: nothing to do. The root font-size stays at the browser
+   default and the container stops at its max-width, so the layout looks
+   identical on a 1440p and a 4K monitor instead of being zoomed by a
+   resolution-dependent root font-size. */
 
 /* ============================================================
    BUSINESS FEATURES PAGE
@@ -3091,9 +3281,3 @@ footer {
    BUSINESS OVERVIEW & PRICING PAGES
    ============================================================ */
 #business-who { background: var(--bg-card2); }
-
-/* Single centered pricing card (business-pricing.html) */
-.pricing-single-wrap {
-  max-width: 440px;
-  margin: 48px auto 0;
-}
