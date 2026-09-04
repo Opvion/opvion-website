@@ -23,7 +23,12 @@ http.createServer((req, res) => {
   let urlPath = req.url.split('?')[0];
   if (urlPath === '/') urlPath = '/index.html';
 
-  const filePath = path.join(ROOT, urlPath);
+  let filePath = path.join(ROOT, urlPath);
+  // SPA fallback for the interactive demo, mirroring _redirects in production:
+  // any /demo/ path that isn't a real file is served the app's index.html.
+  if (urlPath.startsWith('/demo/') && !path.extname(urlPath)) {
+    filePath = path.join(ROOT, 'demo', 'index.html');
+  }
   const ext = path.extname(filePath).toLowerCase();
   const contentType = MIME[ext] || 'application/octet-stream';
 
