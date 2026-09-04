@@ -1,0 +1,28 @@
+# Cloudflare Pages defaults these to max-age=14400, so a deploy could take up
+# to four hours to reach someone who had already visited. These files are
+# hand-edited and their names never change, so the only safe cache is one that
+# revalidates — the ETag makes the usual answer a 304, not a re-download.
+/*.css
+  Cache-Control: public, max-age=0, must-revalidate
+
+/*.js
+  Cache-Control: public, max-age=0, must-revalidate
+
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# The demo's bundles carry a content hash in the filename, so a change always
+# produces a new URL. Those are safe to keep for good.
+/demo/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Images and demo fixtures change only when their content does, and a stale one
+# is harmless for a day.
+/assets/*
+  Cache-Control: public, max-age=86400
+
+/demo/fixtures/*
+  Cache-Control: public, max-age=86400
