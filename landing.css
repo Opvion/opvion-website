@@ -38,10 +38,6 @@ body[data-page="hero"] .hero-screen {
   justify-content: center;
   pointer-events: none;
 }
-/* Delete this rule once the five screenshots are in assets/dashboard/. CSS
-   cannot detect a failed image load, and an empty bezel with a stray cursor
-   dot on it is worse than no backdrop at all. */
-body[data-page="hero"] .hero-screen { display: none; }
 body[data-page="hero"] .hero-laptop {
   position: relative;
   width: min(1180px, 86vw);
@@ -55,7 +51,8 @@ body[data-page="hero"] .hero-laptop {
 /* Lid */
 body[data-page="hero"] .hero-laptop-screen {
   position: relative;
-  aspect-ratio: 16 / 10;
+  /* Matches the cropped screenshots exactly, so object-fit trims nothing. */
+  aspect-ratio: 1600 / 921;
   border-radius: 16px;
   border: 10px solid #1b2130;
   background: #05070d;
@@ -195,6 +192,9 @@ body[data-page="hero"] .form-group input:focus, body[data-page="hero"] .form-gro
 body[data-page="hero"] .btn-submit { border-radius: 999px; background: var(--landing-blue); box-shadow: none; }
 body[data-page="hero"] .btn-submit:hover { background: var(--landing-blue); filter: brightness(1.08); box-shadow: none; }
 
+/* No room for the laptop once the hero stacks — it just peeks out from
+   behind the copy. */
+@media (max-width: 900px) { body[data-page="hero"] .hero-screen { display: none; } }
 @media (max-width: 1100px) { body[data-page="hero"] .hero-content { gap: 32px; } body[data-page="hero"] .hero-nodes { width: 440px; height: 440px; } body[data-page="hero"] .center-node { width: 116px; height: 116px; } body[data-page="hero"] .orbit-node { --r: 168px; } body[data-page="hero"] .orbit-dot { width: 64px; height: 64px; --coin-t: 9px; } }
 @media (max-width: 900px) { body[data-page="hero"] .hero-nodes { width: 460px; height: 460px; margin-top: 40px; } body[data-page="hero"] .orbit-node { --r: 176px; } }
 @media (max-width: 600px) { body[data-page="hero"] #hero { padding: 104px 0 72px; } body[data-page="hero"] .hero-content { gap: 20px; } body[data-page="hero"] .hero-nodes { width: 300px; height: 300px; } body[data-page="hero"] .center-node { width: 92px; height: 92px; } body[data-page="hero"] .orbit-node { --r: 112px; } body[data-page="hero"] .orbit-dot { width: 52px; height: 52px; --coin-t: 7px; } body[data-page="hero"] .orbit-node span { font-size: .68rem; } body[data-page="hero"] .hero-cta { width: 100%; } body[data-page="hero"] .btn-primary, body[data-page="hero"] .btn-ghost { flex: 1 1 100%; text-align: center; } }
