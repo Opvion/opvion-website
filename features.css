@@ -38,7 +38,7 @@
 }
 
 /* Matches .container / .nav-inner exactly so content edges line up with the logo and Get Early Access button. */
-.pf-page .wrap { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+.pf-page .wrap { width: 100%; max-width: clamp(1280px, 88vw, 1840px); margin: 0 auto; padding: 0 24px; }
 
 /* ---------- header ---------- */
 .pf-page .eyebrow {

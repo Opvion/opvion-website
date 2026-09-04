@@ -19,7 +19,7 @@
   padding: 112px 0 120px;
 }
 
-.pp-wrap { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+.pp-wrap { width: 100%; max-width: clamp(1280px, 88vw, 1840px); margin: 0 auto; padding: 0 24px; }
 .pp-header { max-width: 760px; }
 .pp-eyebrow { display: flex; align-items: center; gap: 9px; color: var(--pp-blue); font-size: 14px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
 .pp-eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--pp-blue); box-shadow: 0 0 0 4px var(--pp-blue-soft); }
