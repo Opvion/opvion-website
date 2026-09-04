@@ -1850,17 +1850,33 @@ footer {
   box-shadow: inset 0 0 0 1px rgba(79,141,255,0.5), inset 3px 0 0 0 #4f8dff;
 }
 
+/* Same treatment as the menu tiles: the panel's glass sits on a pseudo so it
+   can fade out towards the bottom. The ramp starts lower than on the tiles
+   because this box is much taller and its copy is vertically centred. */
 .whyus-panel {
-  background: rgba(20,26,44,0.42);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(255,255,255,0.12);
+  position: relative;
+  isolation: isolate;
+  background: none;
+  border: none;
   border-radius: 20px;
   padding: 36px 40px;
   min-height: 290px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+.whyus-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: rgba(20,26,44,0.42);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 46%, rgba(0,0,0,0.5) 74%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 46%, rgba(0,0,0,0.5) 74%, transparent 100%);
 }
 .whyus-content-item { display: none; }
 .whyus-content-item.is-active { display: block; text-align: center; }
@@ -1877,6 +1893,12 @@ footer {
   .whyus-item { width: auto; border-radius: 999px; padding: 8px 16px; font-size: 0.85rem; }
   .whyus-item.is-active::before { box-shadow: inset 0 0 0 1px rgba(79,141,255,0.6); }
   .whyus-panel { padding: 26px 22px; min-height: 0; }
+  /* Copy wraps to more lines here and fills the box, so hold the glass
+     solid further down before letting it go. */
+  .whyus-panel::before {
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 70%, rgba(0,0,0,0.5) 87%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 0%, #000 70%, rgba(0,0,0,0.5) 87%, transparent 100%);
+  }
 }
 
 /* ── COMPARE TOGGLE ──────────────────────────────── */
