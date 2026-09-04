@@ -22,9 +22,112 @@ body[data-page="hero"] {
 
 body[data-page="hero"] #hero { padding: 128px 0 96px; background: radial-gradient(1100px 520px at 12% -8%, rgba(79,141,255,.10), transparent 60%), radial-gradient(900px 500px at 100% 4%, rgba(139,124,246,.08), transparent 55%), var(--landing-bg); }
 body[data-page="hero"] .hero-bg { display: none; }
+/* ── Hero background: the app, being navigated ────────────────────────
+   Five product views cycle on one laptop screen: each holds, drifts (the
+   scroll), then cross-fades to the next (the click). Pure CSS — the
+   <img> layers share one keyframe, staggered by animation-delay, so
+   there is no video to download and no script to run. Screenshots live
+   in assets/dashboard/; with none present the layer paints nothing. */
+body[data-page="hero"] .hero-screen {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+/* Delete this rule once the five screenshots are in assets/dashboard/. CSS
+   cannot detect a failed image load, and an empty bezel with a stray cursor
+   dot on it is worse than no backdrop at all. */
+body[data-page="hero"] .hero-screen { display: none; }
+body[data-page="hero"] .hero-laptop {
+  position: relative;
+  width: min(1180px, 86vw);
+  opacity: .17;
+  filter: saturate(.8);
+  /* Fades into the section on every edge so it reads as ambient depth
+     rather than a picture someone pasted behind the text. */
+  -webkit-mask-image: radial-gradient(120% 100% at 50% 46%, #000 34%, rgba(0,0,0,.45) 62%, transparent 88%);
+  mask-image: radial-gradient(120% 100% at 50% 46%, #000 34%, rgba(0,0,0,.45) 62%, transparent 88%);
+}
+/* Lid */
+body[data-page="hero"] .hero-laptop-screen {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 16px;
+  border: 10px solid #1b2130;
+  background: #05070d;
+  overflow: hidden;
+  box-shadow: 0 60px 120px -40px rgba(0,0,0,.9);
+}
+/* Deck: a slightly wider slab under the lid, so it reads as a laptop
+   rather than a floating rectangle. */
+body[data-page="hero"] .hero-laptop::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -18px;
+  transform: translateX(-50%);
+  width: 112%;
+  height: 18px;
+  border-radius: 0 0 14px 14px;
+  background: linear-gradient(180deg, #232a3a, #10141d);
+}
+body[data-page="hero"] .hero-laptop-screen img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  opacity: 0;
+  will-change: opacity, transform;
+  animation: heroScreenCycle 30s cubic-bezier(.4, 0, .2, 1) infinite;
+  animation-delay: calc(var(--i) * 6s);
+}
+/* One 30s loop, five 6s slots: fade in, drift for the hold, fade out. */
+@keyframes heroScreenCycle {
+  0%        { opacity: 0; transform: translate3d(0, 2.6%, 0) scale(1.05); }
+  2.5%      { opacity: 1; }
+  17%       { opacity: 1; }
+  20%, 100% { opacity: 0; transform: translate3d(0, -2.6%, 0) scale(1.05); }
+}
+/* Pointer drifting across the screen and settling before each view change. */
+body[data-page="hero"] .hero-laptop-cursor {
+  position: absolute;
+  top: 0; left: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.75);
+  box-shadow: 0 0 0 6px rgba(255,255,255,.12);
+  animation: heroCursorPath 30s ease-in-out infinite;
+}
+/* Settles on the sidebar just before each cross-fade, then moves out into
+   the content area — reads as clicking a nav item, then browsing it. */
+@keyframes heroCursorPath {
+  0%   { transform: translate3d(60%, 44%, 0); }
+  16%  { transform: translate3d(14%, 30%, 0); }
+  20%  { transform: translate3d(52%, 58%, 0); }
+  36%  { transform: translate3d(14%, 44%, 0); }
+  40%  { transform: translate3d(66%, 36%, 0); }
+  56%  { transform: translate3d(14%, 52%, 0); }
+  60%  { transform: translate3d(44%, 62%, 0); }
+  76%  { transform: translate3d(14%, 38%, 0); }
+  80%  { transform: translate3d(70%, 46%, 0); }
+  100% { transform: translate3d(60%, 44%, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-page="hero"] .hero-laptop-screen img { animation: none; opacity: 0; }
+  body[data-page="hero"] .hero-laptop-screen img[style*="--i:0"] { opacity: 1; }
+  body[data-page="hero"] .hero-laptop-cursor { animation: none; display: none; }
+}
+
 /* Two even columns: the copy fills the left half, the orbit sits centred in
    the right half, so the two sides stay balanced at any window width. */
-body[data-page="hero"] .hero-content { width: 100%; gap: 48px; }
+body[data-page="hero"] .hero-content { position: relative; z-index: 1; width: 100%; gap: 48px; }
 body[data-page="hero"] .hero-left { flex: 1 1 50%; }
 body[data-page="hero"] .hero-right { flex: 1 1 50%; justify-content: center; }
 body[data-page="hero"] .hero-badge { border-color: rgba(79,141,255,.32); border-radius: 999px; background: var(--landing-blue-soft); color: var(--landing-blue); font-size: .85rem; padding: 8px 18px; }

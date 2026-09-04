@@ -17,6 +17,21 @@
   <!-- HERO -->
   <section id="hero">
     <div class="hero-bg"></div>
+    <!-- Ambient background: the app being navigated, on a laptop screen.
+         Drop the five product screenshots into assets/dashboard/ using
+         these filenames; nothing renders until they are present. -->
+    <div class="hero-screen" aria-hidden="true">
+      <div class="hero-laptop">
+        <div class="hero-laptop-screen">
+          <img src="assets/dashboard/overview.jpg" alt="" style="--i:0" />
+          <img src="assets/dashboard/spending.jpg" alt="" style="--i:1" />
+          <img src="assets/dashboard/holdings.jpg" alt="" style="--i:2" />
+          <img src="assets/dashboard/credit.jpg"   alt="" style="--i:3" />
+          <img src="assets/dashboard/ask-ai.jpg"   alt="" style="--i:4" />
+          <span class="hero-laptop-cursor"></span>
+        </div>
+      </div>
+    </div>
     <div class="container hero-content">
       <div class="hero-left">
         <div class="hero-badge">Now in development · Early access open</div>
