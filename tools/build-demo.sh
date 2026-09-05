@@ -14,7 +14,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-REPO="https://github.com/Opvion/wealth-tracker-B2B.git"
+REPO="https://github.com/Opvion/wealth-tracker-B2C.git"
 REF="${DEMO_REF:-$(cat "$ROOT/tools/demo/PINNED_REF")}"
 WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT
@@ -51,7 +51,7 @@ grep -q "|| 'dark'" src/contexts/ThemeContext.tsx || { echo "✗ could not patch
 # empties the store without notifying mounted consumers — so views whose key
 # omits the currency never reload. Overview and Spending already fold the
 # currency into their keys; these four don't. This applies that same existing
-# convention. THE SAME FIX IS STILL NEEDED IN wealth-tracker-B2B.
+# convention. THE SAME FIX IS STILL NEEDED IN wealth-tracker-B2C.
 patch_key() {  # file, literal-old, literal-new
   # Both sides go through the environment: perl would otherwise interpolate
   # the ${...} in these template-literal keys as its own variables.

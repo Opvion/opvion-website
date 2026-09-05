@@ -1,7 +1,7 @@
 # The interactive demo at `/demo/`
 
-The demo is the real portfolio tracker — [`Opvion/wealth-tracker-B2B`][repo],
-branch `feat-b2c-pro-demo` — built to run **without its backend**.
+The demo is the real portfolio tracker — [`Opvion/wealth-tracker-B2C`][repo] —
+built to run **without its backend**.
 
 That app is FastAPI + SQLAlchemy + SQLite with live Plaid syncing. This site is
 static on Cloudflare Pages, which can't run Python. So the frontend is built
@@ -55,10 +55,11 @@ upstream** rather than silently producing a broken demo:
 Only needed when the app's API shape or the demo portfolio changes:
 
 ```sh
-git clone -b feat-b2c-pro-demo https://github.com/Opvion/wealth-tracker-B2B.git
-cd wealth-tracker-B2B && cp .env.example .env      # blank Plaid keys are fine
+git clone https://github.com/Opvion/wealth-tracker-B2C.git
+cd wealth-tracker-B2C && cp .env.example .env      # blank Plaid keys are fine
 python3 -m venv .venv && .venv/bin/pip install -r backend/requirements.txt
-(cd backend && ../.venv/bin/uvicorn app.main:app --port 8000)
+cp ../opvion-website/tools/demo/demo_terms.py backend/
+(cd backend && PYTHONPATH=. ../.venv/bin/uvicorn demo_terms:app --port 8000)
 
 python3 tools/capture-demo-fixtures.py             # writes demo-fixtures/
 ```
@@ -82,4 +83,4 @@ showing it. The real fix is either adding `:${user?.display_currency}` to those
 keys, or making `clearCache()` notify mounted consumers so it invalidates them
 the way its name implies.
 
-[repo]: https://github.com/Opvion/wealth-tracker-B2B
+[repo]: https://github.com/Opvion/wealth-tracker-B2C
