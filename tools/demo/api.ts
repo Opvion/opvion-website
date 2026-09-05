@@ -31,7 +31,7 @@ const currencies: string[] = manifest.currencies
  * without touching any of those components.
  */
 const READ_ONLY =
-  'The demo runs on a fixed sample portfolio, so it is read-only — connecting, syncing and ' +
+  'The demo runs on a fixed sample portfolio, so it is read-only. Connecting, syncing and ' +
   'editing are part of the full app.'
 
 export const api = axios.create({ baseURL: '/api' })
@@ -64,7 +64,7 @@ function respond(data: unknown, config: AxiosRequestConfig, status = 200): Axios
  * path whether or not its component handles the error, and needs no React,
  * so it can live entirely in this overlay.
  */
-function announce(message: string) {
+export function announce(message: string) {
   const ID = 'demo-refusal'
   document.getElementById(ID)?.remove()
   const el = document.createElement('div')

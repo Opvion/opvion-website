@@ -1,6 +1,8 @@
 import hashlib, json, os, shutil, subprocess, sys, urllib.request, urllib.error
 
-API = 'http://127.0.0.1:8000'
+# Point this at the capture backend. Must be `demo_terms:app`, not
+# `app.main:app` — see tools/demo/demo_terms.py.
+API = os.environ.get('OPVION_CAPTURE_API', 'http://127.0.0.1:8000')
 # Every currency the backend can convert between, so the demo's switcher is
 # the real one rather than a sample of it.
 CURRENCIES = ['EUR', 'USD', 'GBP', 'CHF', 'SEK', 'NOK', 'DKK', 'PLN',
@@ -8,6 +10,11 @@ CURRENCIES = ['EUR', 'USD', 'GBP', 'CHF', 'SEK', 'NOK', 'DKK', 'PLN',
 OUT = 'demo-fixtures'
 
 RANGES = ['1M', '3M', '6M', '1Y', '2Y', '5Y', 'ALL']
+# The benchmark keys the app's index picker actually offers — BENCHMARKS in
+# backend/app/services/market_data_service.py. Capturing anything else leaves
+# every request from the Performance page unanswered: the app opens on SPX, so
+# an `index=SPY` fixture is a route nothing ever asks for.
+INDEXES = ['SPX', 'MSCI_WORLD', 'MSCI_EUROPE', 'NASDAQ', 'ACWI']
 INST = 'First%20Platypus%20Bank'
 
 PATHS = [
@@ -23,9 +30,11 @@ PATHS = [
 ]
 PATHS += [f'/portfolio/allocation?by={d}' for d in ('asset_class', 'account', 'currency', 'sector')]
 for r in RANGES:
+    # The bare route is what Holdings asks for; the Performance page always
+    # names an index.
     PATHS += [f'/analytics/net-worth-history?range={r}',
-              f'/portfolio/benchmark?range={r}',
-              f'/portfolio/benchmark?index=SPY&range={r}']
+              f'/portfolio/benchmark?range={r}']
+    PATHS += [f'/portfolio/benchmark?index={i}&range={r}' for i in INDEXES]
 for m in (3, 6, 12):
     PATHS += [f'/analytics/spending?months={m}',
               f'/analytics/spending?months={m}&institution={INST}']

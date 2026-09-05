@@ -6,12 +6,16 @@ if upstream renames or restructures one of these, the build stops with a clear
 message instead of silently shipping a demo that still offers a control which
 cannot work.
 
-Two surfaces need it:
+Three surfaces need it:
 
   Sidebar          There is no session to end, and the visitor came from the
                    marketing site — so "Sign out" becomes a way back to it.
   Accounts         Provider connection needs a live backend. The tile is
                    replaced by an invitation rather than left there dead.
+  Spending         A custom category is a write, and the category filter is the
+                   one place a visitor goes looking for it. The entry is added
+                   here so the demo names the capability instead of appearing
+                   not to have it, and says where it lives.
 
 Everything else the demo can't do is a write, and those are already covered by
 the refusal message in tools/demo/api.ts, which the app surfaces itself.
@@ -107,5 +111,47 @@ def accounts(s):
     return s.replace(anchor, anchor + "\nimport { DemoUpsell } from '../components/DemoUpsell'")
 
 
+def spending_categories(s):
+    """Offer custom categories from the filter, and say where they live.
+
+    Upstream the category list is a fixed server-resolved enum, so there is
+    nothing to add against here — but a visitor who used the full app looks for
+    it in this menu and reads its absence as the feature being gone. Selecting
+    it shows the same notice every other refused write shows.
+    """
+    old = """          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            aria-label="Filter by category"
+            className="input !w-auto !py-1.5 text-xs"
+          >
+            <option value="all">All categories</option>"""
+    new = """          <select
+            value={category}
+            onChange={(e) =>
+              e.target.value === NEW_CATEGORY
+                ? announce(
+                    'Custom categories are part of the full app. This demo runs on a fixed sample portfolio, so it cannot save one.',
+                  )
+                : setCategory(e.target.value)
+            }
+            aria-label="Filter by category"
+            className="input !w-auto !py-1.5 text-xs"
+          >
+            <option value="all">All categories</option>
+            <option value={NEW_CATEGORY}>+ Add custom category…</option>"""
+    need(old in s, "category filter select not found in SpendingTransactions.tsx")
+    s = s.replace(old, new)
+
+    anchor = "import { api } from '../../services/api'"
+    need(anchor in s, "api import not found in SpendingTransactions.tsx")
+    return s.replace(
+        anchor,
+        anchor.replace("{ api }", "{ announce, api }")
+        + "\n\n// Sentinel: not a category, so it can never be selected as a filter.\nconst NEW_CATEGORY = '__demo_new_category'",
+    )
+
+
 edit("src/components/Sidebar.tsx", sidebar)
 edit("src/pages/Accounts.tsx", accounts)
+edit("src/components/spending/SpendingTransactions.tsx", spending_categories)
